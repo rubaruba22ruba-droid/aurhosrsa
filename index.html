@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="ru">
-<head> 
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#090b13">
   <meta name="color-scheme" content="dark">
-  <title>Gift Scope — NFT Trait Scanner</title>
+  <title>Gift Scope — NFT Tracker</title>
   <meta name="application-name" content="Gift Scope">
   <style>
 :root{color-scheme:dark;--bg:#071318;--panel:#0d2026;--panel2:#10282f;--panel3:#142f36;--line:rgba(190,224,220,.13);--text:#eaf4f1;--muted:#8da7a4;--soft:#b6cac5;--accent:#73d8c8;--accent-ink:#06201d;--danger:#ff8b8b;--ok:#9fe0b0;--shadow:0 18px 48px rgba(0,0,0,.24);--radius:22px;--nav-h:76px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
@@ -20,7 +20,7 @@ body[data-accent="mint"]{--accent:#73d8c8;--accent-ink:#06201d}body[data-accent=
 .app{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 18px calc(var(--nav-h) + 32px + env(safe-area-inset-bottom));min-height:100svh;min-height:100dvh}.topbar{height:70px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:8;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(18px);margin:0 -18px;padding:0 20px}.brand-mark{width:37px;height:37px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:13px;background:var(--panel2);display:grid;place-items:center;position:relative;overflow:hidden}.brand-mark:before{content:"";width:18px;height:18px;border:1px solid var(--accent);border-radius:50%;box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 12%,transparent),0 0 0 10px color-mix(in srgb,var(--accent) 8%,transparent)}.brand-mark:after{content:"";position:absolute;width:4px;height:4px;border-radius:50%;background:var(--accent)}.brand-copy{display:grid;gap:3px}.brand-name{font-size:13px;font-weight:750;letter-spacing:.14em}.brand-sub{font-size:9px;color:var(--muted);letter-spacing:.15em}.live-state{margin-left:auto;display:flex;align-items:center;gap:8px;color:var(--muted);font-size:9px;letter-spacing:.12em}.live-dot{height:7px;width:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 13%,transparent)}
 .main-content{padding-top:27px}.page{display:none;animation:pageIn .24s ease both}.page.active{display:block}@keyframes pageIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}.eyebrow{font-size:9px;font-weight:750;color:var(--accent);letter-spacing:.2em;margin-bottom:12px;text-transform:uppercase}.hero-row{display:flex;align-items:center;justify-content:space-between;gap:15px}.hero-row h1,h1{font-size:clamp(35px,8vw,52px);line-height:1.02;font-weight:560;letter-spacing:-.065em;margin:0}.hero-row h1 em,h1 em{font-style:normal;color:var(--accent)}.muted{color:var(--muted)}.hero-desc{font-size:13px;line-height:1.55;max-width:290px;margin:13px 0 0}.mini-radar{width:82px;height:82px;flex:none;position:relative;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);background:var(--panel);overflow:hidden}.radar-ring{position:absolute;border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:50%;inset:13px}.ring-two{inset:28px}.radar-sweep{position:absolute;inset:0;border-left:1px solid var(--accent);transform:rotate(36deg);opacity:.6}.radar-core{position:absolute;width:7px;height:7px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;background:var(--accent)}
 .stats-strip{margin:25px 0 27px;background:var(--panel);border:1px solid var(--line);border-radius:19px;padding:16px;display:flex;align-items:center;gap:15px;position:relative;overflow:hidden;box-shadow:var(--shadow)}.stat-box{min-width:0;display:grid;gap:4px}.stat-label{color:var(--muted);font-size:10px;letter-spacing:.07em}.stat-box strong{font-size:27px;font-weight:560;line-height:1}.stat-box small{font-size:10px;color:var(--muted)}.stat-divider{height:38px;width:1px;background:var(--line)}.refresh-button{margin-left:auto;width:40px;height:40px;border-radius:13px;border:1px solid var(--line);background:var(--panel2);display:grid;place-items:center;cursor:pointer}.refresh-icon{font-size:23px;color:var(--accent);line-height:1}.refresh-button:active .refresh-icon{transform:rotate(160deg)}.filter-line{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.section-label{font-size:10px;color:var(--soft);letter-spacing:.16em;font-weight:750}.filter-status{font-size:9px;color:var(--muted);letter-spacing:.1em}
-.feed-list{display:grid;gap:13px}.listing-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:21px;background:var(--panel);padding:13px;box-shadow:var(--shadow);animation:cardIn .3s ease both}@keyframes cardIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}.listing-top{display:grid;grid-template-columns:104px minmax(0,1fr);gap:14px}.gift-image-wrap{width:104px;height:104px;border-radius:15px;background:var(--panel3);overflow:hidden;position:relative;border:1px solid var(--line)}.gift-image{width:100%;height:100%;object-fit:cover;display:block}.gift-image-fallback{height:100%;display:grid;place-items:center;background:var(--panel3);font-size:25px;font-weight:650;color:var(--accent)}.listing-data{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px}.gift-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}.gift-title{font-size:15px;font-weight:650;line-height:1.25;overflow-wrap:anywhere}.gift-number{color:var(--muted);font-size:10px;margin-top:4px}.category-tag{flex:none;padding:5px 7px;border-radius:7px;background:color-mix(in srgb,var(--accent) 12%,var(--panel));color:var(--accent);font-size:8px;letter-spacing:.08em;text-transform:uppercase}.price-main{font-size:25px;font-weight:600;letter-spacing:-.04em;line-height:1}.price-sub{font-size:10px;color:var(--muted)}.discount-tag{font-size:10px;color:var(--ok)}.listing-traits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:12px 0}.trait{padding:9px;background:var(--panel2);border:1px solid var(--line);border-radius:11px;min-width:0}.trait small{display:block;font-size:8px;color:var(--muted);letter-spacing:.08em;margin-bottom:5px}.trait b{display:block;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.trait em{display:block;font-size:9px;color:var(--muted);font-style:normal;margin-top:3px}.seller-row{display:flex;align-items:center;gap:9px;padding-top:10px;border-top:1px solid var(--line)}.seller-avatar{width:30px;height:30px;border-radius:10px;background:var(--panel3);display:grid;place-items:center;color:var(--accent);font-size:12px;flex:none}.seller-info{min-width:0;display:grid;gap:3px}.seller-link{color:var(--accent);text-decoration:none;font-size:12px;font-weight:650;overflow:hidden;text-overflow:ellipsis}.seller-details{font-size:9px;color:var(--muted)}.dm-state{margin-left:auto;font-size:9px;color:var(--ok);white-space:nowrap}.dm-state.paid{color:var(--danger)}.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}.card-button{height:39px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--soft);font-size:11px;font-weight:600;display:grid;place-items:center;text-decoration:none;cursor:pointer;transition:background .18s,transform .18s}.card-button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);box-shadow:none}.card-button:active,.mark-button:active{transform:scale(.985)}.card-button.disabled{opacity:.42;pointer-events:none}.mark-button{width:100%;height:37px;margin-top:8px;border:1px dashed color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:11px;background:color-mix(in srgb,var(--accent) 7%,var(--panel));color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.02em;cursor:pointer}.mark-button.done{border-style:solid;background:color-mix(in srgb,var(--ok) 10%,var(--panel));border-color:color-mix(in srgb,var(--ok) 35%,transparent);color:var(--ok)}
+.feed-list{display:grid;gap:13px}.listing-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:21px;background:var(--panel);padding:13px;box-shadow:var(--shadow);animation:cardIn .3s ease both}@keyframes cardIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}.listing-top{display:grid;grid-template-columns:104px minmax(0,1fr);gap:14px}.gift-image-wrap{width:104px;height:104px;border-radius:15px;background:var(--panel3);overflow:hidden;position:relative;border:1px solid var(--line)}.gift-image{width:100%;height:100%;object-fit:cover;display:block}.gift-image-fallback{height:100%;display:grid;place-items:center;background:var(--panel3);font-size:25px;font-weight:650;color:var(--accent)}.listing-data{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px}.gift-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}.gift-title{font-size:15px;font-weight:650;line-height:1.25;overflow-wrap:anywhere}.gift-number{color:var(--muted);font-size:10px;margin-top:4px}.category-tag{flex:none;padding:5px 7px;border-radius:7px;background:color-mix(in srgb,var(--accent) 12%,var(--panel));color:var(--accent);font-size:8px;letter-spacing:.08em;text-transform:uppercase}.price-main{font-size:25px;font-weight:600;letter-spacing:-.04em;line-height:1}.price-sub{font-size:10px;color:var(--muted)}.discount-tag{font-size:10px;color:var(--ok)}.listing-traits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:12px 0}.trait{padding:9px;background:var(--panel2);border:1px solid var(--line);border-radius:11px;min-width:0}.trait small{display:block;font-size:8px;color:var(--muted);letter-spacing:.08em;margin-bottom:5px}.trait b{display:block;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.trait em{display:block;font-size:9px;color:var(--muted);font-style:normal;margin-top:3px}.seller-row{display:flex;align-items:center;gap:9px;padding-top:10px;border-top:1px solid var(--line)}.seller-avatar{width:30px;height:30px;border-radius:10px;background:var(--panel3);display:grid;place-items:center;color:var(--accent);font-size:12px;flex:none}.seller-info{min-width:0;display:grid;gap:3px}.seller-link{color:var(--accent);text-decoration:none;font-size:12px;font-weight:650;overflow:hidden;text-overflow:ellipsis}.seller-details{font-size:9px;color:var(--muted)}.dm-state{margin-left:auto;font-size:9px;color:var(--ok);white-space:nowrap}.dm-state.paid{color:var(--danger)}.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}.card-actions.single{grid-template-columns:1fr}.card-button{height:39px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--soft);font-size:11px;font-weight:600;display:grid;place-items:center;text-decoration:none;cursor:pointer;transition:background .18s,transform .18s}.card-button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);box-shadow:none}.card-button:active,.mark-button:active{transform:scale(.985)}.card-button.disabled{opacity:.42;pointer-events:none}.mark-button{width:100%;height:37px;margin-top:8px;border:1px dashed color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:11px;background:color-mix(in srgb,var(--accent) 7%,var(--panel));color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.02em;cursor:pointer}.mark-button.done{border-style:solid;background:color-mix(in srgb,var(--ok) 10%,var(--panel));border-color:color-mix(in srgb,var(--ok) 35%,transparent);color:var(--ok)}
 .empty-state{border:1px solid var(--line);border-radius:22px;background:var(--panel);padding:30px 18px 26px;text-align:center;margin-top:12px}.radar-large{height:150px;width:150px;position:relative;margin:0 auto 15px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 22%,transparent)}.large-ring{position:absolute;border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);border-radius:50%;inset:17px}.large-ring.b{inset:42px}.large-sweep{position:absolute;inset:0;border-left:1px solid var(--accent);transform:rotate(45deg)}.large-core{position:absolute;inset:69px;border-radius:50%;background:var(--accent)}.empty-state h2{font-size:20px;font-weight:600;margin:0 0 8px}.empty-state p{font-size:12px;line-height:1.55;color:var(--muted);max-width:290px;margin:0 auto}.loading-line{height:2px;border-radius:6px;background:var(--panel3);overflow:hidden;margin:22px auto 0;max-width:180px}.loading-line span{display:block;width:40%;height:100%;border-radius:6px;background:var(--accent);animation:loading 1.8s ease-in-out infinite}@keyframes loading{0%{transform:translateX(-110%)}100%{transform:translateX(300%)}}.limit-panel{margin-top:16px;padding:22px;border:1px solid var(--line);border-radius:20px;background:var(--panel)}.limit-kicker{font-size:9px;letter-spacing:.15em;color:var(--accent)}.limit-panel h2{font-size:21px;font-weight:600;margin:9px 0}.limit-panel p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}
 .search-form{display:grid;grid-template-columns:1fr auto;gap:9px;margin:23px 0 12px}.search-form input,.field-input{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:14px;color:var(--text);outline:none;font-size:13px;transition:border-color .2s,box-shadow .2s}.search-form input:focus,.field-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}input::placeholder,textarea::placeholder{color:var(--muted)}.primary-button{border:0;border-radius:13px;background:var(--accent);color:var(--accent-ink);padding:0 19px;font-size:12px;font-weight:750;min-height:45px;cursor:pointer}.full-width{width:100%;margin-top:19px}.search-note{padding:13px 14px;background:var(--panel2);border-left:2px solid var(--accent);border-radius:0 12px 12px 0;color:var(--muted);font-size:11px;line-height:1.55;margin-bottom:20px}.search-results:empty{display:none}
 .portal-card{margin-top:25px;padding:26px 22px 24px;border:1px solid var(--line);border-radius:23px;background:var(--panel);text-align:center}.portal-orbit{width:130px;height:130px;margin:0 auto 26px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);position:relative}.portal-orbit:before,.portal-orbit:after{content:"";position:absolute;border:1px solid color-mix(in srgb,var(--accent) 20%,transparent);border-radius:50%;inset:17px}.portal-orbit:after{inset:43px}.portal-point{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--accent);top:15px;left:45px;animation:orbit 7s linear infinite;transform-origin:20px 50px}.portal-kicker{font-size:9px;color:var(--accent);letter-spacing:.17em}.portal-card h2{font-size:20px;font-weight:650;margin:10px 0}.portal-card p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}.portal-status{margin:20px auto 0;font-size:9px;letter-spacing:.11em;color:var(--muted)}.portal-status span{display:inline-block;width:6px;height:6px;background:var(--danger);border-radius:50%;margin-right:5px}
@@ -57,32 +57,49 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
 .gift-image-wrap{border-radius:18px;overflow:hidden;background:rgba(255,255,255,.035)}
 .bottom-nav{border-top:0;background:color-mix(in srgb,var(--bg) 83%,transparent);box-shadow:0 -12px 36px rgba(0,0,0,.18)}
 .search-note,.history-note{border:0;border-left:0;border-radius:16px;background:rgba(255,255,255,.045)}
-.field-input,.search-form input,.trait-field select{border:0;background:rgba(255,255,255,.065);box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
-.field-input:focus,.trait-field select:focus{border:0;outline:1px solid color-mix(in srgb,var(--accent) 52%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent)}
+.field-input,.search-form input{border:0;background:rgba(255,255,255,.065);box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
+.field-input:focus{border:0;outline:1px solid color-mix(in srgb,var(--accent) 52%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent)}
 .chip,.theme-option{border:0;background:rgba(255,255,255,.055)}
 .chip.selected,.theme-option[aria-pressed="true"]{background:color-mix(in srgb,var(--accent) 17%,var(--panel2));border:0}
-.trait-search-form{margin:22px 0 16px;padding:17px;border-radius:22px;background:linear-gradient(145deg,rgba(16,37,48,.94),rgba(8,20,30,.94));box-shadow:0 18px 48px rgba(0,0,0,.20)}
-.trait-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.trait-field{display:grid;gap:7px;min-width:0}
-.trait-field span{font-size:9px;color:var(--muted);font-weight:750;letter-spacing:.16em}
-.trait-field select{width:100%;height:48px;padding:0 14px;border-radius:14px;color:var(--text);font-size:13px;appearance:none;background-color:rgba(255,255,255,.075);background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 18px) 20px,calc(100% - 13px) 20px;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
-.trait-field select option{background:#10232d;color:#eef8f7}
-.trait-footnote{font-size:10px;line-height:1.5;color:var(--muted);padding:11px 2px 13px}
-.trait-submit{width:100%;min-height:48px;border-radius:15px;box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 15%,transparent)}
- .water-loader{height:34px;display:flex;align-items:center;justify-content:center;gap:6px;margin:0 auto 15px}
+.water-loader{height:34px;display:flex;align-items:center;justify-content:center;gap:6px;margin:0 auto 15px}
 .water-loader span{display:block;width:6px;height:12px;border-radius:99px;background:var(--accent);opacity:.55;animation:waterPulse 1.05s ease-in-out infinite}
 .water-loader span:nth-child(2){height:21px;animation-delay:.14s}.water-loader span:nth-child(3){animation-delay:.28s}
 @keyframes waterPulse{0%,100%{transform:scaleY(.62);opacity:.42}50%{transform:scaleY(1.35);opacity:1}}
-#filterOptionsStatus{font-size:10px;color:var(--muted);line-height:1.45;margin:10px 2px 16px}
-.trait-actions{display:grid;gap:9px}.trait-reset{width:100%;min-height:42px;border:0;border-radius:13px;background:rgba(255,255,255,.055);color:var(--muted);font-size:11px;font-weight:650;cursor:pointer}.trait-reset:active{transform:scale(.99)}
-.trait-search-form{background:linear-gradient(145deg,rgba(18,49,58,.88),rgba(8,24,34,.91));box-shadow:0 18px 42px rgba(0,0,0,.16)}
-.trait-field select{transition:background .2s,box-shadow .2s}.trait-field select:focus{outline:2px solid color-mix(in srgb,var(--accent) 42%,transparent);outline-offset:1px}
 .listing-card{backdrop-filter:blur(12px)}
 @media(prefers-reduced-motion:reduce){.listing-card,.page{animation:none!important}}
-@media(min-width:680px){.trait-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.trait-search-form{padding:20px}}
 @media(prefers-reduced-motion:reduce){body::before,body::after{animation:none}.water-film{animation:none}}
 
-</style>
+.bottom-nav{grid-template-columns:repeat(4,minmax(0,1fr))}
+.decision-actions{display:grid;grid-template-columns:1.15fr .85fr;gap:9px;margin-top:12px}
+.decision-button{min-height:47px;border:0;border-radius:14px;font-size:13px;font-weight:750;cursor:pointer;transition:transform .16s,opacity .16s}
+.decision-button:active{transform:scale(.98)}
+.decision-button:disabled{opacity:.5;pointer-events:none}
+.decision-button.take{background:var(--accent);color:var(--accent-ink)}
+.decision-button.skip{background:rgba(255,255,255,.075);color:var(--soft)}
+.profile-log-section{margin-top:27px}
+.profile-log-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}
+.profile-log-heading h2{font-size:23px;font-weight:570;letter-spacing:-.04em;margin:6px 0 0}
+.profile-log-heading .refresh-button{margin:0}
+.action-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px}
+.action-stat{padding:14px 15px;border-radius:16px;background:rgba(255,255,255,.055);display:grid;gap:5px}
+.action-stat span,.action-stat small{font-size:10px;color:var(--muted)}
+.action-stat strong{font-size:25px;line-height:1.1;font-weight:650}
+.action-stat small b{color:var(--text);font-weight:650}
+.history-log-list{display:grid;gap:9px}
+.history-log-item{display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:11px;padding:10px;border-radius:16px;background:rgba(255,255,255,.05)}
+.history-log-image{width:58px;height:58px;border-radius:12px;object-fit:cover;background:rgba(255,255,255,.06)}
+.history-log-fallback{display:grid;place-items:center;color:var(--accent);font-weight:700;font-size:18px}
+.history-log-main{min-width:0;display:grid;gap:4px}
+.history-log-title{font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.history-log-meta{font-size:10px;color:var(--muted)}
+.history-log-date{font-size:9px;color:var(--muted)}
+.history-log-status{font-size:9px;font-weight:750;padding:6px 8px;border-radius:9px;white-space:nowrap;background:rgba(255,255,255,.07);color:var(--soft)}
+.history-log-status.taken{background:color-mix(in srgb,var(--ok) 13%,transparent);color:var(--ok)}
+.history-log-status.skipped{background:rgba(255,255,255,.07);color:var(--muted)}
+.history-log-link{font-size:10px;color:var(--accent);text-decoration:none}
+@media(max-width:360px){.history-log-item{grid-template-columns:48px minmax(0,1fr) auto;gap:8px}.history-log-image{width:48px;height:48px}.history-log-status{font-size:8px;padding:5px 6px}}
+.taken-state{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding:10px 12px;border-radius:13px;background:color-mix(in srgb,var(--ok) 10%,transparent)}.taken-state>span{font-size:10px;font-weight:750;color:var(--ok);letter-spacing:.04em}.decision-button.next{min-height:40px;padding:0 13px;background:var(--accent);color:var(--accent-ink);white-space:nowrap}.history-contact{border:0;background:transparent;padding:0;margin-left:8px;cursor:pointer;font:inherit;color:var(--accent)}
+  </style>
   <link rel="preconnect" href="https://nft.fragment.com" crossorigin>
 </head>
 <body data-skin="water" data-accent="mint">
@@ -107,7 +124,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   <div id="app" class="app hidden">
     <header class="topbar">
       <div class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></div>
-      <div class="brand-copy"><div class="brand-name">GIFT SCOPE</div><div class="brand-sub">NFT TRAIT INDEX · LIVE</div></div>
+      <div class="brand-copy"><div class="brand-name">GIFT SCOPE</div><div class="brand-sub">NFT TRACKER · LIVE</div></div>
       <div class="live-state"><span class="live-dot"></span><span id="liveText">ПОДКЛЮЧЕНИЕ</span></div>
     </header>
 
@@ -117,9 +134,8 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
           <div>
             <div class="eyebrow">MARKET WATCH</div>
             <h1>Новые<br><em>поступления</em></h1>
-            <p class="muted hero-desc">Лоты, которые прошли проверку владельца и фильтры.</p>
+            <p class="muted hero-desc">Личные карточки новых лотов. Каждый можно взять себе или пропустить.</p>
           </div>
-          
         </div>
         <div class="stats-strip">
           <div class="stat-box"><span class="stat-label">В доступе</span><strong id="freeLeft">15</strong><small id="freeCaption">бесплатных лотов</small></div>
@@ -142,35 +158,16 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       </section>
 
       <section id="page-search" class="page">
-        <div class="eyebrow">TRAIT INDEX SEARCH</div>
-        <h1>Поиск<br><em>по фильтрам</em></h1>
-        <p class="muted">Не ищем название подарка. Выбирай модель, фон, узор и их редкость — база ищет точные совпадения по индексам.</p>
-        <form id="searchForm" class="trait-search-form" autocomplete="off">
-          <div class="trait-grid">
-            <label class="trait-field" for="searchModel"><span>МОДЕЛЬ</span><select id="searchModel"><option value="">Любая модель</option></select></label>
-            <label class="trait-field" for="searchModelRarity"><span>РЕДКОСТЬ МОДЕЛИ</span><select id="searchModelRarity"><option value="">Любая редкость</option></select></label>
-            <label class="trait-field" for="searchBackdrop"><span>ФОН</span><select id="searchBackdrop"><option value="">Любой фон</option></select></label>
-            <label class="trait-field" for="searchBackdropRarity"><span>РЕДКОСТЬ ФОНА</span><select id="searchBackdropRarity"><option value="">Любая редкость</option></select></label>
-            <label class="trait-field" for="searchPattern"><span>УЗОР</span><select id="searchPattern"><option value="">Любой узор</option></select></label>
-            <label class="trait-field" for="searchPatternRarity"><span>РЕДКОСТЬ УЗОРА</span><select id="searchPatternRarity"><option value="">Любая редкость</option></select></label>
-          </div>
-          <div class="trait-footnote" id="traitFootnote">Цена и дополнительные ограничения берутся из раздела «Настройки».</div>
-          <div class="trait-actions"><button type="submit" class="primary-button trait-submit">Найти подходящие лоты</button><button type="button" id="resetTraitFilters" class="trait-reset">Сбросить фильтры</button></div>
+        <div class="eyebrow">LISTING SEARCH</div>
+        <h1>Поиск<br><em>по лотам</em></h1>
+        <p class="muted">Ищи по названию подарка, номеру NFT или username продавца. Модель, фон и узор показаны в карточке лота — отдельными фильтрами они не являются.</p>
+        <form id="searchForm" class="search-form" autocomplete="off">
+          <input id="searchQuery" type="search" maxlength="80" placeholder="Например, Plush Pepe или @username" autocomplete="off">
+          <button type="submit" class="primary-button">Найти</button>
         </form>
-        <div class="search-note" id="filterOptionsStatus">Загружаю реальные характеристики из индекса сканера…</div>
+        <div class="search-note">Поиск идёт по активным лотам из локального индекса сканера. Пропущенные тобой и занятые другими пользователями лоты повторно не показываются.</div>
         <div id="searchResults" class="feed-list search-results"></div>
       </section>
-
-      <section id="page-history" class="page">
-        <div class="eyebrow">YOUR PICKS</div>
-        <h1>Твоя<br><em>история</em></h1>
-        <div class="history-head"><div><div class="history-count" id="historyCount">0</div><div class="history-caption">отмечено тобой</div></div><div class="history-caption">Личные отметки · только твой аккаунт</div></div>
-        <div class="history-note">Нажимай «Забрал» на карточке, чтобы сохранить её здесь. Это твоя личная отметка, а не подтверждение оплаты или передачи NFT.</div>
-        <div id="historyList" class="feed-list"></div>
-        <div id="historyEmpty" class="empty-state"><h2>Пока ничего нет</h2><p>Отмеченные тобой лоты появятся здесь. История привязана к твоему Telegram-аккаунту.</p></div>
-      </section>
-
-
 
       <section id="page-settings" class="page">
         <div class="eyebrow">PERSONAL FILTERS</div>
@@ -192,18 +189,12 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
           </div>
         </div>
         <div class="settings-card">
-          <label class="field-label" for="minTon">Минимальная цена, TON</label>
-          <input id="minTon" class="field-input" type="number" min="0" step="0.01" placeholder="Без ограничения">
-          <label class="field-label" for="maxTon">Максимальная цена, TON</label>
-          <input id="maxTon" class="field-input" type="number" min="0" step="0.01" placeholder="Без ограничения">
-          <div class="field-label spaced">Категории</div>
+          <div class="field-label spaced">Категории лотов</div>
           <div class="category-options" id="categoryOptions">
             <button type="button" class="chip selected" data-category="all">Все</button>
-            <button type="button" class="chip" data-category="cheap">Недорогие</button>
-            <button type="button" class="chip" data-category="medium">Средние</button>
-            <button type="button" class="chip" data-category="expensive">Дорогие</button>
-            <button type="button" class="chip" data-category="girls">Девушки</button>
-            <button type="button" class="chip" data-category="black">Чёрный фон</button>
+            <button type="button" class="chip" data-category="cheap">Недорогие подарки</button>
+            <button type="button" class="chip" data-category="expensive">Дорогие подарки</button>
+            <button type="button" class="chip" data-category="black">Black фон</button>
           </div>
           <label class="field-label spaced" for="messageTemplate">Шаблон сообщения продавцу</label>
           <textarea id="messageTemplate" class="field-input template-input" rows="4" maxlength="1200" placeholder="Здравствуйте! Интересует {gift} #{id} по цене {price} TON."></textarea>
@@ -215,7 +206,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
 
       <section id="page-profile" class="page">
         <div class="eyebrow">YOUR ACCOUNT</div>
-        <h1>Профиль<br><em>доступа</em></h1>
+        <h1>Профиль<br><em>аккаунта</em></h1>
         <div class="profile-card">
           <div class="profile-avatar" id="profileAvatar">G</div>
           <div><h2 id="profileName">Пользователь Telegram</h2><p id="profileUsername" class="muted">Загрузка...</p></div>
@@ -226,15 +217,21 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
           <button id="profilePlansBtn" class="primary-button full-width">Управление доступом</button>
         </div>
         <div class="profile-info"><span>Статус сервиса</span><b id="serviceStatus">Подключение...</b></div>
-        <div class="profile-info"><span>Источник username</span><b>Telegram / ответ PricerApp</b></div>
-        <div class="profile-info"><span>Сессии Telegram</span><b>Хранятся только на сервере</b></div>
+        <div class="profile-log-section">
+          <div class="profile-log-heading"><div><div class="section-label">ЛИЧНАЯ АКТИВНОСТЬ</div><h2>История логов</h2></div><button id="refreshHistoryBtn" class="refresh-button" type="button" aria-label="Обновить историю">↻</button></div>
+          <div class="action-stats">
+            <div class="action-stat"><span>Взято</span><strong id="takenTotal">0</strong><small>сегодня: <b id="takenToday">0</b></small></div>
+            <div class="action-stat"><span>Пропущено</span><strong id="skippedTotal">0</strong><small>сегодня: <b id="skippedToday">0</b></small></div>
+          </div>
+          <div id="historyList" class="history-log-list"></div>
+          <div id="historyEmpty" class="empty-state"><h2>История пока пустая</h2><p>Здесь появятся лоты, которые ты взял или пропустил. Записи видны только в твоём профиле.</p></div>
+        </div>
       </section>
     </main>
 
     <nav class="bottom-nav" aria-label="Навигация">
-      <button class="nav-item active" data-page="feed"><span class="nav-icon">⌂</span><span>Лента</span></button>
+      <button class="nav-item active" data-page="feed"><span class="nav-icon">◉</span><span>Трекер</span></button>
       <button class="nav-item" data-page="search"><span class="nav-icon">⌕</span><span>Поиск</span></button>
-      <button class="nav-item" data-page="history"><span class="nav-icon">▤</span><span>История</span></button>
       <button class="nav-item" data-page="settings"><span class="nav-icon">☷</span><span>Настройки</span></button>
       <button class="nav-item" data-page="profile"><span class="nav-icon">◎</span><span>Профиль</span></button>
     </nav>
@@ -244,7 +241,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   <script>
 (() => {
   'use strict';
-  const GIFT_SCOPE_FRONTEND_VERSION = '8.0-trait-search';
+  const GIFT_SCOPE_FRONTEND_VERSION = '9.2-personal-queue-history';
 
   const tg = window.Telegram?.WebApp || null;
   // The bot injects the current tokenless Quick Tunnel URL in ?api=... .
@@ -261,7 +258,8 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   const state = {
     initData: tg?.initData || '',
     user: null,
-    settings: { query: '', minTon: '', maxTon: '', onlyFreeDm: true, categories: [], model: '', model_rarity: '', backdrop: '', backdrop_rarity: '', pattern: '', pattern_rarity: '', messageTemplate: '' },
+    settings: { query: '', categories: [], messageTemplate: '' },
+    heldListingId: null,
     currentPage: 'feed',
     currentQuery: '',
     items: [],
@@ -273,11 +271,11 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     toastHandle: null,
     feedPromise: null,
     pollFailures: 0,
-    searchSequence: 0,
     settingsBusy: false,
     freeLeft: 15,
-    claimedIds: new Set(),
-    historyItems: []
+    historyItems: [],
+    actionBusyIds: new Set(),
+    lastSearchItems: [],
   };
 
   const $ = (id) => document.getElementById(id);
@@ -337,13 +335,11 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   }
 
   function setPage(name) {
-    if (!['feed', 'search', 'history', 'settings', 'profile'].includes(name)) return;
+    if (!['feed', 'search', 'settings', 'profile'].includes(name)) return;
     state.currentPage = name;
     document.querySelectorAll('.page').forEach((el) => el.classList.toggle('active', el.id === `page-${name}`));
     document.querySelectorAll('.nav-item').forEach((el) => el.classList.toggle('active', el.dataset.page === name));
-    if (name === 'profile') renderProfile();
-    if (name === 'search' && state.initData) loadFilterOptions().catch((error) => notify(error.message || 'Не удалось обновить фильтры'));
-    if (name === 'history') loadHistory().catch((error) => notify(error.message || 'История недоступна'));
+    if (name === 'profile') { renderProfile(); loadHistory().catch((error) => notify(error.message || 'История недоступна')); }
     try { tg?.HapticFeedback?.selectionChanged(); } catch (_) {}
     window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     if (name === 'feed') {
@@ -355,7 +351,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   }
 
   function categoryLabel(category) {
-    return ({ cheap: 'Недорогой', medium: 'Средний', expensive: 'Дорогой', girls: 'Девушки', black: 'Чёрный фон', unknown: 'Новый' })[category] || 'Листинг';
+    return ({ cheap: 'Недорогой', medium: 'Средний', expensive: 'Дорогой', black: 'Black фон' })[category] || 'Листинг';
   }
 
   function relativeTime(value) {
@@ -384,12 +380,12 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       .replaceAll('{gift}', String(item.gift_name || ''));
   }
 
-  function listingCard(item, index = 0, historyMode = false) {
-    const slug = escapeHtml(item.slug || '');
+  function listingCard(item, index = 0, mode = 'feed') {
     const title = escapeHtml(item.gift_name || 'Подарок');
     const username = escapeHtml(item.seller_username || '');
     const image = escapeHtml(item.image_url || '');
     const dmPaid = Boolean(item.seller_paid_dm);
+    const isTaken = mode === 'feed' && Boolean(item._takenByMe);
     const discount = item.discount_pct !== null && item.discount_pct !== undefined && item.discount_pct !== '' && Number.isFinite(Number(item.discount_pct)) ? Number(item.discount_pct) : null;
     const traits = [
       ['МОДЕЛЬ', item.model, item.model_rarity],
@@ -399,18 +395,22 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     const traitHtml = traits.map(([label, name, rarity]) => `
       <div class="trait"><small>${label}</small><b>${escapeHtml(name || '—')}</b><em>${rarity ? `${escapeHtml(rarity)}%` : ' '}</em></div>
     `).join('');
-    const openNft = item.nft_url ? `<a class="card-button" href="${escapeHtml(item.nft_url)}" data-open-url="${escapeHtml(item.nft_url)}">Открыть NFT</a>` : '<span class="card-button disabled">NFT недоступен</span>';
-    const canMessage = username && !dmPaid;
-    const contact = canMessage
+    const nftUrl = item.nft_url || '';
+    const openNft = nftUrl ? `<a class="card-button" href="${escapeHtml(nftUrl)}" data-open-url="${escapeHtml(nftUrl)}">Открыть NFT</a>` : '<span class="card-button disabled">NFT недоступен</span>';
+    const canMessage = Boolean(username && !dmPaid);
+    const showContact = canMessage && (mode !== 'feed' || isTaken);
+    const contact = showContact
       ? `<button class="card-button primary" data-contact="${Number(item.id)}">Написать продавцу</button>`
-      : `<span class="card-button disabled">${dmPaid ? 'ЛС платное' : 'Нет username'}</span>`;
-    const isClaimed = state.claimedIds.has(Number(item.id));
-    const markAction = historyMode
-      ? `<button class="mark-button done" data-unclaim="${Number(item.id)}">Убрать из истории</button>`
-      : `<button class="mark-button ${isClaimed ? 'done' : ''}" data-claim="${Number(item.id)}">${isClaimed ? '✓ В твоей истории' : '＋ Забрал — добавить в историю'}</button>`;
+      : (mode === 'feed' && !isTaken ? '' : `<span class="card-button disabled">${dmPaid ? 'ЛС платное' : 'Нет username'}</span>`);
     const owner = username
       ? `<a class="seller-link" href="https://t.me/${username}" data-open-url="https://t.me/${username}">@${username}</a>`
       : `<span class="seller-link">Владелец без username</span>`;
+    const decisions = mode === 'feed' ? (isTaken ? `
+      <div class="taken-state"><span>✓ ЛОТ ЗАКРЕПЛЁН ЗА ТОБОЙ</span><button type="button" class="decision-button next" data-next-feed>Следующий лот →</button></div>` : `
+      <div class="decision-actions">
+        <button class="decision-button take" type="button" data-take="${Number(item.id)}">✓ Взять лот</button>
+        <button class="decision-button skip" type="button" data-skip="${Number(item.id)}">Пропустить →</button>
+      </div>`) : '';
     return `
       <article class="listing-card" data-id="${Number(item.id)}" style="animation-delay:${Math.min(index, 6) * 35}ms">
         <div class="listing-top">
@@ -430,80 +430,110 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
           <div class="seller-info">${owner}<span class="seller-details">Уровень ${Number(item.seller_level || 0)} · ${item.seller_premium ? 'Premium' : 'Обычный аккаунт'}</span></div>
           <div class="dm-state ${dmPaid ? 'paid' : ''}">${dmPaid ? `Платно · ${Number(item.seller_paid_stars || 0)} Stars` : 'ЛС бесплатно'}</div>
         </div>
-        <div class="card-actions">${openNft}${contact}</div>
-        ${markAction}
+        <div class="card-actions${mode === 'feed' && !isTaken ? ' single' : ''}">${openNft}${contact}</div>
+        ${decisions}
       </article>`;
   }
 
-  function renderItems(container, items, historyMode = false) {
-    const existing = new Map([...container.querySelectorAll('.listing-card')]
-      .map((node) => [node.dataset.id, node]));
-    const nextIds = items.map((item) => String(Number(item.id)));
-    const currentIds = [...container.querySelectorAll('.listing-card')].map((node) => node.dataset.id);
-    if (currentIds.length === nextIds.length && currentIds.every((id, index) => id === nextIds[index])) return;
-
-    // Reconcile in place. Existing cards stay attached, so their images, scroll
-    // positions and entrance animations are not restarted when one new lot arrives.
-    let anchor = container.firstElementChild;
-    items.forEach((item, index) => {
-      const key = String(Number(item.id));
-      let card = existing.get(key);
-      if (card) {
-        existing.delete(key);
-      } else {
-        const template = document.createElement('template');
-        template.innerHTML = listingCard(item, index, historyMode).trim();
-        card = template.content.firstElementChild;
-        const image = card?.querySelector('.gift-image');
-        if (image) {
-          image.addEventListener('error', () => {
-            const fallback = document.createElement('div');
-            fallback.className = 'gift-image-fallback';
-            fallback.textContent = String(item.gift_name || 'G').slice(0, 1).toUpperCase();
-            image.replaceWith(fallback);
-          }, { once: true });
-        }
-      }
-      if (!card) return;
-      if (card !== anchor) container.insertBefore(card, anchor);
-      else anchor = anchor.nextElementSibling;
+  function renderItems(container, items, mode = 'feed') {
+    const ids = items.map((item) => `${Number(item.id)}${item._takenByMe ? ':taken' : ''}`).join(',');
+    const signature = `${mode}:${ids}`;
+    if (container.dataset.signature === signature) return;
+    container.dataset.signature = signature;
+    container.innerHTML = items.map((item, index) => listingCard(item, index, mode)).join('');
+    container.querySelectorAll('.gift-image').forEach((image) => {
+      image.addEventListener('error', () => {
+        const fallback = document.createElement('div');
+        fallback.className = 'gift-image-fallback';
+        fallback.textContent = (image.alt || 'G').slice(0, 1).toUpperCase();
+        image.replaceWith(fallback);
+      }, { once: true });
     });
-    existing.forEach((card) => card.remove());
+  }
+
+  function renderHistoryLogs(items) {
+    const container = $('historyList');
+    container.innerHTML = items.map((item) => {
+      const image = escapeHtml(item.image_url || '');
+      const title = escapeHtml(item.gift_name || 'Подарок');
+      const action = item.action === 'taken' ? 'ВЗЯЛ' : 'ПРОПУСТИЛ';
+      const status = item.action === 'taken' ? 'taken' : 'skipped';
+      const date = item.acted_at ? new Date(item.acted_at).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '—';
+      const giftLink = item.nft_url ? `<a class="history-log-link" href="${escapeHtml(item.nft_url)}" data-open-url="${escapeHtml(item.nft_url)}">NFT</a>` : '';
+      const sellerLink = item.seller_username ? `<a class="history-log-link" href="https://t.me/${escapeHtml(item.seller_username)}" data-open-url="https://t.me/${escapeHtml(item.seller_username)}">Профиль</a>` : '';
+      const contactLink = item.action === 'taken' && item.seller_username && !item.seller_paid_dm ? `<button class="history-log-link history-contact" type="button" data-contact="${Number(item.id)}">Написать</button>` : '';
+      return `<article class="history-log-item">
+        ${image ? `<img class="history-log-image" src="${image}" alt="${title}" loading="lazy" referrerpolicy="no-referrer">` : `<div class="history-log-image history-log-fallback">${escapeHtml((item.gift_name || 'G').slice(0,1).toUpperCase())}</div>`}
+        <div class="history-log-main"><div class="history-log-title">${title} #${Number(item.gift_num || 0)}</div><div class="history-log-meta">${Number(item.price_ton || 0).toFixed(2)} TON · ${date}</div><div>${giftLink} ${sellerLink} ${contactLink}</div></div>
+        <span class="history-log-status ${status}">${action}</span>
+      </article>`;
+    }).join('');
+    container.querySelectorAll('.history-log-image').forEach((image) => {
+      image.addEventListener('error', () => { image.replaceWith(Object.assign(document.createElement('div'), { className: 'history-log-image history-log-fallback', textContent: (image.alt || 'G').slice(0,1).toUpperCase() })); }, { once: true });
+    });
+    $('historyEmpty').classList.toggle('hidden', items.length > 0);
   }
 
   async function loadHistory() {
     const data = await api('/api/v1/history');
     state.historyItems = data.items || [];
-    state.claimedIds = new Set(state.historyItems.map((item) => Number(item.id)));
-    $('historyCount').textContent = String(data.count ?? state.historyItems.length);
-    $('historyEmpty').classList.toggle('hidden', state.historyItems.length > 0);
-    $('historyList').classList.toggle('hidden', state.historyItems.length === 0);
-    renderItems($('historyList'), state.historyItems, true);
-    syncClaimButtons();
+    const stats = data.stats || {};
+    $('takenTotal').textContent = String(stats.taken || 0);
+    $('skippedTotal').textContent = String(stats.skipped || 0);
+    $('takenToday').textContent = String(stats.taken_today || 0);
+    $('skippedToday').textContent = String(stats.skipped_today || 0);
+    renderHistoryLogs(state.historyItems);
     return data;
   }
 
-  function syncClaimButtons() {
-    document.querySelectorAll('[data-claim]').forEach((button) => {
-      const id = Number(button.dataset.claim);
-      const marked = state.claimedIds.has(id);
-      button.classList.toggle('done', marked);
-      button.textContent = marked ? '✓ В твоей истории' : '＋ Забрал — добавить в историю';
-    });
+  async function decideListing(id, action) {
+    if (state.actionBusyIds.has(id)) return;
+    state.actionBusyIds.add(id);
+    document.querySelectorAll(`[data-take="${id}"], [data-skip="${id}"]`).forEach((el) => { el.disabled = true; });
+    const button = document.querySelector(`[data-${action === 'take' ? 'take' : 'skip'}="${id}"]`);
+    if (button) button.disabled = true;
+    try {
+      await api(`/api/v1/listings/${id}/action`, {
+        method: 'POST', body: { action }
+      });
+      if (action === 'take') {
+        const item = state.items.find((row) => Number(row.id) === id);
+        if (item) item._takenByMe = true;
+        state.heldListingId = id;
+        stopPolling();
+        $('feedList').dataset.signature = '';
+        renderItems($('feedList'), state.items, 'feed');
+        notify('Лот только твой — можешь написать продавцу', true);
+        await loadHistory();
+        return;
+      }
+      state.items = state.items.filter((item) => Number(item.id) !== id);
+      $('feedList').dataset.signature = '';
+      renderItems($('feedList'), state.items, 'feed');
+      $('feedList').classList.toggle('hidden', state.items.length === 0);
+      $('feedEmpty').classList.toggle('hidden', state.items.length > 0);
+      notify('Лот пропущен', true);
+      await loadHistory();
+      await loadFeed({ silent: true });
+    } catch (error) {
+      notify(error.message || 'Не удалось сохранить действие');
+      await loadFeed({ silent: true }).catch(() => {});
+    } finally {
+      state.actionBusyIds.delete(id);
+      document.querySelectorAll(`[data-take="${id}"], [data-skip="${id}"]`).forEach((el) => { el.disabled = false; });
+    }
   }
 
-  async function setClaimed(id, shouldClaim) {
-    const item = [...state.items, ...(state.lastSearchItems || [])].find((row) => Number(row.id) === id);
-    if (!item && shouldClaim) { notify('Карточка уже недоступна'); return; }
-    try {
-      await api(`/api/v1/history/${id}`, { method: shouldClaim ? 'POST' : 'DELETE' });
-      if (shouldClaim) state.claimedIds.add(id); else state.claimedIds.delete(id);
-      syncClaimButtons();
-      await loadHistory();
-      notify(shouldClaim ? 'Добавлено в твою историю' : 'Удалено из истории', true);
-    } catch (error) {
-      notify(error.message || 'Не удалось обновить историю');
-    }
+  async function nextListing() {
+    state.heldListingId = null;
+    state.items = [];
+    $('feedList').dataset.signature = '';
+    $('feedList').classList.add('hidden');
+    $('feedEmpty').classList.remove('hidden');
+    $('feedEmpty').querySelector('h2').textContent = 'Ищу следующий лот';
+    $('feedEmpty').querySelector('p').textContent = 'Проверяю новые поступления.';
+    await loadFeed({ silent: true });
+    schedulePoll(2200);
   }
 
   function updateQuota(data) {
@@ -523,12 +553,15 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   }
 
   async function loadFeed({ silent = false } = {}) {
+    if (state.heldListingId !== null && state.items.some((item) => Number(item.id) === state.heldListingId && item._takenByMe)) {
+      return { items: state.items, count: state.items.length, held: true };
+    }
     if (state.feedPromise) return state.feedPromise;
 
     const task = (async () => {
       try {
         if (!silent && state.items.length === 0) $('feedEmpty').classList.remove('hidden');
-        const data = await api('/api/v1/feed?limit=20');
+        const data = await api('/api/v1/feed?limit=1');
         const items = data.items || [];
         const newlySeen = items.filter((item) => !state.knownIds.has(Number(item.id)));
         if (!state.firstLoad && newlySeen.length) {
@@ -540,10 +573,11 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
         updateQuota(data);
         $('feedEmpty').classList.toggle('hidden', items.length > 0);
         $('feedList').classList.toggle('hidden', items.length === 0);
-        $('filterStatus').textContent = (state.settings.categories?.length || state.settings.model || state.settings.backdrop || state.settings.pattern) ? 'ПО ФИЛЬТРАМ' : 'БЕЗ ОГРАНИЧЕНИЙ';
+        if (!items.length && !data.locked) { $('feedEmpty').querySelector('h2').textContent = 'Пока нет новых лотов'; $('feedEmpty').querySelector('p').textContent = 'Как только сканер найдёт подходящий NFT, карточка появится здесь. Один лот показывается за раз.'; }
+        $('filterStatus').textContent = state.settings.categories?.length ? 'ПО ТВОИМ ФИЛЬТРАМ' : 'ВСЕ КАТЕГОРИИ';
         $('liveText').textContent = 'МОНИТОРИНГ';
         $('serviceStatus').textContent = 'Онлайн';
-        renderItems($('feedList'), items);
+        renderItems($('feedList'), items, 'feed');
         state.firstLoad = false;
         state.pollFailures = 0;
         return data;
@@ -575,6 +609,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
 
   function schedulePoll(delay = 2200) {
     stopPolling();
+    if (state.heldListingId !== null) return;
     if (document.visibilityState !== 'visible' || state.currentPage !== 'feed' || !state.initData) return;
     if (!state.subscribed && state.freeLeft <= 0) {
       $('liveText').textContent = 'ЛИМИТ ИСЧЕРПАН';
@@ -602,10 +637,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     $('profileAvatar').textContent = (data.user.first_name || data.user.username || 'G').slice(0,1).toUpperCase();
     $('planPill').textContent = data.subscribed ? 'FULL ACCESS' : 'FREE ACCESS';
     $('profilePlansBtn').textContent = data.subscribed ? 'Открыть управление доступом' : 'Выбрать тариф';
-    $('minTon').value = state.settings.minTon || '';
-    $('maxTon').value = state.settings.maxTon || '';
     $('messageTemplate').value = state.settings.messageTemplate || '';
-    updateTraitFootnote();
     document.querySelectorAll('.chip').forEach((chip) => {
       const cats = state.settings.categories || [];
       const selected = chip.dataset.category === 'all' ? cats.length === 0 : cats.includes(chip.dataset.category);
@@ -615,106 +647,31 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     return data;
   }
 
-  async function loadFilterOptions() {
-    const response = await api('/api/v1/filter-options');
-    const options = response.options || {};
-    const fields = [
-      ['model', 'searchModel', 'Любая модель'],
-      ['model_rarity', 'searchModelRarity', 'Любая редкость'],
-      ['backdrop', 'searchBackdrop', 'Любой фон'],
-      ['backdrop_rarity', 'searchBackdropRarity', 'Любая редкость'],
-      ['pattern', 'searchPattern', 'Любой узор'],
-      ['pattern_rarity', 'searchPatternRarity', 'Любая редкость']
-    ];
-    for (const [field, id, emptyLabel] of fields) {
-      const select = $(id);
-      if (!select) continue;
-      const selected = String(state.settings[field] || '');
-      select.replaceChildren(new Option(emptyLabel, ''));
-      for (const value of (Array.isArray(options[field]) ? options[field] : [])) {
-        const option = new Option(String(value), String(value));
-        select.add(option);
-      }
-      const selectedOption = [...select.options].find((option) => option.value.toLocaleLowerCase() === selected.toLocaleLowerCase());
-      select.value = selectedOption ? selectedOption.value : '';
-    }
-    const count = ['model', 'model_rarity', 'backdrop', 'backdrop_rarity', 'pattern', 'pattern_rarity']
-      .reduce((sum, field) => sum + (Array.isArray(options[field]) ? options[field].length : 0), 0);
-    $('filterOptionsStatus').textContent = count
-      ? `В индексе доступно ${count} значений характеристик. Поиск выполняется на сервере.`
-      : 'Пока нет значений характеристик. Дождись первых лотов от сканера.';
-    return options;
-  }
-
-  function updateTraitFootnote() {
-    const low = $('minTon')?.value?.trim() || '';
-    const high = $('maxTon')?.value?.trim() || '';
-    const parts = [];
-    if (low) parts.push(`от ${low} TON`);
-    if (high) parts.push(`до ${high} TON`);
-    $('traitFootnote').textContent = parts.length
-      ? `Дополнительно применяется цена: ${parts.join(' ')}. Изменить её можно в «Настройках».`
-      : 'Цена не ограничена. Сохранённые ограничения по цене и категориям также учитываются.';
-  }
-
-  async function runTraitSearch(event) {
+  async function runSearch(event) {
     event.preventDefault();
-    const filters = {
-      model: $('searchModel').value.trim(),
-      model_rarity: $('searchModelRarity').value.trim(),
-      backdrop: $('searchBackdrop').value.trim(),
-      backdrop_rarity: $('searchBackdropRarity').value.trim(),
-      pattern: $('searchPattern').value.trim(),
-      pattern_rarity: $('searchPatternRarity').value.trim()
-    };
-    if (!Object.values(filters).some(Boolean)) {
-      $('searchResults').innerHTML = '';
-      notify('Выбери хотя бы одну характеристику или её редкость');
-      return;
-    }
-    const sequence = ++state.searchSequence;
-    const submit = $('searchForm').querySelector('button[type="submit"]');
-    submit.disabled = true;
-    submit.classList.add('is-loading');
-    $('searchResults').innerHTML = '<div class="empty-state search-loading"><div class="water-loader" aria-hidden="true"><span></span><span></span><span></span></div><h2>Проверяю индекс</h2><p>Ищу лоты с выбранными характеристиками, а не по названию.</p></div>';
+    const query = $('searchQuery').value.trim();
+    if (!query) { notify('Введи название подарка, номер NFT или username'); return; }
+    const button = $('searchForm').querySelector('button[type="submit"]');
+    button.disabled = true;
+    button.classList.add('is-loading');
+    $('searchResults').innerHTML = '<div class="empty-state"><div class="water-loader"><span></span><span></span><span></span></div><h2>Ищу лоты</h2><p>Проверяю активный индекс сканера.</p></div>';
     try {
-      const categories = [...document.querySelectorAll('.chip.selected')]
-        .map((chip) => chip.dataset.category).filter((value) => value !== 'all');
-      const body = {
-        minTon: $('minTon').value.trim(),
-        maxTon: $('maxTon').value.trim(),
-        categories,
-        model: filters.model,
-        model_rarity: filters.model_rarity,
-        backdrop: filters.backdrop,
-        backdrop_rarity: filters.backdrop_rarity,
-        pattern: filters.pattern,
-        pattern_rarity: filters.pattern_rarity,
-        messageTemplate: $('messageTemplate').value
-      };
-      const saved = await api('/api/v1/settings', { method: 'POST', body });
-      state.settings = saved.settings;
-      const params = new URLSearchParams({ ...filters, limit: '50' });
-      const data = await api(`/api/v1/search?${params.toString()}`, { timeout: 20000 });
-      if (sequence !== state.searchSequence) return;
+      const params = new URLSearchParams({ q: query, limit: '50' });
+      const data = await api(`/api/v1/search?${params.toString()}`);
       state.lastSearchItems = data.items || [];
-      updateQuota(data);
-      renderItems($('searchResults'), state.lastSearchItems);
+      renderItems($('searchResults'), state.lastSearchItems, 'search');
       if (!state.lastSearchItems.length) {
-        $('searchResults').innerHTML = '<div class="empty-state"><h2>Совпадений пока нет</h2><p>Сканер ещё не сохранил лоты с такой комбинацией характеристик. Новые совпадения появятся после следующих циклов сканирования.</p></div>';
+        $('searchResults').innerHTML = '<div class="empty-state"><h2>Ничего не найдено</h2><p>Проверь запрос или дождись новых лотов от сканера.</p></div>';
+        $('searchResults').dataset.signature = '';
       }
-      updateTraitFootnote();
-      notify(`Найдено лотов: ${data.count || 0}`, true);
+      notify(`Найдено: ${data.count || 0}`, true);
     } catch (error) {
-      if (sequence === state.searchSequence) {
-        $('searchResults').innerHTML = '';
-        notify(error.message || 'Поиск недоступен');
-      }
+      $('searchResults').innerHTML = '';
+      $('searchResults').dataset.signature = '';
+      notify(error.message || 'Поиск недоступен');
     } finally {
-      if (sequence === state.searchSequence) {
-        submit.disabled = false;
-        submit.classList.remove('is-loading');
-      }
+      button.disabled = false;
+      button.classList.remove('is-loading');
     }
   }
 
@@ -734,17 +691,13 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     const categories = [...document.querySelectorAll('.chip.selected')]
       .map((chip) => chip.dataset.category).filter((value) => value !== 'all');
     const body = {
-      query: '', minTon: $('minTon').value.trim(), maxTon: $('maxTon').value.trim(),
+      query: '',
       categories,
-      model: $('searchModel').value.trim(), model_rarity: $('searchModelRarity').value.trim(),
-      backdrop: $('searchBackdrop').value.trim(), backdrop_rarity: $('searchBackdropRarity').value.trim(),
-      pattern: $('searchPattern').value.trim(), pattern_rarity: $('searchPatternRarity').value.trim(),
       messageTemplate: $('messageTemplate').value
     };
     try {
       const response = await api('/api/v1/settings', { method: 'POST', body });
       state.settings = response.settings;
-      updateTraitFootnote();
       $('settingsSaved').classList.remove('hidden');
       notify('Настройки сохранены', true);
       setTimeout(() => $('settingsSaved').classList.add('hidden'), 2200);
@@ -771,7 +724,8 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
 
   function handleContact(id) {
     const item = state.items.find((row) => Number(row.id) === id)
-      || state.lastSearchItems?.find((row) => Number(row.id) === id);
+      || state.lastSearchItems?.find((row) => Number(row.id) === id)
+      || state.historyItems?.find((row) => Number(row.id) === id);
     if (!item || !item.seller_username || item.seller_paid_dm) return;
     const text = messageFor(item);
     openTelegramUrl(`https://t.me/${encodeURIComponent(item.seller_username)}?text=${encodeURIComponent(text)}`);
@@ -824,22 +778,17 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     };
     $('buyAccessBtn').addEventListener('click', openPlans);
     $('profilePlansBtn').addEventListener('click', openPlans);
-    $('searchForm').addEventListener('submit', runTraitSearch);
-    $('resetTraitFilters').addEventListener('click', () => {
-      ['searchModel','searchModelRarity','searchBackdrop','searchBackdropRarity','searchPattern','searchPatternRarity']
-        .forEach((id) => { $(id).value = ''; });
-      state.searchSequence += 1;
-      $('searchResults').innerHTML = '';
-      notify('Фильтры сброшены', true);
-      try { tg?.HapticFeedback?.selectionChanged(); } catch (_) {}
-    });
+    $('searchForm').addEventListener('submit', runSearch);
+    $('refreshHistoryBtn').addEventListener('click', () => loadHistory().then(() => notify('История обновлена', true)).catch((error) => notify(error.message || 'История недоступна')));
     document.body.addEventListener('click', (event) => {
-      const claim = event.target.closest('[data-claim]');
-      if (claim) { setClaimed(Number(claim.dataset.claim), true); return; }
-      const unclaim = event.target.closest('[data-unclaim]');
-      if (unclaim) { setClaimed(Number(unclaim.dataset.unclaim), false); return; }
+      const take = event.target.closest('[data-take]');
+      if (take) { decideListing(Number(take.dataset.take), 'take'); return; }
+      const skip = event.target.closest('[data-skip]');
+      if (skip) { decideListing(Number(skip.dataset.skip), 'skip'); return; }
       const contact = event.target.closest('[data-contact]');
       if (contact) { handleContact(Number(contact.dataset.contact)); return; }
+      const next = event.target.closest('[data-next-feed]');
+      if (next) { nextListing().catch((error) => notify(error.message || 'Не удалось загрузить следующий лот')); return; }
       const link = event.target.closest('[data-open-url]');
       if (link) { event.preventDefault(); openTelegramUrl(link.dataset.openUrl); }
     });
@@ -857,9 +806,8 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       $('feedEmpty').classList.remove('hidden');
       $('feedList').classList.add('hidden');
       $('feedEmpty').querySelector('h2').textContent = 'Интерфейс загружен';
-      $('feedEmpty').querySelector('p').textContent = 'Это предпросмотр. Чтобы загружать реальные лоты, видеть профиль и сохранять историю, открой приложение через кнопку меню Telegram-бота.';
+      $('feedEmpty').querySelector('p').textContent = 'Это предпросмотр. Чтобы получать личную очередь лотов и записывать действия в историю, открой Mini App через Telegram-бота.';
       $('historyEmpty').classList.remove('hidden');
-      $('historyEmpty').querySelector('p').textContent = 'История появится после входа через Telegram и отметки лотов кнопкой «Забрал».';
       $('profileName').textContent = 'Предпросмотр';
       $('profileUsername').textContent = 'Открой через Telegram для авторизации';
       return;
@@ -871,9 +819,6 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       bindEvents();
       $('app').classList.remove('hidden');
       await loadMe();
-      await loadFilterOptions().catch((error) => {
-        $('filterOptionsStatus').textContent = error.message || 'Не удалось загрузить варианты фильтров.';
-      });
       await loadHistory();
       await loadFeed();
       schedulePoll(2200);
@@ -894,7 +839,6 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   });
   boot();
 })();
-
   </script>
 </body>
 </html>
