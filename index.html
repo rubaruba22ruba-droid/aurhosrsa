@@ -133,7 +133,6 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
 @media(max-width:370px){.strategy-panel{padding:13px}.strategy-option{font-size:11px;padding:9px}.strategy-definition{grid-template-columns:76px minmax(0,1fr)}}
 
 </style>
-  <link rel="preconnect" href="https://nft.fragment.com" crossorigin>
 </head>
 <body data-skin="water" data-accent="mint">
   <svg class="water-film" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -186,12 +185,12 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
           <div class="strategy-help">
             <div class="strategy-help-title">ЧТО ИЩЕТ КАЖДЫЙ ФИЛЬТР</div>
             <div class="strategy-definition"><b>Девушки</b><span>Листинги продавцов, которых сканер определил как девушек. Это категория по продавцу, а не по модели подарка.</span></div>
-            <div class="strategy-definition"><b>Ширп</b><span>Коллекции с флором Fragment до 10 TON включительно.</span></div>
+            <div class="strategy-definition"><b>Ширп</b><span>Коллекции с флором до 10 TON включительно.</span></div>
             <div class="strategy-definition"><b>Средние</b><span>Коллекции с флором выше 10 и до 50 TON включительно.</span></div>
             <div class="strategy-definition"><b>Дорогие</b><span>Коллекции с флором выше 50 TON.</span></div>
           </div>
           <div class="trial-hint">Пробный доступ: <b>30 минут или 15 уникальных лотов</b> — что наступит раньше.</div>
-          <div class="strategy-help-title"><a href="https://tggifts.com/data" data-open-url="https://tggifts.com/data" target="_blank" rel="noopener">Data: TG Gifts (tggifts.com)</a> · ФЛОР FRAGMENT · ОБНОВЛЕНИЕ ЕЖЕДНЕВНО</div>
+          
         </section>
         <div class="stats-strip">
           <div class="stat-box"><span class="stat-label">Осталось</span><strong id="freeLeft">15</strong><small id="freeCaption">бесплатных лотов</small></div>
@@ -284,7 +283,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   <script>
 (() => {
   'use strict';
-  const GIFT_SCOPE_FRONTEND_VERSION = '10.5-restore-category-after-reopen';
+  const GIFT_SCOPE_FRONTEND_VERSION = '10.7-trial-route-diagnostics';
 
   const tg = window.Telegram?.WebApp || null;
   // The bot injects the current tokenless Quick Tunnel URL in ?api=... .
@@ -364,6 +363,10 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
         const message = await response.text().catch(() => 'Ошибка запроса');
         if (response.status === 401) throw new Error('Сессия Telegram устарела. Закрой и заново открой приложение.');
         if (response.status === 429) throw new Error('Слишком много запросов. Сделай небольшую паузу.');
+        if (response.status === 405 && path === '/api/v1/trial/start') {
+          const build = response.headers.get('X-GiftScope-Build') || 'заголовок сборки отсутствует';
+          throw new Error(`Пробный период не активирован: API вернул 405. Сборка API: ${build}. Адрес API: ${API_BASE}. Это означает, что запрос попал не в актуальный POST-маршрут; проверь URL Quick Tunnel и запущенный miniapp_api.py.`);
+        }
         throw new Error(message || `HTTP ${response.status}`);
       }
       return await response.json();
@@ -1017,4 +1020,3 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   </script>
 </body>
 </html>
-
