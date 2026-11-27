@@ -74,7 +74,12 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
 .decision-button{min-height:47px;border:0;border-radius:14px;font-size:13px;font-weight:750;cursor:pointer;transition:transform .16s,opacity .16s}
 .decision-button:active{transform:scale(.98)}
 .decision-button:disabled{opacity:.5;pointer-events:none}
-.decision-button.take{background:var(--accent);color:var(--accent-ink)}
+.decision-button.take{background:linear-gradient(90deg,var(--accent) 0%,var(--accent) var(--hold-progress,0%),color-mix(in srgb,var(--accent) 18%,#13252a) var(--hold-progress,0%),color-mix(in srgb,var(--accent) 18%,#13252a) 100%);color:var(--accent-ink);touch-action:pan-y;user-select:none;-webkit-user-select:none;position:relative;overflow:hidden}
+.decision-button.take.is-holding{box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 45%,transparent),0 0 22px color-mix(in srgb,var(--accent) 25%,transparent);transform:scale(.985)}
+.decision-button.take .hold-caption{font-size:9px;opacity:.76;margin-left:5px;font-weight:650}
+.profile-preferences{margin:14px 0}.profile-pref-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}.profile-pref-row:last-child{border-bottom:0}.profile-pref-row>div{display:grid;gap:4px}.profile-pref-row b{font-size:12px}.profile-pref-row small{font-size:10px;color:var(--muted);line-height:1.35}.profile-pref-fixed{font-size:9px;font-weight:800;letter-spacing:.1em;color:var(--ok)}
+.switch{position:relative;width:42px;height:24px;flex:0 0 auto}.switch input{position:absolute;opacity:0;width:1px;height:1px}.switch span{position:absolute;inset:0;border-radius:20px;background:rgba(255,255,255,.16);transition:background .18s}.switch span:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;border-radius:50%;background:#fff;transition:transform .18s}.switch input:checked+span{background:var(--accent)}.switch input:checked+span:before{transform:translateX(18px)}
+
 .decision-button.skip{background:rgba(239,120,125,.16);color:#ff9b9f;box-shadow:inset 0 0 0 1px rgba(239,120,125,.22)}
 .profile-log-section{margin-top:27px}
 .profile-log-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}
@@ -171,9 +176,8 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
             <div class="trial-start-copy"><b>Бесплатный период · 30 минут / 15 лотов</b><span>Активируй пробный доступ кнопкой ниже. Время начнёт идти после нажатия.</span></div>
             <button type="button" class="primary-button trial-start-button" id="startTrialBtn">Получить бесплатно</button>
           </div>
-          <div class="strategy-heading"><div class="section-label" id="strategyTitle">ВЫБЕРИ НАПРАВЛЕНИЕ ПОИСКА</div><span class="strategy-count">5 СТРАТЕГИЙ</span></div>
+          <div class="strategy-heading"><div class="section-label" id="strategyTitle">ВЫБЕРИ НАПРАВЛЕНИЕ ПОИСКА</div><span class="strategy-count">4 НАПРАВЛЕНИЯ</span></div>
           <div class="strategy-grid" role="group" aria-label="Категории поиска">
-            <button type="button" class="strategy-option strategy-black" data-search-category="black" aria-pressed="false"><span class="strategy-dot"></span><b>Black фон</b></button>
             <button type="button" class="strategy-option strategy-girls" data-search-category="girls" aria-pressed="false"><span class="strategy-dot"></span><b>Девушки</b></button>
             <button type="button" class="strategy-option strategy-cheap" data-search-category="cheap" aria-pressed="false"><span class="strategy-dot"></span><b>Ширп</b></button>
             <button type="button" class="strategy-option strategy-medium" data-search-category="medium" aria-pressed="false"><span class="strategy-dot"></span><b>Средние</b></button>
@@ -181,13 +185,13 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
           </div>
           <div class="strategy-help">
             <div class="strategy-help-title">ЧТО ИЩЕТ КАЖДЫЙ ФИЛЬТР</div>
-            <div class="strategy-definition"><b>Black фон</b><span>Любые подарки, у которых фон NFT — Black. Цена и модель не ограничиваются.</span></div>
             <div class="strategy-definition"><b>Девушки</b><span>Листинги продавцов, которых сканер определил как девушек. Это категория по продавцу, а не по модели подарка.</span></div>
-            <div class="strategy-definition"><b>Ширп</b><span>Недорогие массовые подарки, отнесённые сканером к категории «Ширп».</span></div>
-            <div class="strategy-definition"><b>Средние</b><span>Подарки средней ценовой категории по действующим правилам сканера.</span></div>
-            <div class="strategy-definition"><b>Дорогие</b><span>Подарки дорогой категории по действующим правилам сканера.</span></div>
+            <div class="strategy-definition"><b>Ширп</b><span>Коллекции с флором Fragment до 10 TON включительно.</span></div>
+            <div class="strategy-definition"><b>Средние</b><span>Коллекции с флором выше 10 и до 50 TON включительно.</span></div>
+            <div class="strategy-definition"><b>Дорогие</b><span>Коллекции с флором выше 50 TON.</span></div>
           </div>
           <div class="trial-hint">Пробный доступ: <b>30 минут или 15 уникальных лотов</b> — что наступит раньше.</div>
+          <div class="strategy-help-title"><a href="https://tggifts.com/data" data-open-url="https://tggifts.com/data" target="_blank" rel="noopener">Data: TG Gifts (tggifts.com)</a> · ФЛОР FRAGMENT · ОБНОВЛЕНИЕ ЕЖЕДНЕВНО</div>
         </section>
         <div class="stats-strip">
           <div class="stat-box"><span class="stat-label">Осталось</span><strong id="freeLeft">15</strong><small id="freeCaption">бесплатных лотов</small></div>
@@ -203,7 +207,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
         <div id="feedEmpty" class="empty-state hidden">
           <div class="water-loader" aria-hidden="true"><span></span><span></span><span></span></div>
           <h2>Выбери направление</h2>
-          <p>Нажми одну из пяти категорий выше. Поиск пойдёт только по выбранному направлению.</p>
+          <p>Нажми одно из четырёх направлений выше. Поиск пойдёт только по выбранному направлению.</p>
           <div class="loading-line"><span></span></div>
         </div>
         <div id="freeLimitPanel" class="limit-panel hidden"><div class="limit-kicker">ПРОБНЫЙ ДОСТУП ЗАВЕРШЁН</div><h2>Бесплатный период закончился</h2><p>Пробный доступ действует 30 минут или на первые 15 уникальных лотов — в зависимости от того, что наступит раньше. Для продолжения открой тарифы.</p><button id="buyAccessBtn" class="primary-button full-width">Открыть тарифы</button></div>
@@ -251,6 +255,12 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
           <button id="profilePlansBtn" class="primary-button full-width">Управление доступом</button>
         </div>
         <div class="profile-info"><span>Статус сервиса</span><b id="serviceStatus">Подключение...</b></div>
+        <div class="settings-card profile-preferences">
+          <div class="section-label">ПАРАМЕТРЫ ПРОФИЛЯ</div>
+          <div class="profile-pref-row"><div><b>Виброотклик</b><small>Подтверждение выбора и взятия лота</small></div><label class="switch"><input id="hapticsToggle" type="checkbox" checked><span></span></label></div>
+          <div class="profile-pref-row"><div><b>Автообновление поиска</b><small>Проверять новые лоты каждые 2,2 секунды</small></div><label class="switch"><input id="autoRefreshToggle" type="checkbox" checked><span></span></label></div>
+          <div class="profile-pref-row"><div><b>Фильтр продавца</b><small>Уровень до 5 · до 20 подарков · платные ЛС исключены</small></div><span class="profile-pref-fixed">АКТИВЕН</span></div>
+        </div>
         <div class="profile-log-section">
           <div class="profile-log-heading"><div><div class="section-label">ЛИЧНАЯ АКТИВНОСТЬ</div><h2>История логов</h2></div><button id="refreshHistoryBtn" class="refresh-button" type="button" aria-label="Обновить историю">↻</button></div>
           <div class="action-stats">
@@ -274,7 +284,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   <script>
 (() => {
   'use strict';
-  const GIFT_SCOPE_FRONTEND_VERSION = '10.1-search-strategies-trial-button';
+  const GIFT_SCOPE_FRONTEND_VERSION = '10.5-restore-category-after-reopen';
 
   const tg = window.Telegram?.WebApp || null;
   // The bot injects the current tokenless Quick Tunnel URL in ?api=... .
@@ -312,6 +322,12 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     freeLeft: 15,
     historyItems: [],
     actionBusyIds: new Set(),
+    hapticsEnabled: true,
+    autoRefreshEnabled: true,
+    holdTimer: null,
+    holdButton: null,
+    holdStartedAt: 0,
+    holdCompletedId: null,
   };
 
   const $ = (id) => document.getElementById(id);
@@ -359,6 +375,58 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     }
   }
 
+  function haptic(method = 'selectionChanged', value = 'success') {
+    if (!state.hapticsEnabled) return;
+    try {
+      if (method === 'notificationOccurred') tg?.HapticFeedback?.notificationOccurred?.(value);
+      else tg?.HapticFeedback?.[method]?.();
+    } catch (_) {}
+  }
+
+  function saveProfilePreferences() {
+    try {
+      localStorage.setItem('giftScopeHaptics', state.hapticsEnabled ? '1' : '0');
+      localStorage.setItem('giftScopeAutoRefresh', state.autoRefreshEnabled ? '1' : '0');
+    } catch (_) {}
+  }
+
+  function cancelTakeHold() {
+    if (state.holdTimer) clearInterval(state.holdTimer);
+    state.holdTimer = null;
+    if (state.holdButton) {
+      state.holdButton.classList.remove('is-holding');
+      state.holdButton.style.setProperty('--hold-progress', '0%');
+      if (state.holdButton.isConnected && !state.holdButton.disabled) {
+        state.holdButton.innerHTML = 'Удерживай, чтобы взять <span class="hold-caption">1,5 сек.</span>';
+      }
+    }
+    state.holdButton = null;
+    state.holdStartedAt = 0;
+  }
+
+  function startTakeHold(button) {
+    if (!button || button.disabled || state.holdTimer) return;
+    const id = Number(button.dataset.take);
+    if (!id) return;
+    state.holdButton = button;
+    state.holdStartedAt = performance.now();
+    button.classList.add('is-holding');
+    button.innerHTML = 'Удерживай… <span class="hold-caption">1,5 сек.</span>';
+    state.holdTimer = setInterval(() => {
+      if (!state.holdButton || !state.holdButton.isConnected) { cancelTakeHold(); return; }
+      const progress = Math.min(1, (performance.now() - state.holdStartedAt) / 1500);
+      state.holdButton.style.setProperty('--hold-progress', `${Math.round(progress * 100)}%`);
+      if (progress >= 1) {
+        state.holdCompletedId = id;
+        const target = state.holdButton;
+        cancelTakeHold();
+        haptic('notificationOccurred');
+        decideListing(id, 'take');
+        if (target) target.textContent = 'Закрепляю…';
+      }
+    }, 16);
+  }
+
   function notify(message, success = false) {
     const toast = $('toast');
     toast.textContent = message;
@@ -366,7 +434,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     clearTimeout(state.toastHandle);
     state.toastHandle = setTimeout(() => toast.classList.remove('show'), 2600);
     if (success) {
-      try { tg?.HapticFeedback?.notificationOccurred('success'); } catch (_) {}
+      haptic('notificationOccurred')
     }
   }
 
@@ -376,7 +444,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     document.querySelectorAll('.page').forEach((el) => el.classList.toggle('active', el.id === `page-${name}`));
     document.querySelectorAll('.nav-item').forEach((el) => el.classList.toggle('active', el.dataset.page === name));
     if (name === 'profile') { renderProfile(); loadHistory().catch((error) => notify(error.message || 'История недоступна')); }
-    try { tg?.HapticFeedback?.selectionChanged(); } catch (_) {}
+    haptic('selectionChanged')
     window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     if (name === 'search' && state.searchCategory) {
       loadFeed({ silent: true }).catch(() => {});
@@ -386,9 +454,9 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     }
   }
 
-  const SEARCH_CATEGORIES = ['black', 'girls', 'cheap', 'medium', 'expensive'];
+  const SEARCH_CATEGORIES = ['girls', 'cheap', 'medium', 'expensive'];
   function categoryLabel(category) {
-    return ({ black: 'Black фон', girls: 'Девушки', cheap: 'Ширп', medium: 'Средние', expensive: 'Дорогие' })[category] || 'Листинг';
+    return ({ girls: 'Девушки', cheap: 'Ширп', medium: 'Средние', expensive: 'Дорогие' })[category] || 'Листинг';
   }
 
   async function chooseSearchCategory(category) {
@@ -399,6 +467,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     }
     stopPolling();
     state.searchCategory = category;
+    try { localStorage.setItem('giftScopeSearchCategory', category); } catch (_) {}
     state.heldListingId = null;
     state.items = [];
     state.feedPromise = null;
@@ -415,7 +484,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       button.classList.toggle('selected', active);
       button.setAttribute('aria-pressed', String(active));
     });
-    try { tg?.HapticFeedback?.selectionChanged(); } catch (_) {}
+    haptic('selectionChanged')
     await loadFeed({ silent: false });
     schedulePoll(2200);
   }
@@ -474,7 +543,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     const decisions = mode === 'feed' ? (isTaken ? `
       <div class="taken-state"><span>✓ ЛОТ ЗАКРЕПЛЁН ЗА ТОБОЙ</span><button type="button" class="decision-button next" data-next-feed>Следующий лот →</button></div>` : `
       <div class="decision-actions">
-        <button class="decision-button take" type="button" data-take="${Number(item.id)}">✓ Взять лот</button>
+        <button class="decision-button take" type="button" data-take="${Number(item.id)}" aria-label="Удерживай 1,5 секунды, чтобы закрепить лот">Удерживай, чтобы взять <span class="hold-caption">1,5 сек.</span></button>
         <button class="decision-button skip" type="button" data-skip="${Number(item.id)}">Пропустить →</button>
       </div>`) : '';
     return `
@@ -487,6 +556,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
             <div class="gift-title-row"><div><div class="gift-title">${title}</div><div class="gift-number">#${Number(item.gift_num || 0)} · ${relativeTime(item.detected_at)}</div></div><span class="category-tag">${categoryLabel(item.category)}</span></div>
             <div class="price-main">${Number(item.price_ton || 0).toFixed(2)} <span class="price-sub">TON</span></div>
             <div class="price-sub">${Number(item.price_stars || 0).toLocaleString('ru-RU')} Stars</div>
+            ${Number(item.floor_ton || 0) > 0 ? `<div class="price-sub">Флор коллекции: ${Number(item.floor_ton).toFixed(2)} TON</div>` : ''}
             ${discount !== null ? `<div class="discount-tag">${discount >= 0 ? `${discount}% ниже флора` : `${Math.abs(discount)}% выше флора`}</div>` : ''}
           </div>
         </div>
@@ -640,7 +710,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       state.trialStarted = true;
       $('trialStartCard').classList.add('hidden');
       notify('Бесплатный период запущен: 30 минут или 15 уникальных лотов.', true);
-      try { tg?.HapticFeedback?.notificationOccurred('success'); } catch (_) {}
+      haptic('notificationOccurred')
     } catch (error) {
       notify(error.message || 'Не удалось активировать бесплатный период');
     } finally {
@@ -655,7 +725,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       $('feedEmpty').classList.remove('hidden');
       $('feedList').classList.add('hidden');
       $('feedEmpty').querySelector('h2').textContent = 'Выбери направление';
-      $('feedEmpty').querySelector('p').textContent = 'Нажми одну из пяти категорий выше. Поиск идёт только по выбранному направлению.';
+      $('feedEmpty').querySelector('p').textContent = 'Нажми одно из четырёх направлений выше. Поиск идёт только по выбранному направлению.';
       return { items: [], count: 0, locked: false };
     }
     if (state.heldListingId !== null && state.items.some((item) => Number(item.id) === state.heldListingId && item._takenByMe)) {
@@ -717,6 +787,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
 
   function schedulePoll(delay = 2200) {
     stopPolling();
+    if (!state.autoRefreshEnabled) return;
     if (state.heldListingId !== null) return;
     if (document.visibilityState !== 'visible' || state.currentPage !== 'search' || !state.searchCategory || !state.initData) return;
     if (!state.subscribed && (state.freeLeft <= 0 || !state.trialActive)) {
@@ -751,6 +822,15 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     $('profilePlansBtn').textContent = data.subscribed ? 'Открыть управление доступом' : 'Выбрать тариф';
     $('messageTemplate').value = state.settings.messageTemplate || '';
     updateQuota(data);
+    if (state.searchCategory && (state.subscribed || state.trialActive)) {
+      document.querySelectorAll('[data-search-category]').forEach((button) => {
+        const active = button.dataset.searchCategory === state.searchCategory;
+        button.classList.toggle('selected', active);
+        button.setAttribute('aria-pressed', String(active));
+      });
+      await loadFeed({ silent: true });
+      schedulePoll(700);
+    }
     return data;
   }
 
@@ -820,6 +900,21 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     let savedSkin = 'water', savedAccent = 'mint';
     try { savedSkin = localStorage.getItem('giftScopeSkin') || savedSkin; savedAccent = localStorage.getItem('giftScopeAccent') || savedAccent; } catch (_) {}
     applyAppearance(savedSkin, savedAccent);
+    try {
+      state.hapticsEnabled = localStorage.getItem('giftScopeHaptics') !== '0';
+      state.autoRefreshEnabled = localStorage.getItem('giftScopeAutoRefresh') !== '0';
+      const savedCategory = localStorage.getItem('giftScopeSearchCategory') || '';
+      if (SEARCH_CATEGORIES.includes(savedCategory)) state.searchCategory = savedCategory;
+    } catch (_) {}
+    $('hapticsToggle').checked = state.hapticsEnabled;
+    $('autoRefreshToggle').checked = state.autoRefreshEnabled;
+    $('hapticsToggle').addEventListener('change', () => { state.hapticsEnabled = $('hapticsToggle').checked; saveProfilePreferences(); });
+    $('autoRefreshToggle').addEventListener('change', () => {
+      state.autoRefreshEnabled = $('autoRefreshToggle').checked;
+      saveProfilePreferences();
+      if (state.autoRefreshEnabled && state.currentPage === 'search' && state.searchCategory) schedulePoll(500);
+      else stopPolling();
+    });
     document.querySelectorAll('[data-skin-choice]').forEach((button) => button.addEventListener('click', () => applyAppearance(button.dataset.skinChoice, document.body.dataset.accent)));
     document.querySelectorAll('[data-accent-choice]').forEach((button) => button.addEventListener('click', () => applyAppearance(document.body.dataset.skin, button.dataset.accentChoice)));
     document.querySelectorAll('.nav-item').forEach((button) => button.addEventListener('click', () => setPage(button.dataset.page)));
@@ -845,9 +940,23 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     $('buyAccessBtn').addEventListener('click', openPlans);
     $('profilePlansBtn').addEventListener('click', openPlans);
     $('refreshHistoryBtn').addEventListener('click', () => loadHistory().then(() => notify('История обновлена', true)).catch((error) => notify(error.message || 'История недоступна')));
+    document.body.addEventListener('pointerdown', (event) => {
+      const take = event.target.closest('[data-take]');
+      if (take && event.button === 0) { event.preventDefault(); startTakeHold(take); }
+    });
+    document.body.addEventListener('pointerup', cancelTakeHold);
+    document.body.addEventListener('pointercancel', cancelTakeHold);
+    document.body.addEventListener('pointerout', (event) => {
+      if (state.holdButton && event.target === state.holdButton && !state.holdButton.contains(event.relatedTarget)) cancelTakeHold();
+    });
     document.body.addEventListener('click', (event) => {
       const take = event.target.closest('[data-take]');
-      if (take) { decideListing(Number(take.dataset.take), 'take'); return; }
+      if (take) {
+        const id = Number(take.dataset.take);
+        if (state.holdCompletedId === id) { state.holdCompletedId = null; return; }
+        if (event.detail === 0) { decideListing(id, 'take'); }
+        return;
+      }
       const skip = event.target.closest('[data-skip]');
       if (skip) { decideListing(Number(skip.dataset.skip), 'skip'); return; }
       const contact = event.target.closest('[data-contact]');
@@ -871,7 +980,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       $('feedEmpty').classList.remove('hidden');
       $('feedList').classList.add('hidden');
       $('feedEmpty').querySelector('h2').textContent = 'Выбери направление';
-      $('feedEmpty').querySelector('p').textContent = 'После входа нажми «Получить бесплатно», затем выбери одно из пяти направлений поиска.';
+      $('feedEmpty').querySelector('p').textContent = 'После входа нажми «Получить бесплатно», затем выбери одно из четырёх направлений поиска.';
       $('historyEmpty').classList.remove('hidden');
       $('profileName').textContent = 'Предпросмотр';
       $('profileUsername').textContent = 'Открой через Telegram для авторизации';
@@ -886,7 +995,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       await loadMe();
       await loadHistory();
       $('feedEmpty').querySelector('h2').textContent = 'Выбери направление';
-      $('feedEmpty').querySelector('p').textContent = 'Нажми одну из пяти категорий выше. Поиск пойдёт только по выбранному направлению.';
+      $('feedEmpty').querySelector('p').textContent = 'Нажми одно из четырёх направлений выше. Поиск пойдёт только по выбранному направлению.';
     } catch (error) {
       showGate(error.message || 'Не удалось подключиться к серверу. Проверь настройки приложения.');
     }
@@ -908,4 +1017,3 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   </script>
 </body>
 </html>
-
