@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090b13">
+  <meta name="color-scheme" content="dark">
+  <title>Gift Scope — NFT Trait Scanner</title>
+  <meta name="application-name" content="Gift Scope">
+  <style>
+:root{color-scheme:dark;--bg:#071318;--panel:#0d2026;--panel2:#10282f;--panel3:#142f36;--line:rgba(190,224,220,.13);--text:#eaf4f1;--muted:#8da7a4;--soft:#b6cac5;--accent:#73d8c8;--accent-ink:#06201d;--danger:#ff8b8b;--ok:#9fe0b0;--shadow:0 18px 48px rgba(0,0,0,.24);--radius:22px;--nav-h:76px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{min-height:100%;background:var(--bg)}body{margin:0;min-height:100vh;min-height:100dvh;background:var(--bg);overflow-x:hidden;font-weight:400;letter-spacing:-.018em}button,input,textarea{font:inherit}button{color:inherit}.hidden{display:none!important}
+body[data-skin="water"]{--bg:#071318;--panel:#0d2026;--panel2:#10282f;--panel3:#142f36;--line:rgba(190,224,220,.13);--text:#eaf4f1;--muted:#8da7a4;--soft:#b6cac5}
+body[data-skin="graphite"]{--bg:#111416;--panel:#1a2022;--panel2:#222a2c;--panel3:#2a3335;--line:rgba(220,230,224,.13);--text:#f0f3ef;--muted:#9ba6a1;--soft:#c2cbc5}
+body[data-skin="ice"]{--bg:#0b1821;--panel:#122530;--panel2:#17313e;--panel3:#1d3b49;--line:rgba(180,218,238,.15);--text:#edf6fb;--muted:#91aab8;--soft:#c2d5df}
+body[data-skin="moss"]{--bg:#101912;--panel:#19271e;--panel2:#203428;--panel3:#2b4032;--line:rgba(199,226,194,.14);--text:#eef5e9;--muted:#9eaf99;--soft:#c9d6c3}
+body[data-accent="mint"]{--accent:#73d8c8;--accent-ink:#06201d}body[data-accent="blue"]{--accent:#83b9ff;--accent-ink:#091a2b}body[data-accent="violet"]{--accent:#baa2ff;--accent-ink:#1d1235}body[data-accent="amber"]{--accent:#e7bc78;--accent-ink:#2a1b08}
+.water-film{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.19;mix-blend-mode:screen;animation:waterDrift 34s ease-in-out infinite alternate}.water-film rect{filter:url(#waterCaustics)}body[data-skin="graphite"] .water-film{opacity:.07}body[data-skin="ice"] .water-film{opacity:.15}body[data-skin="moss"] .water-film{opacity:.10}
+@keyframes waterDrift{from{transform:translate3d(-1.5%,0,0) scale(1.02)}to{transform:translate3d(1.5%,-1%,0) scale(1.06)}}
+.app{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 18px calc(var(--nav-h) + 32px + env(safe-area-inset-bottom));min-height:100svh;min-height:100dvh}.topbar{height:70px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:8;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(18px);margin:0 -18px;padding:0 20px}.brand-mark{width:37px;height:37px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:13px;background:var(--panel2);display:grid;place-items:center;position:relative;overflow:hidden}.brand-mark:before{content:"";width:18px;height:18px;border:1px solid var(--accent);border-radius:50%;box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 12%,transparent),0 0 0 10px color-mix(in srgb,var(--accent) 8%,transparent)}.brand-mark:after{content:"";position:absolute;width:4px;height:4px;border-radius:50%;background:var(--accent)}.brand-copy{display:grid;gap:3px}.brand-name{font-size:13px;font-weight:750;letter-spacing:.14em}.brand-sub{font-size:9px;color:var(--muted);letter-spacing:.15em}.live-state{margin-left:auto;display:flex;align-items:center;gap:8px;color:var(--muted);font-size:9px;letter-spacing:.12em}.live-dot{height:7px;width:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 13%,transparent)}
+.main-content{padding-top:27px}.page{display:none;animation:pageIn .24s ease both}.page.active{display:block}@keyframes pageIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}.eyebrow{font-size:9px;font-weight:750;color:var(--accent);letter-spacing:.2em;margin-bottom:12px;text-transform:uppercase}.hero-row{display:flex;align-items:center;justify-content:space-between;gap:15px}.hero-row h1,h1{font-size:clamp(35px,8vw,52px);line-height:1.02;font-weight:560;letter-spacing:-.065em;margin:0}.hero-row h1 em,h1 em{font-style:normal;color:var(--accent)}.muted{color:var(--muted)}.hero-desc{font-size:13px;line-height:1.55;max-width:290px;margin:13px 0 0}.mini-radar{width:82px;height:82px;flex:none;position:relative;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);background:var(--panel);overflow:hidden}.radar-ring{position:absolute;border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:50%;inset:13px}.ring-two{inset:28px}.radar-sweep{position:absolute;inset:0;border-left:1px solid var(--accent);transform:rotate(36deg);opacity:.6}.radar-core{position:absolute;width:7px;height:7px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;background:var(--accent)}
+.stats-strip{margin:25px 0 27px;background:var(--panel);border:1px solid var(--line);border-radius:19px;padding:16px;display:flex;align-items:center;gap:15px;position:relative;overflow:hidden;box-shadow:var(--shadow)}.stat-box{min-width:0;display:grid;gap:4px}.stat-label{color:var(--muted);font-size:10px;letter-spacing:.07em}.stat-box strong{font-size:27px;font-weight:560;line-height:1}.stat-box small{font-size:10px;color:var(--muted)}.stat-divider{height:38px;width:1px;background:var(--line)}.refresh-button{margin-left:auto;width:40px;height:40px;border-radius:13px;border:1px solid var(--line);background:var(--panel2);display:grid;place-items:center;cursor:pointer}.refresh-icon{font-size:23px;color:var(--accent);line-height:1}.refresh-button:active .refresh-icon{transform:rotate(160deg)}.filter-line{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.section-label{font-size:10px;color:var(--soft);letter-spacing:.16em;font-weight:750}.filter-status{font-size:9px;color:var(--muted);letter-spacing:.1em}
+.feed-list{display:grid;gap:13px}.listing-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:21px;background:var(--panel);padding:13px;box-shadow:var(--shadow);animation:cardIn .3s ease both}@keyframes cardIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}.listing-top{display:grid;grid-template-columns:104px minmax(0,1fr);gap:14px}.gift-image-wrap{width:104px;height:104px;border-radius:15px;background:var(--panel3);overflow:hidden;position:relative;border:1px solid var(--line)}.gift-image{width:100%;height:100%;object-fit:cover;display:block}.gift-image-fallback{height:100%;display:grid;place-items:center;background:var(--panel3);font-size:25px;font-weight:650;color:var(--accent)}.listing-data{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px}.gift-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}.gift-title{font-size:15px;font-weight:650;line-height:1.25;overflow-wrap:anywhere}.gift-number{color:var(--muted);font-size:10px;margin-top:4px}.category-tag{flex:none;padding:5px 7px;border-radius:7px;background:color-mix(in srgb,var(--accent) 12%,var(--panel));color:var(--accent);font-size:8px;letter-spacing:.08em;text-transform:uppercase}.price-main{font-size:25px;font-weight:600;letter-spacing:-.04em;line-height:1}.price-sub{font-size:10px;color:var(--muted)}.discount-tag{font-size:10px;color:var(--ok)}.listing-traits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:12px 0}.trait{padding:9px;background:var(--panel2);border:1px solid var(--line);border-radius:11px;min-width:0}.trait small{display:block;font-size:8px;color:var(--muted);letter-spacing:.08em;margin-bottom:5px}.trait b{display:block;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.trait em{display:block;font-size:9px;color:var(--muted);font-style:normal;margin-top:3px}.seller-row{display:flex;align-items:center;gap:9px;padding-top:10px;border-top:1px solid var(--line)}.seller-avatar{width:30px;height:30px;border-radius:10px;background:var(--panel3);display:grid;place-items:center;color:var(--accent);font-size:12px;flex:none}.seller-info{min-width:0;display:grid;gap:3px}.seller-link{color:var(--accent);text-decoration:none;font-size:12px;font-weight:650;overflow:hidden;text-overflow:ellipsis}.seller-details{font-size:9px;color:var(--muted)}.dm-state{margin-left:auto;font-size:9px;color:var(--ok);white-space:nowrap}.dm-state.paid{color:var(--danger)}.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}.card-button{height:39px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--soft);font-size:11px;font-weight:600;display:grid;place-items:center;text-decoration:none;cursor:pointer;transition:background .18s,transform .18s}.card-button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);box-shadow:none}.card-button:active,.mark-button:active{transform:scale(.985)}.card-button.disabled{opacity:.42;pointer-events:none}.mark-button{width:100%;height:37px;margin-top:8px;border:1px dashed color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:11px;background:color-mix(in srgb,var(--accent) 7%,var(--panel));color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.02em;cursor:pointer}.mark-button.done{border-style:solid;background:color-mix(in srgb,var(--ok) 10%,var(--panel));border-color:color-mix(in srgb,var(--ok) 35%,transparent);color:var(--ok)}
+.empty-state{border:1px solid var(--line);border-radius:22px;background:var(--panel);padding:30px 18px 26px;text-align:center;margin-top:12px}.radar-large{height:150px;width:150px;position:relative;margin:0 auto 15px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 22%,transparent)}.large-ring{position:absolute;border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);border-radius:50%;inset:17px}.large-ring.b{inset:42px}.large-sweep{position:absolute;inset:0;border-left:1px solid var(--accent);transform:rotate(45deg)}.large-core{position:absolute;inset:69px;border-radius:50%;background:var(--accent)}.empty-state h2{font-size:20px;font-weight:600;margin:0 0 8px}.empty-state p{font-size:12px;line-height:1.55;color:var(--muted);max-width:290px;margin:0 auto}.loading-line{height:2px;border-radius:6px;background:var(--panel3);overflow:hidden;margin:22px auto 0;max-width:180px}.loading-line span{display:block;width:40%;height:100%;border-radius:6px;background:var(--accent);animation:loading 1.8s ease-in-out infinite}@keyframes loading{0%{transform:translateX(-110%)}100%{transform:translateX(300%)}}.limit-panel{margin-top:16px;padding:22px;border:1px solid var(--line);border-radius:20px;background:var(--panel)}.limit-kicker{font-size:9px;letter-spacing:.15em;color:var(--accent)}.limit-panel h2{font-size:21px;font-weight:600;margin:9px 0}.limit-panel p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}
+.search-form{display:grid;grid-template-columns:1fr auto;gap:9px;margin:23px 0 12px}.search-form input,.field-input{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:14px;color:var(--text);outline:none;font-size:13px;transition:border-color .2s,box-shadow .2s}.search-form input:focus,.field-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}input::placeholder,textarea::placeholder{color:var(--muted)}.primary-button{border:0;border-radius:13px;background:var(--accent);color:var(--accent-ink);padding:0 19px;font-size:12px;font-weight:750;min-height:45px;cursor:pointer}.full-width{width:100%;margin-top:19px}.search-note{padding:13px 14px;background:var(--panel2);border-left:2px solid var(--accent);border-radius:0 12px 12px 0;color:var(--muted);font-size:11px;line-height:1.55;margin-bottom:20px}.search-results:empty{display:none}
+.portal-card{margin-top:25px;padding:26px 22px 24px;border:1px solid var(--line);border-radius:23px;background:var(--panel);text-align:center}.portal-orbit{width:130px;height:130px;margin:0 auto 26px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);position:relative}.portal-orbit:before,.portal-orbit:after{content:"";position:absolute;border:1px solid color-mix(in srgb,var(--accent) 20%,transparent);border-radius:50%;inset:17px}.portal-orbit:after{inset:43px}.portal-point{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--accent);top:15px;left:45px;animation:orbit 7s linear infinite;transform-origin:20px 50px}.portal-kicker{font-size:9px;color:var(--accent);letter-spacing:.17em}.portal-card h2{font-size:20px;font-weight:650;margin:10px 0}.portal-card p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}.portal-status{margin:20px auto 0;font-size:9px;letter-spacing:.11em;color:var(--muted)}.portal-status span{display:inline-block;width:6px;height:6px;background:var(--danger);border-radius:50%;margin-right:5px}
+.settings-card,.profile-card,.appearance-card{margin-top:20px;padding:19px;border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:var(--shadow)}.appearance-card{margin-top:18px}.appearance-title{font-size:12px;font-weight:750;letter-spacing:.04em;margin-bottom:5px}.appearance-help{font-size:10px;color:var(--muted);line-height:1.45;margin-bottom:16px}.field-label{display:block;color:var(--soft);font-size:11px;font-weight:650;margin:15px 0 8px}.field-label.spaced{margin-top:22px}.category-options{display:flex;flex-wrap:wrap;gap:7px}.chip{padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--muted);font-size:10px;cursor:pointer}.chip.selected{border-color:color-mix(in srgb,var(--accent) 60%,transparent);background:color-mix(in srgb,var(--accent) 13%,var(--panel));color:var(--accent)}.template-input{resize:vertical;min-height:100px}.template-help{font-size:10px;line-height:1.6;color:var(--muted);margin-top:9px}.saved-note{font-size:11px;color:var(--ok);text-align:center;margin-top:12px}.theme-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.theme-option{min-width:0;padding:7px 5px 8px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);display:grid;gap:7px;justify-items:center;cursor:pointer;color:var(--muted);font-size:9px}.theme-option[aria-pressed="true"]{border-color:var(--accent);color:var(--text);background:color-mix(in srgb,var(--accent) 9%,var(--panel2))}.theme-swatch{width:100%;height:33px;border-radius:7px;border:1px solid rgba(255,255,255,.13)}.sw-water{background-color:#0b252b}.sw-graphite{background-color:#272d2f}.sw-ice{background-color:#163646}.sw-moss{background-color:#23382a}.accent-row{display:flex;align-items:center;gap:10px;margin-top:17px}.accent-row>span{font-size:10px;color:var(--muted);margin-right:auto}.accent-option{width:25px;height:25px;border:2px solid transparent;border-radius:50%;padding:0;cursor:pointer}.accent-option[aria-pressed="true"]{outline:2px solid var(--text);outline-offset:3px}.accent-mint{background:#73d8c8}.accent-blue{background:#83b9ff}.accent-violet{background:#baa2ff}.accent-amber{background:#e7bc78}
+.profile-card{display:grid;grid-template-columns:54px minmax(0,1fr);align-items:center;gap:12px}.profile-avatar{width:54px;height:54px;border-radius:17px;background:var(--panel3);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);font-size:20px;font-weight:700}.profile-card h2{font-size:16px;margin:0 0 4px}.profile-card p{font-size:11px;margin:0}.plan-pill{grid-column:1/-1;justify-self:start;padding:7px 10px;border:1px solid var(--line);border-radius:8px;color:var(--accent);font-size:9px;letter-spacing:.1em}.quota-title{grid-column:1/-1;display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}.quota-title b{color:var(--text)}.quota-track{grid-column:1/-1;height:5px;border-radius:8px;background:var(--panel3);overflow:hidden}.quota-track span{height:100%;display:block;background:var(--accent);width:0}.profile-description{grid-column:1/-1;font-size:11px!important;line-height:1.5;color:var(--muted)}.profile-card .primary-button{grid-column:1/-1}.profile-info{display:flex;justify-content:space-between;gap:12px;padding:14px 2px;border-bottom:1px solid var(--line);font-size:11px}.profile-info span{color:var(--muted)}.profile-info b{font-weight:550;text-align:right}.history-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:20px 0 17px}.history-count{font-size:28px;font-weight:650;color:var(--accent);letter-spacing:-.05em}.history-caption{font-size:10px;color:var(--muted)}.history-note{font-size:11px;line-height:1.5;color:var(--muted);padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:15px 0}
+.bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);z-index:12;width:min(760px,100%);height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;background:color-mix(in srgb,var(--bg) 91%,transparent);border-top:1px solid var(--line);backdrop-filter:blur(20px)}.nav-item{border:0;background:transparent;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:var(--muted);font-size:9px;cursor:pointer}.nav-item.active{color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,transparent)}.nav-icon{font-size:18px;line-height:1;font-weight:500}.toast{position:fixed;z-index:30;left:50%;bottom:calc(var(--nav-h) + 15px + env(safe-area-inset-bottom));transform:translate(-50%,12px);max-width:calc(100vw - 32px);padding:12px 15px;border-radius:12px;background:var(--text);color:var(--bg);font-size:11px;font-weight:650;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;box-shadow:var(--shadow)}.toast.show{opacity:1;transform:translate(-50%,0)}.auth-gate{position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:35px 28px}.gate-mark{width:112px;height:112px;border-radius:30px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);background:var(--panel);display:grid;place-items:center;position:relative;margin-bottom:30px}.gate-mark:before,.gate-mark:after{content:"";position:absolute;border:1px solid var(--accent);border-radius:50%;width:63px;height:63px}.gate-mark:after{width:35px;height:35px}.gate-mark span:last-child{width:7px;height:7px;border-radius:50%;background:var(--accent)}.auth-gate .eyebrow{margin-bottom:24px}.auth-gate h1{font-size:clamp(35px,8vw,50px);line-height:1.05;max-width:520px}.auth-gate p{font-size:14px;line-height:1.6;color:var(--muted);max-width:360px;margin:26px auto 0}
+@media(max-width:390px){.app{padding-left:14px;padding-right:14px}.listing-top{grid-template-columns:88px minmax(0,1fr);gap:11px}.gift-image-wrap{width:88px;height:88px}.gift-title{font-size:14px}.price-main{font-size:23px}.stats-strip{gap:11px;padding:14px}.stat-box strong{font-size:24px}.theme-grid{gap:5px}.theme-option{font-size:8px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* Gift Scope v7: fluid water atmosphere, softer surfaces, fewer wireframe borders. */
+body::before,body::after{content:"";position:fixed;inset:-18%;pointer-events:none;z-index:0}
+body::before{background:radial-gradient(ellipse at 18% 25%,rgba(28,154,166,.20),transparent 38%),radial-gradient(ellipse at 78% 70%,rgba(32,100,172,.20),transparent 42%),radial-gradient(ellipse at 55% 8%,rgba(92,185,176,.10),transparent 36%);filter:blur(34px);animation:waterCurrent 22s ease-in-out infinite alternate;opacity:.9}
+body::after{inset:-22%;background:radial-gradient(ellipse at 68% 28%,rgba(70,170,190,.13),transparent 42%),radial-gradient(ellipse at 25% 78%,rgba(60,125,190,.12),transparent 45%),linear-gradient(118deg,transparent 24%,rgba(138,222,215,.045) 43%,transparent 61%);mix-blend-mode:screen;filter:blur(30px);opacity:.72;transform:rotate(-8deg) scale(1.05);animation:waterRipples 25s ease-in-out infinite alternate}
+@keyframes waterCurrent{0%{transform:translate3d(-2.2%,1%,0) scale(1)}50%{transform:translate3d(1.5%,-1.2%,0) scale(1.06)}100%{transform:translate3d(2.4%,1.4%,0) scale(1.02)}}
+@keyframes waterRipples{from{transform:rotate(-8deg) translate3d(-1.5%,.5%,0) scale(1.02)}to{transform:rotate(5deg) translate3d(1.5%,-1%,0) scale(1.10)}}
+.water-film{opacity:.13;mix-blend-mode:screen;filter:blur(.5px);animation:waterDrift 20s ease-in-out infinite alternate}
+body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacity:.05}
+.mini-radar,.radar-large{display:none!important}
+.stat-divider{display:none!important}
+.brand-mark:before{width:15px;height:15px;border:0;border-radius:70% 0 70% 70%;transform:rotate(45deg);background:var(--accent);box-shadow:0 0 18px color-mix(in srgb,var(--accent) 45%,transparent)}
+.brand-mark:after{display:none}
+.listing-traits .trait{border:0;background:rgba(255,255,255,.055);border-radius:13px}
+.seller-row{border-top:0;padding-top:5px}
+.card-button{border:0;background:rgba(255,255,255,.07);border-radius:13px}
+.card-button.primary{background:var(--accent)}
+.mark-button{border:0;border-radius:13px;background:color-mix(in srgb,var(--accent) 11%,var(--panel))}
+.profile-info{border-bottom:0}
+.app,.auth-gate{position:relative;z-index:1}
+.topbar{border-bottom:0;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 88%,transparent),color-mix(in srgb,var(--bg) 64%,transparent));}
+.stats-strip,.listing-card,.settings-card,.profile-card,.appearance-card,.history-note,.empty-state,.limit-panel{border:0;box-shadow:0 16px 42px rgba(0,0,0,.18)}
+.stats-strip{background:linear-gradient(135deg,color-mix(in srgb,var(--panel) 95%,var(--accent) 5%),color-mix(in srgb,var(--panel2) 85%,transparent));}
+.listing-card{background:linear-gradient(145deg,rgba(18,31,43,.96),rgba(8,19,29,.94));border-radius:24px;padding:14px}
+.gift-image-wrap,.refresh-button,.brand-mark,.profile-avatar,.plan-pill,.radar-ring,.mini-radar{border:0}
+.gift-image-wrap{border-radius:18px;overflow:hidden;background:rgba(255,255,255,.035)}
+.bottom-nav{border-top:0;background:color-mix(in srgb,var(--bg) 83%,transparent);box-shadow:0 -12px 36px rgba(0,0,0,.18)}
+.search-note,.history-note{border:0;border-left:0;border-radius:16px;background:rgba(255,255,255,.045)}
+.field-input,.search-form input,.trait-field select{border:0;background:rgba(255,255,255,.065);box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
+.field-input:focus,.trait-field select:focus{border:0;outline:1px solid color-mix(in srgb,var(--accent) 52%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent)}
+.chip,.theme-option{border:0;background:rgba(255,255,255,.055)}
+.chip.selected,.theme-option[aria-pressed="true"]{background:color-mix(in srgb,var(--accent) 17%,var(--panel2));border:0}
+.trait-search-form{margin:22px 0 16px;padding:17px;border-radius:22px;background:linear-gradient(145deg,rgba(16,37,48,.94),rgba(8,20,30,.94));box-shadow:0 18px 48px rgba(0,0,0,.20)}
+.trait-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.trait-field{display:grid;gap:7px;min-width:0}
+.trait-field span{font-size:9px;color:var(--muted);font-weight:750;letter-spacing:.16em}
+.trait-field select{width:100%;height:48px;padding:0 14px;border-radius:14px;color:var(--text);font-size:13px;appearance:none;background-color:rgba(255,255,255,.075);background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 18px) 20px,calc(100% - 13px) 20px;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.trait-field select option{background:#10232d;color:#eef8f7}
+.trait-footnote{font-size:10px;line-height:1.5;color:var(--muted);padding:11px 2px 13px}
+.trait-submit{width:100%;min-height:48px;border-radius:15px;box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 15%,transparent)}
+ .water-loader{height:34px;display:flex;align-items:center;justify-content:center;gap:6px;margin:0 auto 15px}
+.water-loader span{display:block;width:6px;height:12px;border-radius:99px;background:var(--accent);opacity:.55;animation:waterPulse 1.05s ease-in-out infinite}
+.water-loader span:nth-child(2){height:21px;animation-delay:.14s}.water-loader span:nth-child(3){animation-delay:.28s}
+@keyframes waterPulse{0%,100%{transform:scaleY(.62);opacity:.42}50%{transform:scaleY(1.35);opacity:1}}
+#filterOptionsStatus{font-size:10px;color:var(--muted);line-height:1.45;margin:10px 2px 16px}
+.trait-actions{display:grid;gap:9px}.trait-reset{width:100%;min-height:42px;border:0;border-radius:13px;background:rgba(255,255,255,.055);color:var(--muted);font-size:11px;font-weight:650;cursor:pointer}.trait-reset:active{transform:scale(.99)}
+.trait-search-form{background:linear-gradient(145deg,rgba(18,49,58,.88),rgba(8,24,34,.91));box-shadow:0 18px 42px rgba(0,0,0,.16)}
+.trait-field select{transition:background .2s,box-shadow .2s}.trait-field select:focus{outline:2px solid color-mix(in srgb,var(--accent) 42%,transparent);outline-offset:1px}
+.listing-card{backdrop-filter:blur(12px)}
+@media(prefers-reduced-motion:reduce){.listing-card,.page{animation:none!important}}
+@media(min-width:680px){.trait-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.trait-search-form{padding:20px}}
+@media(prefers-reduced-motion:reduce){body::before,body::after{animation:none}.water-film{animation:none}}
+
+</style>
+  <link rel="preconnect" href="https://nft.fragment.com" crossorigin>
+</head>
+<body data-skin="water" data-accent="mint">
+  <svg class="water-film" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <defs><filter id="waterCaustics" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".016 .029" numOctaves="2" seed="12" result="noise">
+        <animate attributeName="baseFrequency" dur="18s" values=".016 .029;.024 .041;.016 .029" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDiffuseLighting in="noise" lighting-color="#83d8d0" surfaceScale="5" diffuseConstant="1.15" result="light">
+        <feDistantLight azimuth="235" elevation="58"><animate attributeName="azimuth" dur="28s" values="210;300;210" repeatCount="indefinite"/></feDistantLight>
+      </feDiffuseLighting>
+      <feColorMatrix in="light" type="saturate" values="0"/>
+    </filter></defs><rect width="100%" height="100%" fill="#9bd8d1"/>
+  </svg>
+  <div id="authGate" class="auth-gate hidden">
+    <div class="gate-mark"><span></span><span></span><span></span></div>
+    <div class="eyebrow">GIFT SCOPE</div>
+    <h1>Открой трекер<br>в Telegram</h1>
+    <p>Авторизация доступна только через твоё Telegram-приложение.</p>
+  </div>
+
+  <div id="app" class="app hidden">
+    <header class="topbar">
+      <div class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="brand-copy"><div class="brand-name">GIFT SCOPE</div><div class="brand-sub">NFT TRAIT INDEX · LIVE</div></div>
+      <div class="live-state"><span class="live-dot"></span><span id="liveText">ПОДКЛЮЧЕНИЕ</span></div>
+    </header>
+
+    <main id="mainContent" class="main-content">
+      <section id="page-feed" class="page active">
+        <div class="hero-row">
+          <div>
+            <div class="eyebrow">MARKET WATCH</div>
+            <h1>Новые<br><em>поступления</em></h1>
+            <p class="muted hero-desc">Лоты, которые прошли проверку владельца и фильтры.</p>
+          </div>
+          
+        </div>
+        <div class="stats-strip">
+          <div class="stat-box"><span class="stat-label">В доступе</span><strong id="freeLeft">15</strong><small id="freeCaption">бесплатных лотов</small></div>
+          <div class="stat-divider"></div>
+          <div class="stat-box"><span class="stat-label">В ленте</span><strong id="feedCount">—</strong><small>найдено системой</small></div>
+          <button class="refresh-button" id="refreshBtn" aria-label="Обновить ленту" type="button"><span class="refresh-icon">↻</span></button>
+        </div>
+        <div class="filter-line">
+          <div class="section-label">ПОСЛЕДНИЕ ЛОТЫ</div>
+          <div class="filter-status" id="filterStatus">ВСЕ КАТЕГОРИИ</div>
+        </div>
+        <div id="feedList" class="feed-list" aria-live="polite" aria-relevant="additions"></div>
+        <div id="feedEmpty" class="empty-state hidden">
+          <div class="water-loader" aria-hidden="true"><span></span><span></span><span></span></div>
+          <h2>Сканирую рынок</h2>
+          <p>Новые подходящие лоты появятся здесь автоматически.</p>
+          <div class="loading-line"><span></span></div>
+        </div>
+        <div id="freeLimitPanel" class="limit-panel hidden"><div class="limit-kicker">БЕСПЛАТНЫЙ ЛИМИТ ИСЧЕРПАН</div><h2>15 карточек уже доступны</h2><p>Чтобы продолжить получать новые листинги, открой тарифы в боте.</p><button id="buyAccessBtn" class="primary-button full-width">Открыть тарифы</button></div>
+      </section>
+
+      <section id="page-search" class="page">
+        <div class="eyebrow">TRAIT INDEX SEARCH</div>
+        <h1>Поиск<br><em>по фильтрам</em></h1>
+        <p class="muted">Не ищем название подарка. Выбирай модель, фон, узор и их редкость — база ищет точные совпадения по индексам.</p>
+        <form id="searchForm" class="trait-search-form" autocomplete="off">
+          <div class="trait-grid">
+            <label class="trait-field" for="searchModel"><span>МОДЕЛЬ</span><select id="searchModel"><option value="">Любая модель</option></select></label>
+            <label class="trait-field" for="searchModelRarity"><span>РЕДКОСТЬ МОДЕЛИ</span><select id="searchModelRarity"><option value="">Любая редкость</option></select></label>
+            <label class="trait-field" for="searchBackdrop"><span>ФОН</span><select id="searchBackdrop"><option value="">Любой фон</option></select></label>
+            <label class="trait-field" for="searchBackdropRarity"><span>РЕДКОСТЬ ФОНА</span><select id="searchBackdropRarity"><option value="">Любая редкость</option></select></label>
+            <label class="trait-field" for="searchPattern"><span>УЗОР</span><select id="searchPattern"><option value="">Любой узор</option></select></label>
+            <label class="trait-field" for="searchPatternRarity"><span>РЕДКОСТЬ УЗОРА</span><select id="searchPatternRarity"><option value="">Любая редкость</option></select></label>
+          </div>
+          <div class="trait-footnote" id="traitFootnote">Цена и дополнительные ограничения берутся из раздела «Настройки».</div>
+          <div class="trait-actions"><button type="submit" class="primary-button trait-submit">Найти подходящие лоты</button><button type="button" id="resetTraitFilters" class="trait-reset">Сбросить фильтры</button></div>
+        </form>
+        <div class="search-note" id="filterOptionsStatus">Загружаю реальные характеристики из индекса сканера…</div>
+        <div id="searchResults" class="feed-list search-results"></div>
+      </section>
+
+      <section id="page-history" class="page">
+        <div class="eyebrow">YOUR PICKS</div>
+        <h1>Твоя<br><em>история</em></h1>
+        <div class="history-head"><div><div class="history-count" id="historyCount">0</div><div class="history-caption">отмечено тобой</div></div><div class="history-caption">Личные отметки · только твой аккаунт</div></div>
+        <div class="history-note">Нажимай «Забрал» на карточке, чтобы сохранить её здесь. Это твоя личная отметка, а не подтверждение оплаты или передачи NFT.</div>
+        <div id="historyList" class="feed-list"></div>
+        <div id="historyEmpty" class="empty-state"><h2>Пока ничего нет</h2><p>Отмеченные тобой лоты появятся здесь. История привязана к твоему Telegram-аккаунту.</p></div>
+      </section>
+
+
+
+      <section id="page-settings" class="page">
+        <div class="eyebrow">PERSONAL FILTERS</div>
+        <h1>Твои<br><em>настройки</em></h1>
+        <div class="appearance-card">
+          <div class="appearance-title">Внешний вид</div>
+          <div class="appearance-help">Выбери атмосферу интерфейса и цвет акцентов. Изменения сохраняются на этом устройстве.</div>
+          <div class="theme-grid" role="group" aria-label="Фон приложения">
+            <button type="button" class="theme-option" data-skin-choice="water" aria-pressed="true"><span class="theme-swatch sw-water"></span><span>Вода</span></button>
+            <button type="button" class="theme-option" data-skin-choice="graphite" aria-pressed="false"><span class="theme-swatch sw-graphite"></span><span>Графит</span></button>
+            <button type="button" class="theme-option" data-skin-choice="ice" aria-pressed="false"><span class="theme-swatch sw-ice"></span><span>Лёд</span></button>
+            <button type="button" class="theme-option" data-skin-choice="moss" aria-pressed="false"><span class="theme-swatch sw-moss"></span><span>Мох</span></button>
+          </div>
+          <div class="accent-row" role="group" aria-label="Цвет акцента"><span>Цвет акцента</span>
+            <button type="button" class="accent-option accent-mint" data-accent-choice="mint" aria-label="Мятный" aria-pressed="true"></button>
+            <button type="button" class="accent-option accent-blue" data-accent-choice="blue" aria-label="Синий" aria-pressed="false"></button>
+            <button type="button" class="accent-option accent-violet" data-accent-choice="violet" aria-label="Фиолетовый" aria-pressed="false"></button>
+            <button type="button" class="accent-option accent-amber" data-accent-choice="amber" aria-label="Янтарный" aria-pressed="false"></button>
+          </div>
+        </div>
+        <div class="settings-card">
+          <label class="field-label" for="minTon">Минимальная цена, TON</label>
+          <input id="minTon" class="field-input" type="number" min="0" step="0.01" placeholder="Без ограничения">
+          <label class="field-label" for="maxTon">Максимальная цена, TON</label>
+          <input id="maxTon" class="field-input" type="number" min="0" step="0.01" placeholder="Без ограничения">
+          <div class="field-label spaced">Категории</div>
+          <div class="category-options" id="categoryOptions">
+            <button type="button" class="chip selected" data-category="all">Все</button>
+            <button type="button" class="chip" data-category="cheap">Недорогие</button>
+            <button type="button" class="chip" data-category="medium">Средние</button>
+            <button type="button" class="chip" data-category="expensive">Дорогие</button>
+            <button type="button" class="chip" data-category="girls">Девушки</button>
+            <button type="button" class="chip" data-category="black">Чёрный фон</button>
+          </div>
+          <label class="field-label spaced" for="messageTemplate">Шаблон сообщения продавцу</label>
+          <textarea id="messageTemplate" class="field-input template-input" rows="4" maxlength="1200" placeholder="Здравствуйте! Интересует {gift} #{id} по цене {price} TON."></textarea>
+          <div class="template-help"><b>{id}</b> номер NFT · <b>{user}</b> username · <b>{nft}</b> ссылка · <b>{price}</b> цена · <b>{gift}</b> подарок</div>
+          <button id="saveSettings" class="primary-button full-width">Сохранить настройки</button>
+          <div id="settingsSaved" class="saved-note hidden">Настройки сохранены</div>
+        </div>
+      </section>
+
+      <section id="page-profile" class="page">
+        <div class="eyebrow">YOUR ACCOUNT</div>
+        <h1>Профиль<br><em>доступа</em></h1>
+        <div class="profile-card">
+          <div class="profile-avatar" id="profileAvatar">G</div>
+          <div><h2 id="profileName">Пользователь Telegram</h2><p id="profileUsername" class="muted">Загрузка...</p></div>
+          <div class="plan-pill" id="planPill">FREE ACCESS</div>
+          <div class="quota-title"><span>Бесплатные лоты</span><b id="quotaText">0 / 15</b></div>
+          <div class="quota-track"><span id="quotaBar"></span></div>
+          <p id="planDescription" class="profile-description">15 карточек доступны бесплатно для первого знакомства с трекером.</p>
+          <button id="profilePlansBtn" class="primary-button full-width">Управление доступом</button>
+        </div>
+        <div class="profile-info"><span>Статус сервиса</span><b id="serviceStatus">Подключение...</b></div>
+        <div class="profile-info"><span>Источник username</span><b>Telegram / ответ PricerApp</b></div>
+        <div class="profile-info"><span>Сессии Telegram</span><b>Хранятся только на сервере</b></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Навигация">
+      <button class="nav-item active" data-page="feed"><span class="nav-icon">⌂</span><span>Лента</span></button>
+      <button class="nav-item" data-page="search"><span class="nav-icon">⌕</span><span>Поиск</span></button>
+      <button class="nav-item" data-page="history"><span class="nav-icon">▤</span><span>История</span></button>
+      <button class="nav-item" data-page="settings"><span class="nav-icon">☷</span><span>Настройки</span></button>
+      <button class="nav-item" data-page="profile"><span class="nav-icon">◎</span><span>Профиль</span></button>
+    </nav>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+(() => {
+  'use strict';
+  const GIFT_SCOPE_FRONTEND_VERSION = '8.0-trait-search';
+
+  const tg = window.Telegram?.WebApp || null;
+  // The bot injects the current tokenless Quick Tunnel URL in ?api=... .
+  // Direct GitHub Pages opens without this parameter are intentionally blocked.
+  const API_BASE = (() => {
+    try {
+      const raw = new URLSearchParams(window.location.search).get('api') || '';
+      const parsed = new URL(raw);
+      return parsed.protocol === 'https:' && !parsed.username && !parsed.password
+        && parsed.hostname.endsWith('.trycloudflare.com')
+        ? parsed.origin : '';
+    } catch (_) { return ''; }
+  })();
+  const state = {
+    initData: tg?.initData || '',
+    user: null,
+    settings: { query: '', minTon: '', maxTon: '', onlyFreeDm: true, categories: [], model: '', model_rarity: '', backdrop: '', backdrop_rarity: '', pattern: '', pattern_rarity: '', messageTemplate: '' },
+    currentPage: 'feed',
+    currentQuery: '',
+    items: [],
+    knownIds: new Set(),
+    firstLoad: true,
+    subscribed: false,
+    botUsername: '',
+    pollHandle: null,
+    toastHandle: null,
+    feedPromise: null,
+    pollFailures: 0,
+    searchSequence: 0,
+    settingsBusy: false,
+    freeLeft: 15,
+    claimedIds: new Set(),
+    historyItems: []
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  })[c]);
+
+  function showGate(message) {
+    $('authGate').classList.remove('hidden');
+    $('app').classList.add('hidden');
+    if (message) $('authGate').querySelector('p').textContent = message;
+  }
+
+  async function api(path, options = {}) {
+    if (!API_BASE || API_BASE.includes('REPLACE-ME')) {
+      throw new Error('Открой приложение через кнопку меню Telegram-бота после запуска сервера.');
+    }
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), options.timeout || 12000);
+    try {
+      const response = await fetch(`${API_BASE}${path}`, {
+        method: options.method || 'GET',
+        headers: {
+          'X-Telegram-Init-Data': state.initData,
+          ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+          ...(options.headers || {})
+        },
+        body: options.body ? JSON.stringify(options.body) : undefined,
+        cache: 'no-store',
+        credentials: 'omit',
+        signal: controller.signal
+      });
+      if (!response.ok) {
+        const message = await response.text().catch(() => 'Ошибка запроса');
+        if (response.status === 401) throw new Error('Сессия Telegram устарела. Закрой и заново открой приложение.');
+        if (response.status === 429) throw new Error('Слишком много запросов. Сделай небольшую паузу.');
+        throw new Error(message || `HTTP ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      if (error?.name === 'AbortError') throw new Error('Сервер отвечает слишком долго. Повторю запрос автоматически.');
+      throw error;
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  function notify(message, success = false) {
+    const toast = $('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(state.toastHandle);
+    state.toastHandle = setTimeout(() => toast.classList.remove('show'), 2600);
+    if (success) {
+      try { tg?.HapticFeedback?.notificationOccurred('success'); } catch (_) {}
+    }
+  }
+
+  function setPage(name) {
+    if (!['feed', 'search', 'history', 'settings', 'profile'].includes(name)) return;
+    state.currentPage = name;
+    document.querySelectorAll('.page').forEach((el) => el.classList.toggle('active', el.id === `page-${name}`));
+    document.querySelectorAll('.nav-item').forEach((el) => el.classList.toggle('active', el.dataset.page === name));
+    if (name === 'profile') renderProfile();
+    if (name === 'search' && state.initData) loadFilterOptions().catch((error) => notify(error.message || 'Не удалось обновить фильтры'));
+    if (name === 'history') loadHistory().catch((error) => notify(error.message || 'История недоступна'));
+    try { tg?.HapticFeedback?.selectionChanged(); } catch (_) {}
+    window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    if (name === 'feed') {
+      loadFeed({ silent: true }).catch(() => {});
+      schedulePoll(2200);
+    } else {
+      stopPolling();
+    }
+  }
+
+  function categoryLabel(category) {
+    return ({ cheap: 'Недорогой', medium: 'Средний', expensive: 'Дорогой', girls: 'Девушки', black: 'Чёрный фон', unknown: 'Новый' })[category] || 'Листинг';
+  }
+
+  function relativeTime(value) {
+    if (!value) return 'только что';
+    let date = new Date(value.replace(' ', 'T'));
+    if (Number.isNaN(date.getTime())) {
+      const match = String(value).match(/^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2}):(\d{2})$/);
+      if (match) date = new Date(Number(match[3]), Number(match[2]) - 1, Number(match[1]), Number(match[4]), Number(match[5]), Number(match[6]));
+    }
+    if (Number.isNaN(date.getTime())) return 'только что';
+    const minutes = Math.max(0, Math.floor((Date.now() - date.getTime()) / 60000));
+    if (minutes < 1) return 'только что';
+    if (minutes < 60) return `${minutes} мин. назад`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours} ч. назад`;
+    return `${Math.floor(hours / 24)} д. назад`;
+  }
+
+  function messageFor(item) {
+    const template = state.settings.messageTemplate || 'Здравствуйте! Интересует {gift} #{id} по цене {price} TON.\n{nft}';
+    return template
+      .replaceAll('{id}', String(item.gift_num || ''))
+      .replaceAll('{user}', item.seller_username ? `@${item.seller_username}` : '')
+      .replaceAll('{nft}', item.nft_url || '')
+      .replaceAll('{price}', String(item.price_ton ?? ''))
+      .replaceAll('{gift}', String(item.gift_name || ''));
+  }
+
+  function listingCard(item, index = 0, historyMode = false) {
+    const slug = escapeHtml(item.slug || '');
+    const title = escapeHtml(item.gift_name || 'Подарок');
+    const username = escapeHtml(item.seller_username || '');
+    const image = escapeHtml(item.image_url || '');
+    const dmPaid = Boolean(item.seller_paid_dm);
+    const discount = item.discount_pct !== null && item.discount_pct !== undefined && item.discount_pct !== '' && Number.isFinite(Number(item.discount_pct)) ? Number(item.discount_pct) : null;
+    const traits = [
+      ['МОДЕЛЬ', item.model, item.model_rarity],
+      ['ФОН', item.backdrop, item.backdrop_rarity],
+      ['УЗОР', item.pattern, item.pattern_rarity]
+    ];
+    const traitHtml = traits.map(([label, name, rarity]) => `
+      <div class="trait"><small>${label}</small><b>${escapeHtml(name || '—')}</b><em>${rarity ? `${escapeHtml(rarity)}%` : ' '}</em></div>
+    `).join('');
+    const openNft = item.nft_url ? `<a class="card-button" href="${escapeHtml(item.nft_url)}" data-open-url="${escapeHtml(item.nft_url)}">Открыть NFT</a>` : '<span class="card-button disabled">NFT недоступен</span>';
+    const canMessage = username && !dmPaid;
+    const contact = canMessage
+      ? `<button class="card-button primary" data-contact="${Number(item.id)}">Написать продавцу</button>`
+      : `<span class="card-button disabled">${dmPaid ? 'ЛС платное' : 'Нет username'}</span>`;
+    const isClaimed = state.claimedIds.has(Number(item.id));
+    const markAction = historyMode
+      ? `<button class="mark-button done" data-unclaim="${Number(item.id)}">Убрать из истории</button>`
+      : `<button class="mark-button ${isClaimed ? 'done' : ''}" data-claim="${Number(item.id)}">${isClaimed ? '✓ В твоей истории' : '＋ Забрал — добавить в историю'}</button>`;
+    const owner = username
+      ? `<a class="seller-link" href="https://t.me/${username}" data-open-url="https://t.me/${username}">@${username}</a>`
+      : `<span class="seller-link">Владелец без username</span>`;
+    return `
+      <article class="listing-card" data-id="${Number(item.id)}" style="animation-delay:${Math.min(index, 6) * 35}ms">
+        <div class="listing-top">
+          <div class="gift-image-wrap">
+            ${image ? `<img class="gift-image" src="${image}" alt="${title}" loading="lazy" decoding="async" width="104" height="104" referrerpolicy="no-referrer">` : `<div class="gift-image-fallback">${escapeHtml((item.gift_name || 'G').slice(0,1).toUpperCase())}</div>`}
+          </div>
+          <div class="listing-data">
+            <div class="gift-title-row"><div><div class="gift-title">${title}</div><div class="gift-number">#${Number(item.gift_num || 0)} · ${relativeTime(item.detected_at)}</div></div><span class="category-tag">${categoryLabel(item.category)}</span></div>
+            <div class="price-main">${Number(item.price_ton || 0).toFixed(2)} <span class="price-sub">TON</span></div>
+            <div class="price-sub">${Number(item.price_stars || 0).toLocaleString('ru-RU')} Stars</div>
+            ${discount !== null ? `<div class="discount-tag">${discount >= 0 ? `${discount}% ниже флора` : `${Math.abs(discount)}% выше флора`}</div>` : ''}
+          </div>
+        </div>
+        <div class="listing-traits">${traitHtml}</div>
+        <div class="seller-row">
+          <div class="seller-avatar">${username ? escapeHtml(username.slice(0,1).toUpperCase()) : '—'}</div>
+          <div class="seller-info">${owner}<span class="seller-details">Уровень ${Number(item.seller_level || 0)} · ${item.seller_premium ? 'Premium' : 'Обычный аккаунт'}</span></div>
+          <div class="dm-state ${dmPaid ? 'paid' : ''}">${dmPaid ? `Платно · ${Number(item.seller_paid_stars || 0)} Stars` : 'ЛС бесплатно'}</div>
+        </div>
+        <div class="card-actions">${openNft}${contact}</div>
+        ${markAction}
+      </article>`;
+  }
+
+  function renderItems(container, items, historyMode = false) {
+    const existing = new Map([...container.querySelectorAll('.listing-card')]
+      .map((node) => [node.dataset.id, node]));
+    const nextIds = items.map((item) => String(Number(item.id)));
+    const currentIds = [...container.querySelectorAll('.listing-card')].map((node) => node.dataset.id);
+    if (currentIds.length === nextIds.length && currentIds.every((id, index) => id === nextIds[index])) return;
+
+    // Reconcile in place. Existing cards stay attached, so their images, scroll
+    // positions and entrance animations are not restarted when one new lot arrives.
+    let anchor = container.firstElementChild;
+    items.forEach((item, index) => {
+      const key = String(Number(item.id));
+      let card = existing.get(key);
+      if (card) {
+        existing.delete(key);
+      } else {
+        const template = document.createElement('template');
+        template.innerHTML = listingCard(item, index, historyMode).trim();
+        card = template.content.firstElementChild;
+        const image = card?.querySelector('.gift-image');
+        if (image) {
+          image.addEventListener('error', () => {
+            const fallback = document.createElement('div');
+            fallback.className = 'gift-image-fallback';
+            fallback.textContent = String(item.gift_name || 'G').slice(0, 1).toUpperCase();
+            image.replaceWith(fallback);
+          }, { once: true });
+        }
+      }
+      if (!card) return;
+      if (card !== anchor) container.insertBefore(card, anchor);
+      else anchor = anchor.nextElementSibling;
+    });
+    existing.forEach((card) => card.remove());
+  }
+
+  async function loadHistory() {
+    const data = await api('/api/v1/history');
+    state.historyItems = data.items || [];
+    state.claimedIds = new Set(state.historyItems.map((item) => Number(item.id)));
+    $('historyCount').textContent = String(data.count ?? state.historyItems.length);
+    $('historyEmpty').classList.toggle('hidden', state.historyItems.length > 0);
+    $('historyList').classList.toggle('hidden', state.historyItems.length === 0);
+    renderItems($('historyList'), state.historyItems, true);
+    syncClaimButtons();
+    return data;
+  }
+
+  function syncClaimButtons() {
+    document.querySelectorAll('[data-claim]').forEach((button) => {
+      const id = Number(button.dataset.claim);
+      const marked = state.claimedIds.has(id);
+      button.classList.toggle('done', marked);
+      button.textContent = marked ? '✓ В твоей истории' : '＋ Забрал — добавить в историю';
+    });
+  }
+
+  async function setClaimed(id, shouldClaim) {
+    const item = [...state.items, ...(state.lastSearchItems || [])].find((row) => Number(row.id) === id);
+    if (!item && shouldClaim) { notify('Карточка уже недоступна'); return; }
+    try {
+      await api(`/api/v1/history/${id}`, { method: shouldClaim ? 'POST' : 'DELETE' });
+      if (shouldClaim) state.claimedIds.add(id); else state.claimedIds.delete(id);
+      syncClaimButtons();
+      await loadHistory();
+      notify(shouldClaim ? 'Добавлено в твою историю' : 'Удалено из истории', true);
+    } catch (error) {
+      notify(error.message || 'Не удалось обновить историю');
+    }
+  }
+
+  function updateQuota(data) {
+    const limit = Number(data.free_limit || 15);
+    const used = Number(data.free_used || 0);
+    const left = Math.max(0, Number(data.free_left ?? (limit - used)));
+    state.freeLeft = left;
+    $('freeLeft').textContent = data.subscribed ? '∞' : String(left);
+    $('freeCaption').textContent = data.subscribed ? 'полный доступ' : 'бесплатных лотов осталось';
+    $('feedCount').textContent = String(data.count ?? state.items.length);
+    $('quotaText').textContent = `${Math.min(used, limit)} / ${limit}`;
+    $('quotaBar').style.width = `${Math.min(100, used / limit * 100)}%`;
+    $('freeLimitPanel').classList.toggle('hidden', data.subscribed || !data.locked);
+    $('planDescription').textContent = data.subscribed
+      ? `Полный доступ активен${data.expires_at ? ` до ${new Date(data.expires_at).toLocaleDateString('ru-RU')}` : ''}.`
+      : `Осталось ${left} из ${limit} бесплатных карточек. Лимит считается по уникальным лотам, повторные обновления его не расходуют.`;
+  }
+
+  async function loadFeed({ silent = false } = {}) {
+    if (state.feedPromise) return state.feedPromise;
+
+    const task = (async () => {
+      try {
+        if (!silent && state.items.length === 0) $('feedEmpty').classList.remove('hidden');
+        const data = await api('/api/v1/feed?limit=20');
+        const items = data.items || [];
+        const newlySeen = items.filter((item) => !state.knownIds.has(Number(item.id)));
+        if (!state.firstLoad && newlySeen.length) {
+          const first = newlySeen[0];
+          notify(`Новый лот: ${first.gift_name} #${first.gift_num}`, true);
+        }
+        items.forEach((item) => state.knownIds.add(Number(item.id)));
+        state.items = items;
+        updateQuota(data);
+        $('feedEmpty').classList.toggle('hidden', items.length > 0);
+        $('feedList').classList.toggle('hidden', items.length === 0);
+        $('filterStatus').textContent = (state.settings.categories?.length || state.settings.model || state.settings.backdrop || state.settings.pattern) ? 'ПО ФИЛЬТРАМ' : 'БЕЗ ОГРАНИЧЕНИЙ';
+        $('liveText').textContent = 'МОНИТОРИНГ';
+        $('serviceStatus').textContent = 'Онлайн';
+        renderItems($('feedList'), items);
+        state.firstLoad = false;
+        state.pollFailures = 0;
+        return data;
+      } catch (error) {
+        state.pollFailures += 1;
+        $('liveText').textContent = 'НЕТ СВЯЗИ';
+        $('serviceStatus').textContent = 'Нет связи';
+        if (!silent) notify(error.message || 'Не удалось загрузить ленту');
+        if (state.items.length === 0) {
+          $('feedEmpty').classList.remove('hidden');
+          $('feedEmpty').querySelector('h2').textContent = 'Связь с сервером потеряна';
+          $('feedEmpty').querySelector('p').textContent = error.message || 'Повторяю подключение автоматически.';
+        }
+        throw error;
+      }
+    })();
+    state.feedPromise = task;
+    try {
+      return await task;
+    } finally {
+      if (state.feedPromise === task) state.feedPromise = null;
+    }
+  }
+
+  function stopPolling() {
+    if (state.pollHandle) clearTimeout(state.pollHandle);
+    state.pollHandle = null;
+  }
+
+  function schedulePoll(delay = 2200) {
+    stopPolling();
+    if (document.visibilityState !== 'visible' || state.currentPage !== 'feed' || !state.initData) return;
+    if (!state.subscribed && state.freeLeft <= 0) {
+      $('liveText').textContent = 'ЛИМИТ ИСЧЕРПАН';
+      return;
+    }
+    state.pollHandle = setTimeout(async () => {
+      try {
+        await loadFeed({ silent: true });
+      } catch (_) {
+        // Retry with bounded backoff; do not stack parallel requests.
+      }
+      const backoff = Math.min(30000, 2200 * (2 ** Math.min(state.pollFailures, 3)));
+      schedulePoll(state.pollFailures ? backoff : 2200);
+    }, delay);
+  }
+
+  async function loadMe() {
+    const data = await api('/api/v1/me');
+    state.user = data.user;
+    state.settings = data.settings || state.settings;
+    state.subscribed = Boolean(data.subscribed);
+    state.botUsername = data.bot_username || '';
+    $('profileName').textContent = data.user.first_name || 'Пользователь Telegram';
+    $('profileUsername').textContent = data.user.username ? `@${data.user.username}` : `ID ${data.user.id}`;
+    $('profileAvatar').textContent = (data.user.first_name || data.user.username || 'G').slice(0,1).toUpperCase();
+    $('planPill').textContent = data.subscribed ? 'FULL ACCESS' : 'FREE ACCESS';
+    $('profilePlansBtn').textContent = data.subscribed ? 'Открыть управление доступом' : 'Выбрать тариф';
+    $('minTon').value = state.settings.minTon || '';
+    $('maxTon').value = state.settings.maxTon || '';
+    $('messageTemplate').value = state.settings.messageTemplate || '';
+    updateTraitFootnote();
+    document.querySelectorAll('.chip').forEach((chip) => {
+      const cats = state.settings.categories || [];
+      const selected = chip.dataset.category === 'all' ? cats.length === 0 : cats.includes(chip.dataset.category);
+      chip.classList.toggle('selected', selected);
+    });
+    updateQuota(data);
+    return data;
+  }
+
+  async function loadFilterOptions() {
+    const response = await api('/api/v1/filter-options');
+    const options = response.options || {};
+    const fields = [
+      ['model', 'searchModel', 'Любая модель'],
+      ['model_rarity', 'searchModelRarity', 'Любая редкость'],
+      ['backdrop', 'searchBackdrop', 'Любой фон'],
+      ['backdrop_rarity', 'searchBackdropRarity', 'Любая редкость'],
+      ['pattern', 'searchPattern', 'Любой узор'],
+      ['pattern_rarity', 'searchPatternRarity', 'Любая редкость']
+    ];
+    for (const [field, id, emptyLabel] of fields) {
+      const select = $(id);
+      if (!select) continue;
+      const selected = String(state.settings[field] || '');
+      select.replaceChildren(new Option(emptyLabel, ''));
+      for (const value of (Array.isArray(options[field]) ? options[field] : [])) {
+        const option = new Option(String(value), String(value));
+        select.add(option);
+      }
+      const selectedOption = [...select.options].find((option) => option.value.toLocaleLowerCase() === selected.toLocaleLowerCase());
+      select.value = selectedOption ? selectedOption.value : '';
+    }
+    const count = ['model', 'model_rarity', 'backdrop', 'backdrop_rarity', 'pattern', 'pattern_rarity']
+      .reduce((sum, field) => sum + (Array.isArray(options[field]) ? options[field].length : 0), 0);
+    $('filterOptionsStatus').textContent = count
+      ? `В индексе доступно ${count} значений характеристик. Поиск выполняется на сервере.`
+      : 'Пока нет значений характеристик. Дождись первых лотов от сканера.';
+    return options;
+  }
+
+  function updateTraitFootnote() {
+    const low = $('minTon')?.value?.trim() || '';
+    const high = $('maxTon')?.value?.trim() || '';
+    const parts = [];
+    if (low) parts.push(`от ${low} TON`);
+    if (high) parts.push(`до ${high} TON`);
+    $('traitFootnote').textContent = parts.length
+      ? `Дополнительно применяется цена: ${parts.join(' ')}. Изменить её можно в «Настройках».`
+      : 'Цена не ограничена. Сохранённые ограничения по цене и категориям также учитываются.';
+  }
+
+  async function runTraitSearch(event) {
+    event.preventDefault();
+    const filters = {
+      model: $('searchModel').value.trim(),
+      model_rarity: $('searchModelRarity').value.trim(),
+      backdrop: $('searchBackdrop').value.trim(),
+      backdrop_rarity: $('searchBackdropRarity').value.trim(),
+      pattern: $('searchPattern').value.trim(),
+      pattern_rarity: $('searchPatternRarity').value.trim()
+    };
+    if (!Object.values(filters).some(Boolean)) {
+      $('searchResults').innerHTML = '';
+      notify('Выбери хотя бы одну характеристику или её редкость');
+      return;
+    }
+    const sequence = ++state.searchSequence;
+    const submit = $('searchForm').querySelector('button[type="submit"]');
+    submit.disabled = true;
+    submit.classList.add('is-loading');
+    $('searchResults').innerHTML = '<div class="empty-state search-loading"><div class="water-loader" aria-hidden="true"><span></span><span></span><span></span></div><h2>Проверяю индекс</h2><p>Ищу лоты с выбранными характеристиками, а не по названию.</p></div>';
+    try {
+      const categories = [...document.querySelectorAll('.chip.selected')]
+        .map((chip) => chip.dataset.category).filter((value) => value !== 'all');
+      const body = {
+        minTon: $('minTon').value.trim(),
+        maxTon: $('maxTon').value.trim(),
+        categories,
+        model: filters.model,
+        model_rarity: filters.model_rarity,
+        backdrop: filters.backdrop,
+        backdrop_rarity: filters.backdrop_rarity,
+        pattern: filters.pattern,
+        pattern_rarity: filters.pattern_rarity,
+        messageTemplate: $('messageTemplate').value
+      };
+      const saved = await api('/api/v1/settings', { method: 'POST', body });
+      state.settings = saved.settings;
+      const params = new URLSearchParams({ ...filters, limit: '50' });
+      const data = await api(`/api/v1/search?${params.toString()}`, { timeout: 20000 });
+      if (sequence !== state.searchSequence) return;
+      state.lastSearchItems = data.items || [];
+      updateQuota(data);
+      renderItems($('searchResults'), state.lastSearchItems);
+      if (!state.lastSearchItems.length) {
+        $('searchResults').innerHTML = '<div class="empty-state"><h2>Совпадений пока нет</h2><p>Сканер ещё не сохранил лоты с такой комбинацией характеристик. Новые совпадения появятся после следующих циклов сканирования.</p></div>';
+      }
+      updateTraitFootnote();
+      notify(`Найдено лотов: ${data.count || 0}`, true);
+    } catch (error) {
+      if (sequence === state.searchSequence) {
+        $('searchResults').innerHTML = '';
+        notify(error.message || 'Поиск недоступен');
+      }
+    } finally {
+      if (sequence === state.searchSequence) {
+        submit.disabled = false;
+        submit.classList.remove('is-loading');
+      }
+    }
+  }
+
+  function renderProfile() {
+    if (!state.user) return;
+    $('profileName').textContent = state.user.first_name || 'Пользователь Telegram';
+    $('profileUsername').textContent = state.user.username ? `@${state.user.username}` : `ID ${state.user.id}`;
+    $('planPill').textContent = state.subscribed ? 'FULL ACCESS' : 'FREE ACCESS';
+  }
+
+  async function saveSettings() {
+    if (state.settingsBusy) return;
+    state.settingsBusy = true;
+    const saveButton = $('saveSettings');
+    saveButton.disabled = true;
+    saveButton.classList.add('is-loading');
+    const categories = [...document.querySelectorAll('.chip.selected')]
+      .map((chip) => chip.dataset.category).filter((value) => value !== 'all');
+    const body = {
+      query: '', minTon: $('minTon').value.trim(), maxTon: $('maxTon').value.trim(),
+      categories,
+      model: $('searchModel').value.trim(), model_rarity: $('searchModelRarity').value.trim(),
+      backdrop: $('searchBackdrop').value.trim(), backdrop_rarity: $('searchBackdropRarity').value.trim(),
+      pattern: $('searchPattern').value.trim(), pattern_rarity: $('searchPatternRarity').value.trim(),
+      messageTemplate: $('messageTemplate').value
+    };
+    try {
+      const response = await api('/api/v1/settings', { method: 'POST', body });
+      state.settings = response.settings;
+      updateTraitFootnote();
+      $('settingsSaved').classList.remove('hidden');
+      notify('Настройки сохранены', true);
+      setTimeout(() => $('settingsSaved').classList.add('hidden'), 2200);
+      await loadFeed({ silent: true });
+    } catch (error) {
+      notify(error.message || 'Не удалось сохранить настройки');
+    } finally {
+      state.settingsBusy = false;
+      saveButton.disabled = false;
+      saveButton.classList.remove('is-loading');
+    }
+  }
+
+  function openTelegramUrl(url) {
+    if (!url) return;
+    try {
+      if (tg?.openTelegramLink && url.startsWith('https://t.me/')) tg.openTelegramLink(url);
+      else if (tg?.openLink) tg.openLink(url);
+      else window.open(url, '_blank', 'noopener');
+    } catch (_) {
+      window.open(url, '_blank', 'noopener');
+    }
+  }
+
+  function handleContact(id) {
+    const item = state.items.find((row) => Number(row.id) === id)
+      || state.lastSearchItems?.find((row) => Number(row.id) === id);
+    if (!item || !item.seller_username || item.seller_paid_dm) return;
+    const text = messageFor(item);
+    openTelegramUrl(`https://t.me/${encodeURIComponent(item.seller_username)}?text=${encodeURIComponent(text)}`);
+  }
+
+  function applyAppearance(skin, accent) {
+    const allowedSkins = ['water', 'graphite', 'ice', 'moss'];
+    const allowedAccents = ['mint', 'blue', 'violet', 'amber'];
+    const safeSkin = allowedSkins.includes(skin) ? skin : 'water';
+    const safeAccent = allowedAccents.includes(accent) ? accent : 'mint';
+    document.body.dataset.skin = safeSkin;
+    document.body.dataset.accent = safeAccent;
+    try { localStorage.setItem('giftScopeSkin', safeSkin); localStorage.setItem('giftScopeAccent', safeAccent); } catch (_) {}
+    document.querySelectorAll('[data-skin-choice]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.skinChoice === safeSkin)));
+    document.querySelectorAll('[data-accent-choice]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.accentChoice === safeAccent)));
+    try { tg?.setBackgroundColor(getComputedStyle(document.body).getPropertyValue('--bg').trim() || '#071318'); } catch (_) {}
+  }
+
+  function bindEvents() {
+    let savedSkin = 'water', savedAccent = 'mint';
+    try { savedSkin = localStorage.getItem('giftScopeSkin') || savedSkin; savedAccent = localStorage.getItem('giftScopeAccent') || savedAccent; } catch (_) {}
+    applyAppearance(savedSkin, savedAccent);
+    document.querySelectorAll('[data-skin-choice]').forEach((button) => button.addEventListener('click', () => applyAppearance(button.dataset.skinChoice, document.body.dataset.accent)));
+    document.querySelectorAll('[data-accent-choice]').forEach((button) => button.addEventListener('click', () => applyAppearance(document.body.dataset.skin, button.dataset.accentChoice)));
+    document.querySelectorAll('.nav-item').forEach((button) => button.addEventListener('click', () => setPage(button.dataset.page)));
+    $('refreshBtn').addEventListener('click', async () => {
+      const button = $('refreshBtn');
+      if (button.disabled) return;
+      button.disabled = true;
+      button.classList.add('is-loading');
+      try { await loadFeed({ silent: false }); }
+      catch (_) {}
+      finally { button.disabled = false; button.classList.remove('is-loading'); }
+    });
+    document.querySelectorAll('.chip').forEach((chip) => chip.addEventListener('click', () => {
+      if (chip.dataset.category === 'all') {
+        document.querySelectorAll('.chip').forEach((item) => item.classList.toggle('selected', item === chip));
+      } else {
+        chip.classList.toggle('selected');
+        const all = document.querySelector('[data-category="all"]');
+        all.classList.remove('selected');
+        if (![...document.querySelectorAll('.chip')].some((item) => item.dataset.category !== 'all' && item.classList.contains('selected'))) all.classList.add('selected');
+      }
+      try { tg?.HapticFeedback?.selectionChanged(); } catch (_) {}
+    }));
+    $('saveSettings').addEventListener('click', saveSettings);
+    const openPlans = () => {
+      if (!state.botUsername) { notify('Не удалось определить бота'); return; }
+      openTelegramUrl(`https://t.me/${encodeURIComponent(state.botUsername)}?start=plans`);
+    };
+    $('buyAccessBtn').addEventListener('click', openPlans);
+    $('profilePlansBtn').addEventListener('click', openPlans);
+    $('searchForm').addEventListener('submit', runTraitSearch);
+    $('resetTraitFilters').addEventListener('click', () => {
+      ['searchModel','searchModelRarity','searchBackdrop','searchBackdropRarity','searchPattern','searchPatternRarity']
+        .forEach((id) => { $(id).value = ''; });
+      state.searchSequence += 1;
+      $('searchResults').innerHTML = '';
+      notify('Фильтры сброшены', true);
+      try { tg?.HapticFeedback?.selectionChanged(); } catch (_) {}
+    });
+    document.body.addEventListener('click', (event) => {
+      const claim = event.target.closest('[data-claim]');
+      if (claim) { setClaimed(Number(claim.dataset.claim), true); return; }
+      const unclaim = event.target.closest('[data-unclaim]');
+      if (unclaim) { setClaimed(Number(unclaim.dataset.unclaim), false); return; }
+      const contact = event.target.closest('[data-contact]');
+      if (contact) { handleContact(Number(contact.dataset.contact)); return; }
+      const link = event.target.closest('[data-open-url]');
+      if (link) { event.preventDefault(); openTelegramUrl(link.dataset.openUrl); }
+    });
+  }
+
+  async function boot() {
+    if (!tg || !state.initData) {
+      // Browser preview: show the real interface instead of the Telegram-only gate.
+      // Live listings, account data and claim history still require a signed Telegram session.
+      bindEvents();
+      $('authGate').classList.add('hidden');
+      $('app').classList.remove('hidden');
+      $('liveText').textContent = 'ПРЕДПРОСМОТР';
+      $('serviceStatus').textContent = 'Ожидает Telegram';
+      $('feedEmpty').classList.remove('hidden');
+      $('feedList').classList.add('hidden');
+      $('feedEmpty').querySelector('h2').textContent = 'Интерфейс загружен';
+      $('feedEmpty').querySelector('p').textContent = 'Это предпросмотр. Чтобы загружать реальные лоты, видеть профиль и сохранять историю, открой приложение через кнопку меню Telegram-бота.';
+      $('historyEmpty').classList.remove('hidden');
+      $('historyEmpty').querySelector('p').textContent = 'История появится после входа через Telegram и отметки лотов кнопкой «Забрал».';
+      $('profileName').textContent = 'Предпросмотр';
+      $('profileUsername').textContent = 'Открой через Telegram для авторизации';
+      return;
+    }
+    try {
+      tg.ready();
+      tg.expand();
+      try { tg.setHeaderColor(getComputedStyle(document.body).getPropertyValue('--bg').trim() || '#071318'); tg.setBackgroundColor(getComputedStyle(document.body).getPropertyValue('--bg').trim() || '#071318'); } catch (_) {}
+      bindEvents();
+      $('app').classList.remove('hidden');
+      await loadMe();
+      await loadFilterOptions().catch((error) => {
+        $('filterOptionsStatus').textContent = error.message || 'Не удалось загрузить варианты фильтров.';
+      });
+      await loadHistory();
+      await loadFeed();
+      schedulePoll(2200);
+    } catch (error) {
+      showGate(error.message || 'Не удалось подключиться к серверу. Проверь настройки приложения.');
+    }
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible') {
+      stopPolling();
+      return;
+    }
+    if (state.initData && state.currentPage === 'feed') {
+      loadFeed({ silent: true }).catch(() => {});
+      schedulePoll(700);
+    }
+  });
+  boot();
+})();
+
+  </script>
+</body>
+</html>
