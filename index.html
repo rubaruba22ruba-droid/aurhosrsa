@@ -294,7 +294,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   <script>
 (() => {
   'use strict';
-  const GIFT_SCOPE_FRONTEND_VERSION = '10.9-cached-gift-media-smooth-hold';
+  const GIFT_SCOPE_FRONTEND_VERSION = '10.11-explicit-search-start';
 
   const tg = window.Telegram?.WebApp || null;
   // The bot injects the current tokenless Quick Tunnel URL in ?api=... .
@@ -468,6 +468,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       schedulePoll(2200);
     } else {
       stopPolling();
+      api('/api/v1/search/stop', { method: 'POST' }).catch(() => {});
     }
   }
 
@@ -934,8 +935,8 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     try {
       state.hapticsEnabled = localStorage.getItem('giftScopeHaptics') !== '0';
       state.autoRefreshEnabled = localStorage.getItem('giftScopeAutoRefresh') !== '0';
-      const savedCategory = localStorage.getItem('giftScopeSearchCategory') || '';
-      if (SEARCH_CATEGORIES.includes(savedCategory)) state.searchCategory = savedCategory;
+      // Search is opt-in per app launch. Never resume a previous filter automatically.
+      state.searchCategory = '';
     } catch (_) {}
     $('hapticsToggle').checked = state.hapticsEnabled;
     $('autoRefreshToggle').checked = state.autoRefreshEnabled;
@@ -1035,6 +1036,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState !== 'visible') {
       stopPolling();
+      api('/api/v1/search/stop', { method: 'POST' }).catch(() => {});
       return;
     }
     if (state.initData && state.currentPage === 'search' && state.searchCategory) {
@@ -1048,4 +1050,3 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   </script>
 </body>
 </html>
-
