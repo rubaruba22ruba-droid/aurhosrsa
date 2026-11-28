@@ -214,6 +214,25 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
 .brand-mark,.live-state,.brand-sub{display:none!important}
 .topbar{justify-content:flex-start}
 .brand-name{font:700 22px 'Unbounded',sans-serif;letter-spacing:.14em;color:var(--text)}
+
+.gift-media-stage .gift-lottie,.history-log-image .gift-lottie,.sp-gift .gift-lottie{display:block!important;opacity:0;pointer-events:none;transition:opacity .3s}
+.gift-media-stage.is-animated .gift-lottie,.history-log-image.is-animated .gift-lottie,.sp-gift.is-animated .gift-lottie{opacity:1}
+.gift-media-stage.is-animated img{opacity:0}
+.gift-media-stage .gift-image{transition:opacity .3s}
+/* seller profile v2 */
+.sp-hero{margin:calc(env(safe-area-inset-top) + 58px) 10px 0;border-radius:32px;min-height:560px;padding-top:300px;animation:spIn .35s ease both}
+@keyframes spIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+.sp-pattern{opacity:.38;background-size:92px 92px}
+.sp-avatar{top:96px;width:156px;height:156px;margin-left:-78px;outline:0;box-shadow:0 0 0 10px rgba(255,255,255,.10),0 16px 40px rgba(0,0,0,.28)}
+.sp-avatar svg{width:92px;height:92px}
+.sp-name{font:700 30px/1.12 'Unbounded',sans-serif;color:rgba(255,255,255,.88)}
+.sp-gift{width:64px;height:64px}
+.sp-gift::before{content:'';position:absolute;inset:-16px;border-radius:50%;background:radial-gradient(rgba(255,255,255,.30),transparent 70%)}
+.sp-date{position:relative;z-index:1;margin-top:14px;font-size:14px;color:rgba(255,255,255,.6)}
+.sp-fade{height:40%}
+.sp-gift.gift-media-stage{contain:none;overflow:visible;background:none!important;border-radius:0}
+.sp-gift .gift-image{border-radius:0}
+.sp-pill{font-size:15px;padding:10px 18px}
 </style>
 </head>
 <body data-skin="water" data-accent="mint">
@@ -683,7 +702,7 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
       <article class="listing-card" data-id="${Number(item.id)}" style="animation-delay:${Math.min(index, 6) * 35}ms">
         <div class="listing-top">
           <div class="gift-image-wrap">
-            ${image ? `<div class="gift-media-stage" data-gift-animation="${animation}" data-media-fallbacks="${escapeHtml(JSON.stringify(giftMediaFallbacks(item)))}"><img class="gift-image" src="${image}" alt="${title}" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="104" height="104"><div class="gift-lottie" aria-hidden="true"></div></div>` : `<div class="gift-image-fallback" aria-label="Изображение загружается">Загрузка</div>`}
+            ${image ? `<div class="gift-media-stage" data-bdc="${escapeHtml(item.bd_center||'')}" data-bde="${escapeHtml(item.bd_edge||'')}" data-gift-animation="${animation}" data-media-fallbacks="${escapeHtml(JSON.stringify(giftMediaFallbacks(item)))}"><img class="gift-image" src="${image}" alt="${title}" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="104" height="104"><div class="gift-lottie" aria-hidden="true"></div></div>` : `<div class="gift-image-fallback" aria-label="Изображение загружается">Загрузка</div>`}
           </div>
           <div class="listing-data">
             <div class="gift-title-row"><div><div class="gift-title">${title}</div><div class="gift-number">#${Number(item.gift_num || 0)} · ${relativeTime(item.detected_at)}</div></div><span class="category-tag">${categoryLabel(item.category)}</span></div>
@@ -694,7 +713,7 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
           </div>
         </div>
         <div class="listing-traits">${traitHtml}</div>
-        <div class="seller-row" role="button" tabindex="0" data-seller="${escapeHtml(JSON.stringify({u:item.seller_username||'',n:item.seller_name||'',l:Number(item.seller_level||0),p:!!item.seller_premium,dm:dmPaid?Number(item.seller_paid_stars||0):0,id:item.seller_id||0,a:giftMediaUrl(item,true)||'',i:giftMediaUrl(item)||item.image_url||'',c:item.bd_center||'',e:item.bd_edge||'',pt:item.bd_pattern||'',g:item.gift_name||'',nft:item.nft_url||'',av:item.seller_username?`${API_BASE}/api/v1/avatar/${encodeURIComponent(item.seller_username)}`:''}))}">
+        <div class="seller-row" role="button" tabindex="0" data-seller="${escapeHtml(JSON.stringify({u:item.seller_username||'',n:item.seller_name||'',l:Number(item.seller_level||0),p:!!item.seller_premium,dm:dmPaid?Number(item.seller_paid_stars||0):0,id:item.seller_id||0,a:giftMediaUrl(item,true)||'',i:giftMediaUrl(item)||item.image_url||'',c:item.bd_center||'',e:item.bd_edge||'',pt:item.bd_pattern||'',g:item.gift_name||'',nft:item.nft_url||'',pr:Number(item.price_ton||0),ts:item.detected_at||'',av:item.seller_username?`${API_BASE}/api/v1/avatar/${encodeURIComponent(item.seller_username)}`:''}))}">
           <div class="seller-avatar">${username ? escapeHtml(username.slice(0,1).toUpperCase()) : '—'}</div>
           <div class="seller-info">${owner}<span class="seller-details">Уровень ${Number(item.seller_level || 0)} · ${item.seller_premium ? 'Premium' : 'Обычный аккаунт'}</span></div>
           <div class="dm-state ${dmPaid ? 'paid' : ''}">${dmPaid ? `Платно · ${Number(item.seller_paid_stars || 0)} Stars` : 'ЛС бесплатно'}</div>
@@ -722,9 +741,14 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
     sc.onload = () => { window.__lottieFull = true; const q = window.__lfq.splice(0); q.forEach((f) => f()); };
     document.head.appendChild(sc);
   }
+  function revealGift(stage) {
+    const c = stage.dataset.bdc, e = stage.dataset.bde;
+    if (c && e && /^#[0-9a-fA-F]{6}$/.test(c) && /^#[0-9a-fA-F]{6}$/.test(e)) stage.style.background = `radial-gradient(circle at 50% 42%,${c},${e})`;
+    stage.classList.add('is-animated');
+  }
   function canvasBlank(target) {
     const cv = target.querySelector('canvas');
-    if (!cv) return true;
+    if (!cv || cv.width < 2 || cv.height < 2) return true;
     try {
       const t = document.createElement('canvas'); t.width = t.height = 24;
       const x = t.getContext('2d'); x.drawImage(cv, 0, 0, 24, 24);
@@ -751,7 +775,16 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
     player.addEventListener('DOMLoaded', () => {
       if (!stage.isConnected) { try { player.destroy(); } catch (_) {} return; }
       player.play(); window.__playing.add(stage); capPlayers(stage);
-      if (useSvg) { stage.classList.add('is-animated'); return; }
+      if (useSvg) {
+        setTimeout(() => {
+          if (!stage.isConnected || stage.__trackerLottie !== player) return;
+          let ok = false;
+          try { const sv = target.querySelector('svg'); const b = sv && sv.getBBox(); ok = !!b && b.width > 2 && b.height > 2; } catch (_) { ok = true; }
+          if (ok) revealGift(stage);
+          else { try { player.destroy(); } catch (_) {} stage.__trackerLottie = null; window.__playing.delete(stage); target.innerHTML = ''; }
+        }, 700);
+        return;
+      }
       // Canvas can render some Telegram stickers as empty: check, and fall back to SVG so the picture never goes blank.
       setTimeout(() => {
         if (!stage.isConnected || stage.__trackerLottie !== player) return;
@@ -759,8 +792,8 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
           try { player.destroy(); } catch (_) {}
           stage.__trackerLottie = null; window.__playing.delete(stage); target.innerHTML = '';
           stage.dataset.renderer = 'svg'; startGiftAnimation(stage, true);
-        } else stage.classList.add('is-animated');
-      }, 500);
+        } else revealGift(stage);
+      }, 600);
     });
     player.addEventListener('data_failed', () => stage.classList.add('animation-failed'));
   }
@@ -1304,16 +1337,18 @@ document.addEventListener('click',function(){setTimeout(av,60)});setTimeout(av,8
 var sh=document.getElementById('sellerSheet');if(!sh)return;
 var esc=function(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
 var hex=function(v,d){return /^#[0-9a-fA-F]{6}$/.test(v||'')?v:d};
-var POS=[[16,24],[78,10],[6,150],[84,130],[22,270],[72,280]];
-function gifts(d){var out=[],seen={};document.querySelectorAll('.seller-row[data-seller]').forEach(function(r){try{var x=JSON.parse(r.dataset.seller);if(x.u===d.u&&x.a&&!seen[x.a]){seen[x.a]=1;out.push(x)}}catch(e){}});if(!out.length&&d.a)out.push(d);while(out.length&&out.length<6)out.push(out[out.length%Math.max(1,out.length)]);return out.slice(0,6)}
+var POS=[[6,70],[74,46],[0,200],[80,190],[10,330],[74,320],[38,12],[44,372]];
+function gifts(d){var out=[],seen={};document.querySelectorAll('.seller-row[data-seller]').forEach(function(r){try{var x=JSON.parse(r.dataset.seller);if(x.u===d.u&&x.a&&!seen[x.a]){seen[x.a]=1;out.push(x)}}catch(e){}});if(!out.length&&d.a)out.push(d);var base=out.slice();while(out.length<4&&base.length)out.push(base[out.length%base.length]);return out.slice(0,8)}
 function close(){sh.classList.remove('open');sh.setAttribute('aria-hidden','true');sh.querySelectorAll('.gift-media-stage').forEach(function(st){if(st.__trackerLottie){try{st.__trackerLottie.destroy()}catch(e){}st.__trackerLottie=null}if(window.trackerGiftObserver)window.trackerGiftObserver.unobserve(st)});setTimeout(function(){if(!sh.classList.contains('open'))sh.innerHTML=''},300)}
 function open(d){
 var c=hex(d.c,'#9b5de5'),e=hex(d.e,'#3b1f6b'),p=hex(d.pt,'#ffffff');
-var svg="<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><path d='M20 8l3 9 9 3-9 3-3 9-3-9-9-3 9-3z' fill='"+p+"'/><path d='M50 38l2 6 6 2-6 2-2 6-2-6-6-2 6-2z' fill='"+p+"'/></svg>";
+var svg="<svg xmlns='http://www.w3.org/2000/svg' width='92' height='92'><path d='M24 6l4 12 12 4-12 4-4 12-4-12-12-4 12-4z' fill='"+p+"'/><path d='M70 54l3 8 8 3-8 3-3 8-3-8-8-3 8-3z' fill='"+p+"'/><circle cx='64' cy='16' r='3' fill='"+p+"'/><circle cx='14' cy='70' r='3' fill='"+p+"'/></svg>";
+var sil="<svg viewBox='0 0 24 24' fill='#8a8f98'><circle cx='12' cy='8.5' r='4.2'/><path d='M3.5 21c.6-4.6 4.2-7 8.5-7s7.9 2.4 8.5 7z'/></svg>";
 var name=d.n||(d.u?'@'+d.u:'Продавец');
+var when='';try{if(d.ts)when=new Date(d.ts).toLocaleString('ru-RU',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}catch(e){}
 var g=gifts(d).map(function(x,i){var pos=POS[i];return '<div class="sp-gift gift-media-stage" style="left:'+pos[0]+'%;top:'+pos[1]+'px;animation-delay:-'+(i*0.7)+'s" data-gift-animation="'+esc(x.a)+'"><img class="gift-image" src="'+esc(x.i)+'" alt="" decoding="async" referrerpolicy="no-referrer"><div class="gift-lottie"></div></div>'}).join('');
 var row=function(k,v){return '<div class="sp-row"><small>'+k+'</small><b>'+v+'</b></div>'};
-sh.innerHTML='<button class="sp-back" type="button">← Назад</button><div class="sp-hero" style="background:radial-gradient(circle at 50% 30%,'+c+','+e+')"><div class="sp-pattern" style="background-image:url(&quot;data:image/svg+xml,'+encodeURIComponent(svg)+'&quot;)"></div>'+g+'<div class="sp-avatar">'+(d.av?'<img src="'+esc(d.av)+'" alt="" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">':'')+'<svg viewBox="0 0 24 24" width="58" height="58" fill="#8a8f98"><circle cx="12" cy="8.5" r="4.2"/><path d="M3.5 21c.6-4.6 4.2-7 8.5-7s7.9 2.4 8.5 7z"/></svg></div><h2 class="sp-name">'+esc(name)+'</h2><span class="sp-pill">Уровень '+d.l+' · '+(d.p?'Premium':'Обычный аккаунт')+'</span><div class="sp-fade"></div></div><div class="sp-info">'+(d.u?row('Юзернейм','<a data-open-url="https://t.me/'+esc(d.u)+'" href="https://t.me/'+esc(d.u)+'">@'+esc(d.u)+'</a>'):'')+row('Личные сообщения',d.dm?'Платно · '+d.dm+' Stars':'Бесплатно')+(d.id?row('ID',esc(d.id)):'')+row('Лот сейчас',esc(d.g))+'</div><div class="sp-actions">'+(d.u&&!d.dm?'<button class="primary-button full-width" data-open-url="https://t.me/'+esc(d.u)+'" type="button">Написать</button>':'')+(d.nft?'<button class="primary-button full-width" data-open-url="'+esc(d.nft)+'" type="button">Открыть NFT</button>':'')+'</div>';
+sh.innerHTML='<button class="sp-back" type="button">← Назад</button><div class="sp-hero" style="background:radial-gradient(circle at 50% 28%,'+c+','+e+')"><div class="sp-pattern" style="background-image:url(&quot;data:image/svg+xml,'+encodeURIComponent(svg)+'&quot;)"></div>'+g+'<div class="sp-avatar">'+(d.av?'<img src="'+esc(d.av)+'" alt="" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">':'')+sil+'</div><h2 class="sp-name">'+esc(name)+'</h2><span class="sp-pill">Лот: 💎 '+Number(d.pr||0).toFixed(2)+' TON · '+esc(d.g)+'</span>'+(when?'<div class="sp-date">Замечен '+esc(when)+'</div>':'')+'<div class="sp-fade"></div></div><div class="sp-info">'+(d.u?row('Юзернейм','<a data-open-url="https://t.me/'+esc(d.u)+'" href="https://t.me/'+esc(d.u)+'">@'+esc(d.u)+'</a>'):'')+row('Уровень',d.l+' · '+(d.p?'Premium':'Обычный аккаунт'))+row('Личные сообщения',d.dm?'Платно · '+d.dm+' Stars':'Бесплатно')+(d.id?row('ID',esc(d.id)):'')+'</div><div class="sp-actions">'+(d.u&&!d.dm?'<button class="primary-button full-width" data-open-url="https://t.me/'+esc(d.u)+'" type="button">Написать</button>':'')+(d.nft?'<button class="primary-button full-width" data-open-url="'+esc(d.nft)+'" type="button">Открыть NFT</button>':'')+'</div>';
 sh.setAttribute('aria-hidden','false');sh.scrollTop=0;requestAnimationFrame(function(){sh.classList.add('open');sh.querySelectorAll('.gift-media-stage').forEach(function(st){if(window.trackerGiftObserver)window.trackerGiftObserver.observe(st)})});
 sh.querySelector('.sp-back').onclick=close;
 }
@@ -1323,4 +1358,3 @@ if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.BackButton){}
 </script>
 </body>
 </html>
-
