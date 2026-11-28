@@ -230,8 +230,7 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
 .sp-gift::before{content:'';position:absolute;inset:-16px;border-radius:50%;background:radial-gradient(rgba(255,255,255,.30),transparent 70%)}
 .sp-date{position:relative;z-index:1;margin-top:14px;font-size:14px;color:rgba(255,255,255,.6)}
 .sp-fade{height:40%}
-.sp-gift.gift-media-stage{contain:none;overflow:visible;background:none!important;border-radius:0}
-.sp-gift .gift-image{border-radius:0}
+
 .sp-pill{font-size:15px;padding:10px 18px}
 
 .seller-avatar{position:relative;width:44px;height:44px;border-radius:50%;overflow:hidden;background:var(--panel3)}
@@ -273,19 +272,69 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
 .sp-tile .gift-lottie{position:absolute;inset:0;width:100%;height:100%}
 .sp-tile.is-animated .gift-image{opacity:0}
 .sp-tag{position:absolute;left:8px;bottom:7px;z-index:2;font:700 11px 'Manrope',sans-serif;color:#fff;background:rgba(0,0,0,.35);padding:3px 8px;border-radius:99px}
+
+/* ===== 28.11o: crimson glass design + smoothness ===== */
+body[data-skin][data-accent]{--bg:#0c0409;--panel:#180a10;--panel2:#20101a;--panel3:#2a1421;--line:rgba(255,160,185,.15);--text:#fcf0f3;--muted:#a58c94;--soft:#d8bec6;--accent:#ff4d6a;--accent-ink:#fff;--danger:#ff7a90;--ok:#8fe3b0}
+body::before{background:radial-gradient(120% 55% at 50% -8%,rgba(214,32,68,.34),transparent 62%),radial-gradient(80% 40% at 100% 70%,rgba(120,20,60,.22),transparent 60%)!important}
+body::after{display:block!important;content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1.2px);background-size:8px 8px;opacity:.55}
+.listing-card,.strategy-panel,.settings-card,.stat-box,.profile-info,.batch-panel,.history-log-item,.action-stat,.quota-card,.plan-card,.sp-info{border-radius:30px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015)),var(--panel);border:1px solid var(--line);outline:0}
+.primary-button,.decision-button.take,.card-button.primary,.plan-btn{background:linear-gradient(180deg,#ff5873,#c8102e)!important;color:#fff!important;border:1px solid rgba(255,190,200,.38)!important;box-shadow:0 8px 22px rgba(200,16,46,.32);font-weight:800}
+.primary-button,.card-button,.decision-button,.plan-btn,.strategy-option,.nav-item,.sp-btn{transition:transform .14s ease,opacity .14s ease,background .2s ease}
+.primary-button:active,.card-button:active,.decision-button:active,.plan-btn:active,.strategy-option:active,.sp-btn:active{transform:scale(.97)}
+.page.active{display:block;animation:pageIn .28s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.bottom-nav{left:50%;bottom:calc(10px + env(safe-area-inset-bottom));width:calc(100% - 28px);max-width:560px;height:68px;padding:6px;border-radius:40px;border:1px solid var(--line);background:rgba(24,8,14,.95);box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.nav-item{border-radius:32px;font-size:11px;font-weight:700;border:1px solid transparent}
+.nav-item.active{background:linear-gradient(180deg,rgba(255,88,115,.26),rgba(200,16,46,.2));border-color:rgba(255,150,170,.45);color:#fff}
+.main-content{padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+.topbar{height:64px;gap:12px}
+.top-ava{width:40px;height:40px;border-radius:50%;overflow:hidden;background:var(--panel3);outline:2px solid rgba(255,77,106,.6);outline-offset:2px;flex:none}
+.top-ava img{width:100%;height:100%;object-fit:cover;display:block}
+.top-ava img:not([src]){display:none}
+.brand-copy{display:block!important}
+.brand-name{font:800 20px 'Unbounded',sans-serif;letter-spacing:.12em}
+.gate-actions{display:flex;gap:10px;margin-top:22px;justify-content:center}
+.gate-actions .hidden{display:none}
+.batch-status{margin-top:10px;padding:10px 14px;border-radius:16px;background:rgba(255,77,106,.14);color:var(--soft);font-weight:700;font-size:13px}
+/* own profile */
+.me-card{position:relative;border-radius:40px;padding:178px 20px 30px;text-align:center;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#c0213f,#8a1230 48%,#3b0b1a);border:1px solid rgba(255,150,170,.32);box-shadow:0 20px 50px rgba(120,10,40,.35);color:#fff}
+.me-ava{position:absolute;top:36px;left:50%;width:132px;height:132px;margin-left:-66px;border-radius:50%;padding:7px;background:rgba(255,255,255,.22);box-shadow:0 0 0 3px rgba(60,5,20,.5)}
+.me-ava>div{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;background:#2a0f18;display:grid;place-items:center;font:700 42px 'Unbounded',sans-serif}
+.me-ava img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.me-ava img:not([src]){display:none}
+.me-name{font:800 26px/1.15 'Unbounded',sans-serif;margin:0 0 6px;word-break:break-word}
+.me-user{margin:0;color:rgba(255,255,255,.7);font-size:17px}
+.me-gift{position:absolute;width:70px;height:70px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,.12);box-shadow:0 0 0 3px rgba(255,255,255,.2),0 10px 24px rgba(0,0,0,.35);animation:spFloat 4.2s ease-in-out infinite alternate}
+.me-gift .gift-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s}
+.me-gift .gift-lottie{position:absolute;inset:0}
+.me-gift.is-animated .gift-image{opacity:0}
+.me-gift.g0{left:18px;top:34px}.me-gift.g1{right:18px;top:34px;animation-delay:-1.2s}.me-gift.g2{left:30px;top:122px;animation-delay:-2.4s;width:58px;height:58px}.me-gift.g3{right:30px;top:122px;animation-delay:-3.1s;width:58px;height:58px}
+.plan-card{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;margin-top:14px;padding:16px;background:linear-gradient(160deg,rgba(255,190,90,.16),rgba(255,120,60,.05)),var(--panel)!important;border-color:rgba(255,200,120,.28)!important}
+.plan-ico{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(180deg,#ffd27a,#f19a2b);color:#4a2a05}
+.plan-copy b{display:block;font:800 18px 'Unbounded',sans-serif}
+.plan-copy small{display:block;margin-top:4px;color:var(--soft);font-size:12px;line-height:1.35}
+.plan-btn{border-radius:99px;padding:12px 18px;cursor:pointer}
+.quota-card{margin-top:14px;padding:16px 18px}
+/* seller sheet v4 */
+.sp-pattern{opacity:.16;background-size:60px 60px}
+.sp-gift.gift-media-stage{border-radius:50%;overflow:hidden;contain:paint;width:64px;height:64px;background:rgba(255,255,255,.14);box-shadow:0 0 0 3px rgba(255,255,255,.22),0 10px 24px rgba(0,0,0,.32)}
+.sp-gift::before,.sp-gift::after{display:none!important}
+.sp-gift .gift-image{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.sp-hero{border-radius:0 0 34px 34px}
 </style>
 </head>
 <body data-skin="water" data-accent="mint">
     <div id="authGate" class="auth-gate hidden">
     <div class="gate-mark"><span></span><span></span><span></span></div>
     <div class="eyebrow">TRACKER</div>
-    <h1>Открой Mini App<br>в Telegram</h1>
-    <p>Авторизация доступна только через твоё Telegram-приложение.</p>
+    <h1 id="gateTitle">Подключаюсь…</h1>
+    <p id="gateText">Сервер отвечает, это займёт пару секунд.</p>
+    <div class="gate-actions"><button type="button" id="gateRetry" class="primary-button">Повторить</button><button type="button" id="gateClose" class="card-button">Закрыть</button></div>
   </div>
 
   <div id="app" class="app hidden">
     <header class="topbar">
-      <div class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="top-ava" aria-hidden="true"><img id="topAvaImg" alt="" decoding="async" referrerpolicy="no-referrer"></div>
       <div class="brand-copy"><div class="brand-name">TRACKER</div><div class="brand-sub">LIVE LISTINGS</div></div>
       <div class="live-state"><span class="live-dot"></span><span id="liveText">ПОДКЛЮЧЕНИЕ</span></div>
     </header>
@@ -328,13 +377,14 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
             <input id="batchCount" class="field-input" type="number" min="5" max="20" step="1" value="5" inputmode="numeric" aria-label="Количество лотов" style="padding:12px">
             <button type="button" class="primary-button" id="startBatchBtn" style="min-height:44px">Найти и прислать в ЛС</button>
           </div>
+          <div id="batchStatus" class="batch-status hidden"></div>
           <button type="button" class="card-button" id="cancelBatchBtn" style="width:100%;margin-top:9px">Отменить активную пачку</button>
           <p style="margin:9px 0 0;color:var(--muted);font-size:11px;line-height:1.45">Выбери категорию и количество. Можно закрыть приложение — бот пришлёт список в личные сообщения, когда соберёт всю пачку.</p>
         </section>
         <div class="stats-strip">
           <div class="stat-box"><span class="stat-label">Осталось</span><strong id="freeLeft">15</strong><small id="freeCaption">бесплатных лотов</small></div>
           <div class="stat-divider"></div>
-          <div class="stat-box"><span class="stat-label">В выдаче</span><strong id="feedCount">—</strong><small>найдено системой</small></div>
+          <div class="stat-box"><span class="stat-label">В выдаче</span><strong id="feedCount">—</strong><small>готово к выдаче</small></div>
           <button class="refresh-button" id="refreshBtn" aria-label="Обновить ленту" type="button"><span class="refresh-icon">↻</span></button>
         </div>
         <div class="filter-line">
@@ -381,17 +431,18 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
       </section>
 
       <section id="page-profile" class="page">
-        <div class="eyebrow">YOUR ACCOUNT</div>
-        <h1>Профиль<br><em>аккаунта</em></h1>
-        <div class="profile-card">
-          <div class="profile-avatar" id="profileAvatar">G</div>
-          <div><h2 id="profileName">Пользователь Telegram</h2><p id="profileUsername" class="muted">Загрузка...</p></div>
-          <div class="plan-pill" id="planPill">FREE ACCESS</div>
-          <div class="quota-title"><span>Бесплатные лоты</span><b id="quotaText">0 / 15</b></div>
-          <div class="quota-track"><span id="quotaBar"></span></div>
-          <p id="planDescription" class="profile-description">Пробный доступ: 30 минут или 15 уникальных лотов — что наступит раньше.</p>
-          <button id="profilePlansBtn" class="primary-button full-width">Управление доступом</button>
+        <div class="me-card">
+          <div class="me-gifts" id="meGifts"></div>
+          <div class="me-ava"><div><span id="profileAvatar">G</span><img id="meAvaImg" alt="" decoding="async" referrerpolicy="no-referrer"></div></div>
+          <h2 id="profileName" class="me-name">Пользователь Telegram</h2>
+          <p id="profileUsername" class="me-user">Загрузка...</p>
         </div>
+        <div class="plan-card">
+          <div class="plan-ico"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg></div>
+          <div class="plan-copy"><b id="planPill">FREE ACCESS</b><small id="planDescription">Пробный доступ: 30 минут или 15 уникальных лотов — что наступит раньше.</small></div>
+          <button id="profilePlansBtn" class="plan-btn" type="button">Доступ</button>
+        </div>
+        <div class="quota-card"><div class="quota-title"><span>Бесплатные лоты</span><b id="quotaText">0 / 15</b></div><div class="quota-track"><span id="quotaBar"></span></div></div>
         <div class="profile-info"><span>Статус сервиса</span><b id="serviceStatus">Подключение...</b></div>
         <div class="settings-card profile-preferences">
           <div class="section-label">ПАРАМЕТРЫ ПРОФИЛЯ</div>
@@ -495,10 +546,28 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
   }
   const TRACKER_DEVICE_ID = getTrackerDeviceId();
 
-  function showGate(message) {
+  function showGate(message, kind = 'net') {
     $('authGate').classList.remove('hidden');
     $('app').classList.add('hidden');
-    if (message) $('authGate').querySelector('p').textContent = message;
+    if (kind === 'open') {
+      $('gateTitle').innerHTML = 'Открой Tracker<br>из бота';
+      $('gateText').textContent = message || 'Нажми кнопку «Открыть Tracker» в сообщении бота.';
+      $('gateRetry').classList.add('hidden');
+    } else {
+      $('gateTitle').innerHTML = 'Связь<br>восстанавливается';
+      $('gateText').textContent = message || 'Сервер перезапускается, это займёт несколько секунд.';
+      $('gateRetry').classList.remove('hidden');
+    }
+  }
+  const isNetError = (m) => /load failed|failed to fetch|network|abort|timeout|отвечает|недоступ/i.test(String(m || ''));
+  async function waitTelegram() {
+    for (let i = 0; i < 25 && tg && !state.initData; i++) {
+      await new Promise((r) => setTimeout(r, 100));
+      state.initData = tg.initData || '';
+    }
+    if (!state.initData) {
+      try { const d = new URLSearchParams(location.hash.slice(1)).get('tgWebAppData'); if (d) state.initData = d; } catch (_) {}
+    }
   }
 
   async function api(path, options = {}) {
@@ -753,8 +822,8 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
           </div>
         </div>
         <div class="listing-traits">${traitHtml}</div>
-        <div class="seller-row" role="button" tabindex="0" data-seller="${escapeHtml(JSON.stringify({u:item.seller_username||'',n:item.seller_name||'',l:Number(item.seller_level||0),p:!!item.seller_premium,dm:dmPaid?Number(item.seller_paid_stars||0):0,id:item.seller_id||0,a:giftMediaUrl(item,true)||'',i:giftMediaUrl(item)||item.image_url||'',c:item.bd_center||'',e:item.bd_edge||'',pt:item.bd_pattern||'',g:item.gift_name||'',nft:item.nft_url||'',pr:Number(item.price_ton||0),ts:item.detected_at||'',av:item.seller_username?`${API_BASE}/api/v1/avatar/${encodeURIComponent(item.seller_username)}`:''}))}">
-          <div class="seller-avatar"><svg viewBox="0 0 24 24" fill="#8a8f98"><circle cx="12" cy="8.5" r="4.2"/><path d="M3.5 21c.6-4.6 4.2-7 8.5-7s7.9 2.4 8.5 7z"/></svg>${item.seller_username ? `<img src="${API_BASE}/api/v1/avatar/${encodeURIComponent(item.seller_username)}" alt="" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}</div>
+        <div class="seller-row" role="button" tabindex="0" data-seller="${escapeHtml(JSON.stringify({u:item.seller_username||'',n:item.seller_name||'',l:Number(item.seller_level||0),p:!!item.seller_premium,dm:dmPaid?Number(item.seller_paid_stars||0):0,id:item.seller_id||0,a:giftMediaUrl(item,true)||'',i:giftMediaUrl(item)||item.image_url||'',c:item.bd_center||'',e:item.bd_edge||'',pt:item.bd_pattern||'',g:item.gift_name||'',nft:item.nft_url||'',m:item.slug?`${API_BASE}/api/v1/media/${encodeURIComponent(String(item.slug).toLowerCase())}`:'',pr:Number(item.price_ton||0),ts:item.detected_at||'',av:item.seller_username?`${API_BASE}/api/v1/avatar/${encodeURIComponent(item.seller_username)}`:''}))}">
+          <div class="seller-avatar"><svg viewBox="0 0 24 24" fill="#8a8f98"><circle cx="12" cy="8.5" r="4.2"/><path d="M3.5 21c.6-4.6 4.2-7 8.5-7s7.9 2.4 8.5 7z"/></svg>${item.seller_username ? `<img src="${API_BASE}/api/v1/avatar/${encodeURIComponent(item.seller_username)}" alt="" decoding="async" referrerpolicy="no-referrer" onerror="avRetry(this)">` : ''}</div>
           <div class="seller-info">${owner}<span class="seller-details">Уровень ${Number(item.seller_level || 0)} · ${item.seller_premium ? 'Premium' : 'Обычный аккаунт'} · Профиль ›</span></div>
           <div class="dm-state ${dmPaid ? 'paid' : ''}">${dmPaid ? `Платно · ${Number(item.seller_paid_stars || 0)} Stars` : 'ЛС бесплатно'}</div>
         </div>
@@ -933,6 +1002,18 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
     $('historyEmpty').classList.toggle('hidden', items.length > 0);
   }
 
+  function renderMeGifts() {
+    const host = $('meGifts');
+    if (!host) return;
+    const seen = new Set(), picks = [];
+    [...(state.historyItems || [])].sort((a, b) => (a.action === 'taken' ? 0 : 1) - (b.action === 'taken' ? 0 : 1)).forEach((it) => {
+      const k = String(it.slug || '').toLowerCase();
+      if (k && !seen.has(k) && picks.length < 4) { seen.add(k); picks.push(it); }
+    });
+    host.innerHTML = picks.map((it, i) => `<div class="me-gift gift-media-stage g${i}" data-bdc="${escapeHtml(it.bd_center || '')}" data-bde="${escapeHtml(it.bd_edge || '')}" data-gift-animation="${escapeHtml(giftMediaUrl(it, true))}"><img class="gift-image" src="${escapeHtml(giftMediaUrl(it))}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><div class="gift-lottie"></div></div>`).join('');
+    host.querySelectorAll('.gift-media-stage').forEach((st) => { if (window.trackerGiftObserver) window.trackerGiftObserver.observe(st); });
+  }
+
   async function loadHistory() {
     const data = await api('/api/v1/history');
     state.historyItems = data.items || [];
@@ -942,6 +1023,7 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
     $('takenToday').textContent = String(stats.taken_today || 0);
     $('skippedToday').textContent = String(stats.skipped_today || 0);
     renderHistoryLogs(state.historyItems);
+    renderMeGifts();
     return data;
   }
 
@@ -1018,7 +1100,12 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
     $('trialStartCard').classList.toggle('hidden', Boolean(data.subscribed) || state.trialStarted);
     $('freeLeft').textContent = data.subscribed ? '∞' : String(left);
     $('freeCaption').textContent = data.subscribed ? 'полный доступ' : 'уникальных лотов';
-    $('feedCount').textContent = String(data.count ?? state.items.length);
+    $('feedCount').textContent = String(data.pool ?? data.count ?? state.items.length);
+    const bs = $('batchStatus');
+    if (bs) {
+      if (data.batch) { bs.textContent = `Пачка: найдено ${data.batch.found} из ${data.batch.target}`; bs.classList.remove('hidden'); }
+      else bs.classList.add('hidden');
+    }
     $('quotaText').textContent = `${Math.min(used, limit)} / ${limit}`;
     $('quotaBar').style.width = `${Math.min(100, used / limit * 100)}%`;
     $('freeLimitPanel').classList.toggle('hidden', data.subscribed || !data.locked);
@@ -1142,7 +1229,7 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
         // Retry with bounded backoff; do not stack parallel requests.
       }
       const backoff = Math.min(20000, 1400 * (2 ** Math.min(state.pollFailures, 3)));
-      schedulePoll(state.pollFailures ? backoff : 1400);
+      schedulePoll(state.pollFailures ? backoff : 2600);
     }, delay);
   }
 
@@ -1179,6 +1266,11 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
     if (!state.user) return;
     $('profileName').textContent = state.user.first_name || 'Пользователь Telegram';
     $('profileUsername').textContent = state.user.username ? `@${state.user.username}` : `ID ${state.user.id}`;
+    const pa = $('profileAvatar'); if (pa) pa.textContent = (state.user.first_name || 'G').slice(0, 1).toUpperCase();
+    try {
+      const ph = tg?.initDataUnsafe?.user?.photo_url;
+      if (ph) { [$('meAvaImg'), $('topAvaImg')].forEach((im) => { if (im && im.getAttribute('src') !== ph) im.src = ph; }); }
+    } catch (_) {}
     $('planPill').textContent = state.subscribed ? 'FULL ACCESS' : 'FREE ACCESS';
   }
 
@@ -1326,10 +1418,11 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
   }
 
   async function boot() {
+    await waitTelegram();
     if (!tg || !state.initData) {
       // Browser preview: show the real interface instead of the Telegram-only gate.
       // Live listings, account data and claim history still require a signed Telegram session.
-      bindEvents();
+      if (!state.bound) { bindEvents(); state.bound = true; }
       $('authGate').classList.add('hidden');
       $('app').classList.remove('hidden');
       $('liveText').textContent = 'ПРЕДПРОСМОТР';
@@ -1347,16 +1440,28 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
       tg.ready();
       tg.expand();
       try { tg.setHeaderColor(getComputedStyle(document.body).getPropertyValue('--bg').trim() || '#071318'); tg.setBackgroundColor(getComputedStyle(document.body).getPropertyValue('--bg').trim() || '#071318'); } catch (_) {}
-      bindEvents();
+      if (!state.bound) { bindEvents(); state.bound = true; }
+      $('authGate').classList.add('hidden');
       $('app').classList.remove('hidden');
       await loadMe();
       await loadHistory();
       $('feedEmpty').querySelector('h2').textContent = 'Выбери направление';
       $('feedEmpty').querySelector('p').textContent = 'Нажми одно из четырёх направлений выше. Поиск пойдёт только по выбранному направлению.';
+      state.bootTries = 0;
     } catch (error) {
-      showGate(error.message || 'Не удалось подключиться к серверу. Проверь настройки приложения.');
+      const msg = error && error.message || '';
+      if (/Открой приложение/.test(msg)) { showGate(msg, 'open'); return; }
+      if (isNetError(msg) || !msg) {
+        state.bootTries = (state.bootTries || 0) + 1;
+        showGate(state.bootTries > 6 ? 'Не удаётся достучаться до сервера. Нажми «Повторить». Если не помогает: закрой окно, открой бота и нажми /start, чтобы получить свежую кнопку.' : '', 'net');
+        if (state.bootTries <= 6) setTimeout(boot, 2000 + state.bootTries * 800);
+        return;
+      }
+      showGate(msg, 'net');
     }
   }
+  $('gateRetry').addEventListener('click', () => { state.bootTries = 0; boot(); });
+  $('gateClose').addEventListener('click', () => { try { tg.close(); } catch (_) { history.back(); } });
 
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState !== 'visible') {
@@ -1387,6 +1492,7 @@ function all(d){var out=[],seen={};document.querySelectorAll('.seller-row[data-s
 function close(){try{Telegram.WebApp.BackButton.offClick(close);Telegram.WebApp.BackButton.hide()}catch(e){}sh.classList.remove('open');sh.setAttribute('aria-hidden','true');sh.querySelectorAll('.gift-media-stage').forEach(function(st){if(st.__trackerLottie){try{st.__trackerLottie.destroy()}catch(e){}st.__trackerLottie=null}if(window.trackerGiftObserver)window.trackerGiftObserver.unobserve(st)});setTimeout(function(){if(!sh.classList.contains('open'))sh.innerHTML=''},300)}
 var IC={msg:'<path d="M4 5h16a1 1 0 011 1v10a1 1 0 01-1 1H9l-5 4V6a1 1 0 011-1z"/>',nft:'<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12L4 7.5M12 12v9"/>',tg:'<circle cx="12" cy="8" r="4"/><path d="M4 21c.7-4.5 4-6.5 8-6.5s7.3 2 8 6.5"/>',cp:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 00-1-1H5a1 1 0 00-1 1v10a1 1 0 001 1h3"/>'};
 var btn=function(k,label,attr,off){return '<'+(attr?'button':'div')+' class="sp-btn'+(off?' off':'')+'" type="button" '+(attr||'')+'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+IC[k]+'</svg><span>'+label+'</span></'+(attr?'button':'div')+'>'};
+function derive(url){return new Promise(function(res,rej){var im=new Image();im.crossOrigin='anonymous';im.onload=function(){try{var c=document.createElement('canvas');c.width=c.height=16;var x=c.getContext('2d');x.drawImage(im,0,0,16,16);var g=function(a,b){var p=x.getImageData(a,b,1,1).data;return [p[0],p[1],p[2]]};var avg=function(l){var r=[0,0,0];l.forEach(function(p){r[0]+=p[0];r[1]+=p[1];r[2]+=p[2]});return r.map(function(v){return Math.round(v/l.length)})};var edge=avg([g(1,1),g(14,1),g(1,14),g(14,14)]);var mid=avg([g(8,1),g(1,8),g(14,8)]);var h=function(p,k){return '#'+p.map(function(v){v=Math.max(0,Math.min(255,Math.round(v*k)));return (v<16?'0':'')+v.toString(16)}).join('')};res([h(mid,1.08),h(edge,.7)])}catch(e){rej(e)}};im.onerror=rej;im.src=url})}
 function open(d){
 var c=hex(d.c,'#5b6b86'),e=hex(d.e,'#2b3447'),p=hex(d.pt,'#ffffff');
 var svg="<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96'><path d='M24 6l4 12 12 4-12 4-4 12-4-12-12-4 12-4z' fill='"+p+"'/><path d='M72 56l3 8 8 3-8 3-3 8-3-8-8-3 8-3z' fill='"+p+"'/><circle cx='68' cy='16' r='3' fill='"+p+"'/><circle cx='14' cy='74' r='3' fill='"+p+"'/></svg>";
@@ -1399,12 +1505,13 @@ var row=function(k,v){return '<div class="sp-row"><small>'+k+'</small><b>'+v+'</
 var tgUrl=d.u?'https://t.me/'+esc(d.u):'';
 sh.innerHTML='<button class="sp-back" type="button" aria-label="Назад"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>'
 +'<div class="sp-hero" style="background:radial-gradient(120% 80% at 50% 18%,'+c+','+e+')"><div class="sp-pattern" style="background-image:url(&quot;data:image/svg+xml,'+encodeURIComponent(svg)+'&quot;)"></div>'
-+'<div class="sp-stage">'+ring+'<div class="sp-avatar">'+(d.av?'<img src="'+esc(d.av)+'" alt="" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">':'')+sil+'</div></div>'
++'<div class="sp-stage">'+ring+'<div class="sp-avatar">'+(d.av?'<img src="'+esc(d.av)+'" alt="" decoding="async" referrerpolicy="no-referrer" onerror="avRetry(this)">':'')+sil+'</div></div>'
 +'<h2 class="sp-name">'+esc(name)+'</h2>'
-+'<div class="sp-status"><span class="sp-shield"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5z" fill="#5b8def"/></svg><i>'+d.l+'</i></span>'+(d.p?'Premium':'Обычный аккаунт')+' · 💎 '+Number(d.pr||0).toFixed(2)+' TON</div>'
++'<div class="sp-status"><span class="sp-shield"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5z" fill="#5b8def"/></svg><i>'+d.l+'</i></span>'+(d.p?'Premium':'Обычный аккаунт')+' · '+Number(d.pr||0).toFixed(2)+' TON</div>'
 +'<div class="sp-btns">'+btn('msg','Написать',(d.u&&!d.dm)?'data-open-url="'+tgUrl+'"':'',!(d.u&&!d.dm))+btn('nft','NFT',d.nft?'data-open-url="'+esc(d.nft)+'"':'',!d.nft)+btn('tg','Профиль',d.u?'data-open-url="'+tgUrl+'"':'',!d.u)+btn('cp','Копировать',d.u?'data-copy="@'+esc(d.u)+'"':'',!d.u)+'</div></div>'
 +'<div class="sp-info">'+(d.u?row('имя пользователя','<a data-open-url="'+tgUrl+'" href="'+tgUrl+'">@'+esc(d.u)+'</a>'):'')+row('личные сообщения',d.dm?'Платно · '+d.dm+' Stars':'Бесплатно')+row('лот сейчас',esc(d.g))+(d.id?row('ID',esc(d.id)):'')+'</div>'
 +'<div class="sp-sec"><span class="sp-chip">Подарки</span></div><div class="sp-grid">'+grid+'</div><div style="height:calc(env(safe-area-inset-bottom) + 36px)"></div>';
+if(!d.c&&d.m){var hero=sh.querySelector('.sp-hero');derive(d.m).then(function(col){if(col&&hero)hero.style.background='radial-gradient(120% 80% at 50% 18%,'+col[0]+','+col[1]+')'}).catch(function(){})}
 sh.setAttribute('aria-hidden','false');sh.scrollTop=0;requestAnimationFrame(function(){sh.classList.add('open');sh.querySelectorAll('.gift-media-stage').forEach(function(st){if(window.trackerGiftObserver)window.trackerGiftObserver.observe(st)})});
 sh.querySelector('.sp-back').onclick=close;try{Telegram.WebApp.BackButton.show();Telegram.WebApp.BackButton.onClick(close)}catch(e){}
 }
@@ -1414,6 +1521,7 @@ if(cp){var t=cp.dataset.copy;try{navigator.clipboard.writeText(t)}catch(e){}var 
 var r=ev.target.closest&&ev.target.closest('.seller-row[data-seller]');if(!r||ev.target.closest('[data-open-url],button,a'))return;try{open(JSON.parse(r.dataset.seller))}catch(e){}});
 })();
 </script>
-</body>
+<script>
+window.avRetry=function(img){var n=+img.dataset.r||0;if(n>=3){img.remove();return}img.dataset.r=n+1;var b=img.dataset.b||(img.getAttribute('src')||'').split('?')[0];img.dataset.b=b;setTimeout(function(){img.src=b+'?r='+(n+1)},2500*(n+1))};
+</script></body>
 </html>
-
