@@ -233,6 +233,11 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
 .sp-gift.gift-media-stage{contain:none;overflow:visible;background:none!important;border-radius:0}
 .sp-gift .gift-image{border-radius:0}
 .sp-pill{font-size:15px;padding:10px 18px}
+
+.seller-avatar{position:relative;width:44px;height:44px;border-radius:50%;overflow:hidden;background:var(--panel3)}
+.seller-avatar svg{position:absolute;inset:0;margin:auto;width:26px;height:26px}
+.seller-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.seller-row[data-seller]:active{opacity:.7}
 </style>
 </head>
 <body data-skin="water" data-accent="mint">
@@ -714,8 +719,8 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
         </div>
         <div class="listing-traits">${traitHtml}</div>
         <div class="seller-row" role="button" tabindex="0" data-seller="${escapeHtml(JSON.stringify({u:item.seller_username||'',n:item.seller_name||'',l:Number(item.seller_level||0),p:!!item.seller_premium,dm:dmPaid?Number(item.seller_paid_stars||0):0,id:item.seller_id||0,a:giftMediaUrl(item,true)||'',i:giftMediaUrl(item)||item.image_url||'',c:item.bd_center||'',e:item.bd_edge||'',pt:item.bd_pattern||'',g:item.gift_name||'',nft:item.nft_url||'',pr:Number(item.price_ton||0),ts:item.detected_at||'',av:item.seller_username?`${API_BASE}/api/v1/avatar/${encodeURIComponent(item.seller_username)}`:''}))}">
-          <div class="seller-avatar">${username ? escapeHtml(username.slice(0,1).toUpperCase()) : '—'}</div>
-          <div class="seller-info">${owner}<span class="seller-details">Уровень ${Number(item.seller_level || 0)} · ${item.seller_premium ? 'Premium' : 'Обычный аккаунт'}</span></div>
+          <div class="seller-avatar"><svg viewBox="0 0 24 24" fill="#8a8f98"><circle cx="12" cy="8.5" r="4.2"/><path d="M3.5 21c.6-4.6 4.2-7 8.5-7s7.9 2.4 8.5 7z"/></svg>${item.seller_username ? `<img src="${API_BASE}/api/v1/avatar/${encodeURIComponent(item.seller_username)}" alt="" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}</div>
+          <div class="seller-info">${owner}<span class="seller-details">Уровень ${Number(item.seller_level || 0)} · ${item.seller_premium ? 'Premium' : 'Обычный аккаунт'} · Профиль ›</span></div>
           <div class="dm-state ${dmPaid ? 'paid' : ''}">${dmPaid ? `Платно · ${Number(item.seller_paid_stars || 0)} Stars` : 'ЛС бесплатно'}</div>
         </div>
         <div class="card-actions${mode === 'feed' && !isTaken ? ' single' : ''}">${openNft}${contact}</div>
@@ -774,7 +779,12 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
     player.setSpeed(1);
     player.addEventListener('DOMLoaded', () => {
       if (!stage.isConnected) { try { player.destroy(); } catch (_) {} return; }
-      player.play(); window.__playing.add(stage); capPlayers(stage);
+      try {
+        const tf = Math.round(player.totalFrames || 0), fr = player.frameRate || 30;
+        if (tf > 60) player.playSegments([Math.min(Math.round(tf * 0.4), Math.round(fr * 1.5)), tf], true);
+        else player.play();
+      } catch (_) { player.play(); }
+      window.__playing.add(stage); capPlayers(stage);
       if (useSvg) {
         setTimeout(() => {
           if (!stage.isConnected || stage.__trackerLottie !== player) return;
@@ -1339,7 +1349,7 @@ var esc=function(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){r
 var hex=function(v,d){return /^#[0-9a-fA-F]{6}$/.test(v||'')?v:d};
 var POS=[[6,70],[74,46],[0,200],[80,190],[10,330],[74,320],[38,12],[44,372]];
 function gifts(d){var out=[],seen={};document.querySelectorAll('.seller-row[data-seller]').forEach(function(r){try{var x=JSON.parse(r.dataset.seller);if(x.u===d.u&&x.a&&!seen[x.a]){seen[x.a]=1;out.push(x)}}catch(e){}});if(!out.length&&d.a)out.push(d);var base=out.slice();while(out.length<4&&base.length)out.push(base[out.length%base.length]);return out.slice(0,8)}
-function close(){sh.classList.remove('open');sh.setAttribute('aria-hidden','true');sh.querySelectorAll('.gift-media-stage').forEach(function(st){if(st.__trackerLottie){try{st.__trackerLottie.destroy()}catch(e){}st.__trackerLottie=null}if(window.trackerGiftObserver)window.trackerGiftObserver.unobserve(st)});setTimeout(function(){if(!sh.classList.contains('open'))sh.innerHTML=''},300)}
+function close(){try{Telegram.WebApp.BackButton.offClick(close);Telegram.WebApp.BackButton.hide()}catch(e){}sh.classList.remove('open');sh.setAttribute('aria-hidden','true');sh.querySelectorAll('.gift-media-stage').forEach(function(st){if(st.__trackerLottie){try{st.__trackerLottie.destroy()}catch(e){}st.__trackerLottie=null}if(window.trackerGiftObserver)window.trackerGiftObserver.unobserve(st)});setTimeout(function(){if(!sh.classList.contains('open'))sh.innerHTML=''},300)}
 function open(d){
 var c=hex(d.c,'#9b5de5'),e=hex(d.e,'#3b1f6b'),p=hex(d.pt,'#ffffff');
 var svg="<svg xmlns='http://www.w3.org/2000/svg' width='92' height='92'><path d='M24 6l4 12 12 4-12 4-4 12-4-12-12-4 12-4z' fill='"+p+"'/><path d='M70 54l3 8 8 3-8 3-3 8-3-8-8-3 8-3z' fill='"+p+"'/><circle cx='64' cy='16' r='3' fill='"+p+"'/><circle cx='14' cy='70' r='3' fill='"+p+"'/></svg>";
@@ -1350,7 +1360,7 @@ var g=gifts(d).map(function(x,i){var pos=POS[i];return '<div class="sp-gift gift
 var row=function(k,v){return '<div class="sp-row"><small>'+k+'</small><b>'+v+'</b></div>'};
 sh.innerHTML='<button class="sp-back" type="button">← Назад</button><div class="sp-hero" style="background:radial-gradient(circle at 50% 28%,'+c+','+e+')"><div class="sp-pattern" style="background-image:url(&quot;data:image/svg+xml,'+encodeURIComponent(svg)+'&quot;)"></div>'+g+'<div class="sp-avatar">'+(d.av?'<img src="'+esc(d.av)+'" alt="" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">':'')+sil+'</div><h2 class="sp-name">'+esc(name)+'</h2><span class="sp-pill">Лот: 💎 '+Number(d.pr||0).toFixed(2)+' TON · '+esc(d.g)+'</span>'+(when?'<div class="sp-date">Замечен '+esc(when)+'</div>':'')+'<div class="sp-fade"></div></div><div class="sp-info">'+(d.u?row('Юзернейм','<a data-open-url="https://t.me/'+esc(d.u)+'" href="https://t.me/'+esc(d.u)+'">@'+esc(d.u)+'</a>'):'')+row('Уровень',d.l+' · '+(d.p?'Premium':'Обычный аккаунт'))+row('Личные сообщения',d.dm?'Платно · '+d.dm+' Stars':'Бесплатно')+(d.id?row('ID',esc(d.id)):'')+'</div><div class="sp-actions">'+(d.u&&!d.dm?'<button class="primary-button full-width" data-open-url="https://t.me/'+esc(d.u)+'" type="button">Написать</button>':'')+(d.nft?'<button class="primary-button full-width" data-open-url="'+esc(d.nft)+'" type="button">Открыть NFT</button>':'')+'</div>';
 sh.setAttribute('aria-hidden','false');sh.scrollTop=0;requestAnimationFrame(function(){sh.classList.add('open');sh.querySelectorAll('.gift-media-stage').forEach(function(st){if(window.trackerGiftObserver)window.trackerGiftObserver.observe(st)})});
-sh.querySelector('.sp-back').onclick=close;
+sh.querySelector('.sp-back').onclick=close;try{Telegram.WebApp.BackButton.show();Telegram.WebApp.BackButton.onClick(close)}catch(e){}
 }
 document.addEventListener('click',function(ev){var r=ev.target.closest&&ev.target.closest('.seller-row[data-seller]');if(!r||ev.target.closest('[data-open-url],button,a'))return;try{open(JSON.parse(r.dataset.seller))}catch(e){}});
 if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.BackButton){}
@@ -1358,4 +1368,3 @@ if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.BackButton){}
 </script>
 </body>
 </html>
-
