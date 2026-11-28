@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#090b13">
   <meta name="color-scheme" content="dark">
-  <title>Gift Scope — NFT Tracker</title>
-  <meta name="application-name" content="Gift Scope">
+  <title>Tracker</title>
+  <meta name="application-name" content="Tracker">
   <style>
 :root{color-scheme:dark;--bg:#071318;--panel:#0d2026;--panel2:#10282f;--panel3:#142f36;--line:rgba(190,224,220,.13);--text:#eaf4f1;--muted:#8da7a4;--soft:#b6cac5;--accent:#73d8c8;--accent-ink:#06201d;--danger:#ff8b8b;--ok:#9fe0b0;--shadow:0 18px 48px rgba(0,0,0,.24);--radius:22px;--nav-h:76px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{min-height:100%;background:var(--bg)}body{margin:0;min-height:100vh;min-height:100dvh;background:var(--bg);overflow-x:hidden;font-weight:400;letter-spacing:-.018em}button,input,textarea{font:inherit}button{color:inherit}.hidden{display:none!important}
@@ -30,7 +30,7 @@ body[data-accent="mint"]{--accent:#73d8c8;--accent-ink:#06201d}body[data-accent=
 @media(max-width:390px){.app{padding-left:14px;padding-right:14px}.listing-top{grid-template-columns:88px minmax(0,1fr);gap:11px}.gift-image-wrap{width:88px;height:88px}.gift-title{font-size:14px}.price-main{font-size:23px}.stats-strip{gap:11px;padding:14px}.stat-box strong{font-size:24px}.theme-grid{gap:5px}.theme-option{font-size:8px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
-/* Gift Scope v7: fluid water atmosphere, softer surfaces, fewer wireframe borders. */
+/* Tracker v7: fluid water atmosphere, softer surfaces, fewer wireframe borders. */
 body::before,body::after{content:"";position:fixed;inset:-18%;pointer-events:none;z-index:0}
 body::before{background:radial-gradient(ellipse at 18% 25%,rgba(28,154,166,.20),transparent 38%),radial-gradient(ellipse at 78% 70%,rgba(32,100,172,.20),transparent 42%),radial-gradient(ellipse at 55% 8%,rgba(92,185,176,.10),transparent 36%);filter:blur(34px);animation:waterCurrent 22s ease-in-out infinite alternate;opacity:.9}
 body::after{inset:-22%;background:radial-gradient(ellipse at 68% 28%,rgba(70,170,190,.13),transparent 42%),radial-gradient(ellipse at 25% 78%,rgba(60,125,190,.12),transparent 45%),linear-gradient(118deg,transparent 24%,rgba(138,222,215,.045) 43%,transparent 61%);mix-blend-mode:screen;filter:blur(30px);opacity:.72;transform:rotate(-8deg) scale(1.05);animation:waterRipples 25s ease-in-out infinite alternate}
@@ -158,7 +158,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   </svg>
   <div id="authGate" class="auth-gate hidden">
     <div class="gate-mark"><span></span><span></span><span></span></div>
-    <div class="eyebrow">GIFT SCOPE</div>
+    <div class="eyebrow">TRACKER</div>
     <h1>Открой Mini App<br>в Telegram</h1>
     <p>Авторизация доступна только через твоё Telegram-приложение.</p>
   </div>
@@ -166,7 +166,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   <div id="app" class="app hidden">
     <header class="topbar">
       <div class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></div>
-      <div class="brand-copy"><div class="brand-name">GIFT SCOPE</div><div class="brand-sub">NFT TRACKER · LIVE</div></div>
+      <div class="brand-copy"><div class="brand-name">TRACKER</div><div class="brand-sub">LIVE LISTINGS</div></div>
       <div class="live-state"><span class="live-dot"></span><span id="liveText">ПОДКЛЮЧЕНИЕ</span></div>
     </header>
 
@@ -201,6 +201,15 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
           </div>
           <div class="trial-hint">Пробный доступ: <b>30 минут или 15 уникальных лотов</b> — что наступит раньше.</div>
           
+        </section>
+        <section class="batch-panel" aria-label="Пакетная выдача" style="margin:14px 0 20px;padding:15px;border:1px solid var(--line);border-radius:16px;background:var(--panel)">
+          <div class="section-label" style="margin-bottom:8px">ПАКЕТНАЯ ВЫДАЧА</div>
+          <div style="display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:center">
+            <input id="batchCount" class="field-input" type="number" min="5" max="20" step="1" value="5" inputmode="numeric" aria-label="Количество лотов" style="padding:12px">
+            <button type="button" class="primary-button" id="startBatchBtn" style="min-height:44px">Найти и прислать в ЛС</button>
+          </div>
+          <button type="button" class="card-button" id="cancelBatchBtn" style="width:100%;margin-top:9px">Отменить активную пачку</button>
+          <p style="margin:9px 0 0;color:var(--muted);font-size:11px;line-height:1.45">Выбери категорию и количество. Можно закрыть приложение — бот пришлёт список в личные сообщения, когда соберёт всю пачку.</p>
         </section>
         <div class="stats-strip">
           <div class="stat-box"><span class="stat-label">Осталось</span><strong id="freeLeft">15</strong><small id="freeCaption">бесплатных лотов</small></div>
@@ -267,7 +276,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
         <div class="settings-card profile-preferences">
           <div class="section-label">ПАРАМЕТРЫ ПРОФИЛЯ</div>
           <div class="profile-pref-row"><div><b>Виброотклик</b><small>Подтверждение выбора и взятия лота</small></div><label class="switch"><input id="hapticsToggle" type="checkbox" checked><span></span></label></div>
-          <div class="profile-pref-row"><div><b>Автообновление поиска</b><small>Проверять новые лоты каждые 2,2 секунды</small></div><label class="switch"><input id="autoRefreshToggle" type="checkbox" checked><span></span></label></div>
+          <div class="profile-pref-row"><div><b>Автообновление поиска</b><small>Обновлять список каждые 1,4 секунды</small></div><label class="switch"><input id="autoRefreshToggle" type="checkbox" checked><span></span></label></div>
           <div class="profile-pref-row"><div><b>Фильтр продавца</b><small>Уровень до 5 · до 20 подарков · платные ЛС исключены</small></div><span class="profile-pref-fixed">АКТИВЕН</span></div>
         </div>
         <div class="profile-log-section">
@@ -294,7 +303,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   <script>
 (() => {
   'use strict';
-  const GIFT_SCOPE_FRONTEND_VERSION = '10.11-explicit-search-start';
+  const TRACKER_FRONTEND_VERSION = 'tracker-final-2026-11-27';
 
   const tg = window.Telegram?.WebApp || null;
   // The bot injects the current tokenless Quick Tunnel URL in ?api=... .
@@ -465,7 +474,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     if (name === 'search' && state.searchCategory) {
       loadFeed({ silent: true }).catch(() => {});
-      schedulePoll(2200);
+      schedulePoll(1400);
     } else {
       stopPolling();
       api('/api/v1/search/stop', { method: 'POST' }).catch(() => {});
@@ -504,7 +513,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     });
     haptic('selectionChanged')
     await loadFeed({ silent: false });
-    schedulePoll(2200);
+    schedulePoll(1400);
   }
 
   function relativeTime(value) {
@@ -535,8 +544,23 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
 
   function giftMediaUrl(item, animation = false) {
     const slug = String(item.slug || '').trim();
-    if (!slug || !API_BASE) return '';
-    return `${API_BASE}/api/v1/media/${encodeURIComponent(slug)}${animation ? '/animation' : ''}`;
+    if (!slug) return '';
+    const safeSlug = encodeURIComponent(slug.toLowerCase());
+    if (animation) return `${API_BASE}/api/v1/media/${safeSlug}/animation`;
+    // Browser loads Fragment's official NFT preview directly; API cache is the fallback.
+    return `https://nft.fragment.com/gift/${safeSlug}.medium.jpg`;
+  }
+
+  function giftMediaFallbacks(item) {
+    const slug = String(item.slug || '').trim();
+    if (!slug) return [];
+    const safeSlug = encodeURIComponent(slug.toLowerCase());
+    return [
+      API_BASE ? `${API_BASE}/api/v1/media/${safeSlug}` : '',
+      `https://nft.fragment.com/gift/${safeSlug}.large.jpg`,
+      `https://nft.fragment.com/gift/${safeSlug}.webp`,
+      `https://nft.fragment.com/gift/${safeSlug}.small.jpg`
+    ].filter(Boolean);
   }
 
   function listingCard(item, index = 0, mode = 'feed') {
@@ -575,7 +599,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       <article class="listing-card" data-id="${Number(item.id)}" style="animation-delay:${Math.min(index, 6) * 35}ms">
         <div class="listing-top">
           <div class="gift-image-wrap">
-            ${image ? `<div class="gift-media-stage" data-gift-animation="${animation}"><img class="gift-image" src="${image}" alt="${title}" loading="lazy" decoding="async" width="104" height="104"><div class="gift-lottie" aria-hidden="true"></div></div>` : `<div class="gift-image-fallback">${escapeHtml((item.gift_name || 'G').slice(0,1).toUpperCase())}</div>`}
+            ${image ? `<div class="gift-media-stage" data-gift-animation="${animation}" data-media-fallbacks="${escapeHtml(JSON.stringify(giftMediaFallbacks(item)))}"><img class="gift-image" src="${image}" alt="${title}" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="104" height="104"><div class="gift-lottie" aria-hidden="true"></div></div>` : `<div class="gift-image-fallback" aria-label="Изображение загружается">Загрузка</div>`}
           </div>
           <div class="listing-data">
             <div class="gift-title-row"><div><div class="gift-title">${title}</div><div class="gift-number">#${Number(item.gift_num || 0)} · ${relativeTime(item.detected_at)}</div></div><span class="category-tag">${categoryLabel(item.category)}</span></div>
@@ -605,11 +629,20 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     container.querySelectorAll('.gift-media-stage').forEach((stage) => {
       const image = stage.querySelector('.gift-image');
       const animationUrl = stage.dataset.giftAnimation || '';
-      if (image) image.addEventListener('error', () => {
-        image.style.display = 'none';
-        stage.classList.add('media-failed');
-        stage.insertAdjacentHTML('beforeend', `<div class="gift-image-fallback">${escapeHtml((image.alt || 'G').slice(0,1).toUpperCase())}</div>`);
-      }, { once: true });
+      if (image) {
+        let fallbacks = [];
+        try { fallbacks = JSON.parse(stage.dataset.mediaFallbacks || '[]'); } catch (_) {}
+        let fallbackIndex = 0;
+        image.addEventListener('error', () => {
+          const next = fallbacks[fallbackIndex++];
+          if (next) { image.src = next; return; }
+          image.style.display = 'none';
+          stage.classList.add('media-failed');
+          if (!stage.querySelector('.gift-image-fallback')) {
+            stage.insertAdjacentHTML('beforeend', '<div class="gift-image-fallback">Изображение недоступно</div>');
+          }
+        });
+      }
       if (animationUrl && window.lottie) {
         window.lottie.loadAnimation({container: stage.querySelector('.gift-lottie'), renderer: 'svg', loop: true, autoplay: true, path: animationUrl})
           .addEventListener('DOMLoaded', () => stage.classList.add('is-animated'));
@@ -630,14 +663,24 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       const giftLink = item.nft_url ? `<a class="history-log-link" href="${escapeHtml(item.nft_url)}" data-open-url="${escapeHtml(item.nft_url)}">NFT</a>` : '';
       const sellerLink = item.seller_username ? `<a class="history-log-link" href="https://t.me/${escapeHtml(item.seller_username)}" data-open-url="https://t.me/${escapeHtml(item.seller_username)}">Профиль</a>` : '';
       const contactLink = item.action === 'taken' && item.seller_username && !item.seller_paid_dm ? `<button class="history-log-link history-contact" type="button" data-contact="${Number(item.id)}">Написать</button>` : '';
+      const historyFallbacks = giftMediaFallbacks(item);
       return `<article class="history-log-item">
-        ${image ? `<img class="history-log-image" src="${image}" alt="${title}" loading="lazy" referrerpolicy="no-referrer">` : `<div class="history-log-image history-log-fallback">${escapeHtml((item.gift_name || 'G').slice(0,1).toUpperCase())}</div>`}
+        ${image ? `<img class="history-log-image" src="${image}" data-media-fallbacks="${escapeHtml(JSON.stringify(historyFallbacks))}" alt="${title}" loading="lazy" referrerpolicy="no-referrer">` : `<div class="history-log-image history-log-fallback">Изображение недоступно</div>`}
         <div class="history-log-main"><div class="history-log-title">${title} #${Number(item.gift_num || 0)}</div><div class="history-log-meta">${Number(item.price_ton || 0).toFixed(2)} TON · ${date}</div><div>${giftLink} ${sellerLink} ${contactLink}</div></div>
         <span class="history-log-status ${status}">${action}</span>
       </article>`;
     }).join('');
-    container.querySelectorAll('.history-log-image').forEach((image) => {
-      image.addEventListener('error', () => { image.replaceWith(Object.assign(document.createElement('div'), { className: 'history-log-image history-log-fallback', textContent: (image.alt || 'G').slice(0,1).toUpperCase() })); }, { once: true });
+    container.querySelectorAll('img.history-log-image').forEach((image) => {
+      let fallbacks = [];
+      try { fallbacks = JSON.parse(image.dataset.mediaFallbacks || '[]'); } catch (_) {}
+      let fallbackIndex = 0;
+      image.addEventListener('error', () => {
+        const next = fallbacks[fallbackIndex++];
+        if (next) { image.src = next; return; }
+        image.replaceWith(Object.assign(document.createElement('div'), {
+          className: 'history-log-image history-log-fallback', textContent: 'Изображение недоступно'
+        }));
+      });
     });
     $('historyEmpty').classList.toggle('hidden', items.length > 0);
   }
@@ -701,7 +744,7 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
     $('feedEmpty').querySelector('h2').textContent = 'Ищу следующий лот';
     $('feedEmpty').querySelector('p').textContent = 'Проверяю новые поступления.';
     await loadFeed({ silent: true });
-    schedulePoll(2200);
+    schedulePoll(1400);
   }
 
   function updateQuota(data) {
@@ -832,8 +875,8 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       } catch (_) {
         // Retry with bounded backoff; do not stack parallel requests.
       }
-      const backoff = Math.min(30000, 2200 * (2 ** Math.min(state.pollFailures, 3)));
-      schedulePoll(state.pollFailures ? backoff : 2200);
+      const backoff = Math.min(20000, 1400 * (2 ** Math.min(state.pollFailures, 3)));
+      schedulePoll(state.pollFailures ? backoff : 1400);
     }, delay);
   }
 
@@ -970,6 +1013,34 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
       openTelegramUrl(`https://t.me/${encodeURIComponent(state.botUsername)}?start=plans`);
     };
     $('buyAccessBtn').addEventListener('click', openPlans);
+    $('startBatchBtn').addEventListener('click', async () => {
+      if (!state.searchCategory) { notify('Сначала выбери категорию поиска'); return; }
+      const button = $('startBatchBtn');
+      button.disabled = true;
+      const original = button.textContent;
+      button.textContent = 'Запускаю…';
+      try {
+        const count = Number($('batchCount').value);
+        if (!Number.isInteger(count) || count < 5 || count > 20) throw new Error('Укажи от 5 до 20 лотов');
+        const result = await api('/api/v1/batch/start', {method:'POST', body:{category:state.searchCategory, count}});
+        notify(result.message || 'Пачка запущена. Результат придёт в личные сообщения.', true);
+      } catch (error) {
+        notify(error.message || 'Не удалось запустить пачку');
+      } finally {
+        button.disabled = false;
+        button.textContent = original;
+      }
+    });
+    $('cancelBatchBtn').addEventListener('click', async () => {
+      const button = $('cancelBatchBtn');
+      button.disabled = true;
+      try {
+        const result = await api('/api/v1/batch/cancel', {method:'POST'});
+        notify(result.cancelled ? `Отменено пачек: ${result.cancelled}` : 'Активных пачек нет', true);
+      } catch (error) {
+        notify(error.message || 'Не удалось отменить пачку');
+      } finally { button.disabled = false; }
+    });
     $('profilePlansBtn').addEventListener('click', openPlans);
     $('refreshHistoryBtn').addEventListener('click', () => loadHistory().then(() => notify('История обновлена', true)).catch((error) => notify(error.message || 'История недоступна')));
     document.body.addEventListener('pointerdown', (event) => {
@@ -1050,4 +1121,3 @@ body[data-skin="graphite"] .water-film,body[data-skin="moss"] .water-film{opacit
   </script>
 </body>
 </html>
-
