@@ -209,6 +209,11 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
 .sp-row small{display:block;color:var(--muted);font-size:12px;margin-bottom:4px}
 .sp-row b{font-size:17px;font-weight:600}.sp-row a{color:var(--accent);text-decoration:none}
 .sp-actions{display:grid;gap:10px;margin:0 14px calc(env(safe-area-inset-bottom) + 30px)}
+
+/* clean header: no logo, no status pill */
+.brand-mark,.live-state,.brand-sub{display:none!important}
+.topbar{justify-content:flex-start}
+.brand-name{font:700 22px 'Unbounded',sans-serif;letter-spacing:.14em;color:var(--text)}
 </style>
 </head>
 <body data-skin="water" data-accent="mint">
@@ -707,21 +712,55 @@ h1,h2,.price-main,.history-count,.brand,.eyebrow,.profile-card h2,.history-log-t
       if (old !== keep && old.__trackerLottie) old.__trackerLottie.pause();
     }
   }
-  function startGiftAnimation(stage) {
+  function loadFullLottie(cb) {
+    window.__lfq = window.__lfq || [];
+    window.__lfq.push(cb);
+    if (window.__lfLoading) return;
+    window.__lfLoading = true;
+    const sc = document.createElement('script');
+    sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js';
+    sc.onload = () => { window.__lottieFull = true; const q = window.__lfq.splice(0); q.forEach((f) => f()); };
+    document.head.appendChild(sc);
+  }
+  function canvasBlank(target) {
+    const cv = target.querySelector('canvas');
+    if (!cv) return true;
+    try {
+      const t = document.createElement('canvas'); t.width = t.height = 24;
+      const x = t.getContext('2d'); x.drawImage(cv, 0, 0, 24, 24);
+      const d = x.getImageData(0, 0, 24, 24).data;
+      for (let k = 3; k < d.length; k += 4) if (d[k] > 8) return false;
+      return true;
+    } catch (_) { return false; }
+  }
+  function startGiftAnimation(stage, forceSvg) {
     if (!stage || stage.__trackerLottie || !stage.dataset.giftAnimation) return;
+    const useSvg = !!forceSvg || stage.dataset.renderer === 'svg';
+    if (useSvg && !window.__lottieFull) { loadFullLottie(() => startGiftAnimation(stage, true)); return; }
     if (!window.lottie) { stage.dataset.animationPending = '1'; return; }
     const target = stage.querySelector('.gift-lottie');
     if (!target) return;
     const player = window.lottie.loadAnimation({
-      container: target, renderer: 'canvas', loop: true, autoplay: false,
-      path: stage.dataset.giftAnimation, rendererSettings: { clearCanvas: true, progressiveLoad: true, preserveAspectRatio: 'xMidYMid meet', dpr: Math.min(window.devicePixelRatio || 1, 2) }
+      container: target, renderer: useSvg ? 'svg' : 'canvas', loop: true, autoplay: false,
+      path: stage.dataset.giftAnimation,
+      rendererSettings: useSvg ? { progressiveLoad: true, preserveAspectRatio: 'xMidYMid meet' }
+        : { clearCanvas: true, progressiveLoad: true, preserveAspectRatio: 'xMidYMid meet', dpr: Math.min(window.devicePixelRatio || 1, 2) }
     });
     stage.__trackerLottie = player;
     player.setSpeed(1);
     player.addEventListener('DOMLoaded', () => {
       if (!stage.isConnected) { try { player.destroy(); } catch (_) {} return; }
-      stage.classList.add('is-animated');
       player.play(); window.__playing.add(stage); capPlayers(stage);
+      if (useSvg) { stage.classList.add('is-animated'); return; }
+      // Canvas can render some Telegram stickers as empty: check, and fall back to SVG so the picture never goes blank.
+      setTimeout(() => {
+        if (!stage.isConnected || stage.__trackerLottie !== player) return;
+        if (canvasBlank(target)) {
+          try { player.destroy(); } catch (_) {}
+          stage.__trackerLottie = null; window.__playing.delete(stage); target.innerHTML = '';
+          stage.dataset.renderer = 'svg'; startGiftAnimation(stage, true);
+        } else stage.classList.add('is-animated');
+      }, 500);
     });
     player.addEventListener('data_failed', () => stage.classList.add('animation-failed'));
   }
@@ -1284,4 +1323,3 @@ if(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.BackButton){}
 </script>
 </body>
 </html>
-
